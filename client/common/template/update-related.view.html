@@ -1,0 +1,17 @@
+<div class="form-group">
+	<label>Related</label>
+	<div ng-repeat="curSelRelated in selRelatedsUpdate">
+		<a href="/{{curSelRelated.group}}?id={{curSelRelated._id}}" target="_blank" style="margin-right: 10px">{{curSelRelated.title}}</a>
+		<a href="" ng-click="removeCurSelRelated(selRelatedsUpdate, $index)"><i class="fa fa-times" aria-hidden="true" ></i></a>
+	</div>
+
+	<div class="col-md-12 padding-zero">
+		<div class="col-md-11 padding-zero">
+			<input type="text" class="form-control" ng-model="searchRelatedKeyword" ng-change="getRelatedByKeyword(searchRelatedKeyword, 'put')"/>
+		</div>
+		<div class="col-md-1 padding-zero">
+			<label class="btn btn-warning" ng-click="addThisRelated(selRelatedsUpdate, thisRelatedUpdate)">+</label>
+		</div>
+	</div>
+	<select multiple class="form-control" ng-model="thisRelatedUpdate" ng-options="related as related.title for related in relatedsUpdate"></select>
+</div>

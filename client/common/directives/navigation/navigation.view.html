@@ -1,0 +1,29 @@
+<h3 class="text-center">Programming Documents</h3>
+<div style="float: right">
+	<div ng-show="!isLoggedIn">
+		<a href="/login"><i class="fa fa-user" aria-hidden="true"></i></a>
+	</div>
+	<div ng-show="isLoggedIn">
+		<i class="fa fa-user" aria-hidden="true"></i>
+		<label style="margin-right: 5px">{{currentUser.name}}</label>
+		<a href="" ng-click="logout()"><i class="fa fa-sign-out" aria-hidden="true"></i></a>
+	</div>
+</div>
+<div>
+	<ul class="nav nav-tabs" role="tablist">
+		<li role="presentation" ng-class="{ active: isActive('/') }">
+			<a href="/">Home</a>
+		</li>
+		<li role="presentation" ng-class="{ active: isActive('/doc') }">
+			<a href="/doc">Doc</a>
+		</li>
+		<!--
+		<li role="presentation" ng-class="{ active: isActive('/q') }">
+			<a href="/q">Quiz</a>
+		</li>
+		-->
+		<!-- <li role="presentation" ng-class="{ active: isActive('/test') }">
+			<a href="/test">Test</a>
+		</li> -->
+	</ul>
+</div>

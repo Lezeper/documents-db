@@ -1,0 +1,42 @@
+<div ng-controller="loginCtrl" class="col-md-3 col-md-offset-2">
+    <h3>Login</h3>
+    <div class="error" style="color: red" ng-show="error">* Invalid password or username</div><br>
+    <form ng-submit="login()">
+        <fieldset class="form-group">
+            <label for="email">Email address</label>
+            <input type="email" class="form-control" id="email" placeholder="Enter email" ng-model="user.email">
+        </fieldset>
+        <fieldset class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" placeholder="Password" ng-model="user.password">
+        </fieldset>
+        <button type="submit" class="btn btn-default">Sign in</button>
+        <a href="/"><button type="button" class="btn btn-default">Cancel</button></a>
+    </form>
+</div>
+<div class="col-md-3 col-md-offset-2">
+    <h3>Register</h3>
+    <div class="error" style="color: red" ng-show="error">* Invalid password or username</div><br>
+    <form ng-submit="register()">
+        <div class="form-group">
+            <label for="register-email" class="control-label">Email</label>
+            <input type="email" id="register-email" class="form-control" name="email"
+                       placeholder="Email Format" ng-model="userr.email">
+        </div>
+        <div class="form-group">
+            <label for="register-name" class="control-label">Name</label>
+            <input type="text" id="register-name" class="form-control" name="name"
+                   placeholder="Name" ng-model="userr.name">    
+        </div>
+        <input type="hidden" ng-init="userr.role='ROLE_USER'" />
+        <div class="form-group">
+            <label for="update-password" class="control-label">Password</label>
+            <input type="password" id="register-password" class="form-control"
+                       name="password" placeholder="Password" ng-model="userr.password">
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-default">Create</button>
+            <a href="/"><button type="button" class="btn btn-default">Cancel</button></a>
+        </div>
+    </form>
+</div>

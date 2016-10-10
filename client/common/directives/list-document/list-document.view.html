@@ -1,0 +1,80 @@
+<div class="col-sm-8 col-sm-offset-2">
+	<div ng-show="filteredDocs">
+		<hr>
+		<label># per page: </label>
+		<input type="number" ng-model="numPerPage" style="max-width: 40px" />
+	</div>
+	<br><br>
+	<div class="panel panel-default" ng-repeat="doc in filteredDocs" on-finish-repeat="onFinishRepeat">
+	    <div class="panel-heading" ng-click="doc.showAnswer = ! doc.showAnswer" style="cursor: pointer">
+	        <h3 class="panel-title" ng-class="{strike: doc.isUpdateDoc}" ng-show="!doc.isUpdateDoc"><strong>{{doc.title}}</strong></h3>
+	        <input type="text" style="width: 100%" ng-model="doc.title" ng-show="doc.isUpdateDoc"/>
+	    </div>
+	    <div class="panel-body show-hide" ng-show="doc.showAnswer">
+	    	<div>
+	    		<label>Description</label>
+	    		<p ng-show="!doc.isUpdateDoc">{{doc.description}}</p>
+	    		<textarea ng-show="doc.isUpdateDoc" ng-model="doc.description" class="form-control"></textarea>
+	    		<hr>
+	    		<div>
+	    			<label>Usage</label>
+		    		<div>
+		    			<p ng-bind-html="doc.usage"></p>
+		    		</div>
+	    		</div>
+	    		<div ng-show="doc.isUpdateDoc">
+	    			<div class="form-group">
+		        		<label>Update Usage</label>
+		        		<textarea ui-tinymce="tinymceUsage" class="form-control" ng-model="doc.usage" placeholder="You can write HTML code here. Leave it blank if u don't want to make a change."></textarea>
+		        	</div>
+	    		</div>
+
+	    		<div ng-show="!doc.isUpdateDoc">
+	    			<div ng-show="doc.related.length > 0">
+	    			<hr>
+		    			<label>Related</label>
+			        	<div ng-repeat="curRelated in doc.related">
+							<a href="/{{curRelated.group}}?id={{curRelated._id}}" target="_blank">{{curRelated.title}}</a>
+						</div>
+		    		</div>
+	    		</div>
+
+	    		<div ng-include="'common/template/update-related.view.html'" ng-show="doc.isUpdateDoc" ng-init="selRelatedsUpdate = doc.related;"></div>
+	    		
+				<div ng-show="!doc.isUpdateDoc">
+					<div ng-show="doc.notes">
+						<hr>
+						<label>Notes</label>
+						<p>{{doc.notes}}</p>
+					</div>
+				</div>
+	        	<div ng-show="doc.isUpdateDoc">
+	        		<hr>
+	        		<label>Notes</label>
+	        		<textarea class="form-control" ng-model="doc.notes"></textarea>
+	        	</div>
+				<div ng-show="doc.author">
+					<hr>
+					<p class="footer-style">Updated by {{doc.author}} on {{doc.created | date:'yyyy-MM-dd HH:mm:ss'}}</p>
+				</div>
+
+	    	</div>
+	        <div ng-show="doc.isUpdateDoc">
+	        	<hr style="clear: both">
+	        	
+	        	<div class="form-group" ng-show="!isLoggedIn">
+	        		<label>Author</label>
+	        		<input type="text" placeholder="Author (option)" class="form-control" ng-model="doc.author" />
+	        	</div>
+	        	
+	        	<button class="btn btn-primary btn-xs" ng-click="updateDoc(doc, selRelatedsUpdate)">Update</button>
+	        	<button class="btn btn-default btn-xs" ng-click="resetUpdateDoc(doc);">Cancel</button>
+	        </div>
+	    </div>
+		<div ng-show="isLoggedIn">
+			<button class="btn btn-link" ng-click="doc.isUpdateDoc=true;doc.showAnswer=true;doDeepCopy(doc)"><i class="fa fa-pencil"></i></button>
+			<button class="btn btn-link" ng-click="deleteDoc(doc)"><i class="fa fa-remove"></i></button>
+		</div>
+	</div>
+	<ul uib-pagination boundary-links="true" total-items="totalItems" ng-model="currentPage" class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;" items-per-page="numPerPage" ng-show="filteredDocs"></ul>
+</div>

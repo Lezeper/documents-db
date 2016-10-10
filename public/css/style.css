@@ -1,0 +1,34 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+.show-hide{
+	transition: all linear 0.5s;
+}
+.show-hide.ng-hide{
+	opacity: 0;
+}
+.strike {
+	color: red;
+    text-decoration: line-through;
+}
+.buttom-right {
+	float: right;
+}
+.padding-zero {
+	padding: 0;
+}
+.margin-zero {
+	margin: 0;
+}
+.footer-style {
+	background-color: #F0F0F0;
+}
+.category-btn li{
+	margin: 5px 5px;
+}

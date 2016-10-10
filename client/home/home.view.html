@@ -1,0 +1,18 @@
+<br>
+<br>
+<div class="col-md-10 col-md-offset-1">
+	<div class="col-md-1 padding-zero">
+		<select class="form-control" ng-model="selector" ng-init="selector='Doc'">
+			<option value="Doc">Doc</option>
+			<option value="Quiz">Quiz</option>
+		</select>
+	</div>
+	<div class="col-md-11 padding-zero">
+		<input type="text" class="form-control" placeholder="[Please use lowercase] eg. promise / q.call / isolated scope" 
+        ng-model="keyword" ng-change="doSearch()">
+	</div>
+    
+</div>
+<br><br><br>
+<list-question ng-show="selector == 'Quiz'"></list-question>
+<list-doc ng-show="selector == 'Doc'"></list-doc>
