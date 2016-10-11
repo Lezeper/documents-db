@@ -8,12 +8,13 @@
 		</select>
 	</div>
 	<div class="col-md-10 padding-zero">
-		<input type="text" class="form-control" placeholder="[Please use lowercase] eg. promise / q.call / isolated scope" 
-        ng-model="keyword" ng-change="searchTitle()" search-focus>
+		<input type="text" class="form-control" placeholder="[Please use lowercase] eg. promise / q.call / isolated scope" ng-model="keyword" ng-change="searchTitle()" id="search-bar" search-focus>
 
 		<div class="dropdown open" ng-show="showSearchDropDown">
 		  <ul class="dropdown-menu col-md-12">
-		    <li ng-repeat="dt in docsTile"><a href="#" to-focus="{{dt.title}}" id="search-{{$index}}">{{dt.title}}</a></li>
+		    <li ng-repeat="dt in docsTile">
+		    	<a href="#" to-focus="{{dt.title}}" id="search-{{$index}}">{{dt.title}}</a>
+		    </li>
 		  </ul>
 		</div>
         

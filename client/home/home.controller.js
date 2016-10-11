@@ -3,6 +3,7 @@
     function ($scope, $window, $location, meanData, authentication) {
 
       $scope.showSearchDropDown = false;
+      $scope.curSelSearchKw = -1;
 
       $scope.hostName = $location.protocol() + "://" + location.host;
 
@@ -16,11 +17,20 @@
         $scope.$digest();
         $scope.doSearch();
       }
+      
+      $scope.focusSearch = function(signal){
+        var op = $scope.curSelSearchKw*1 + signal*1;
+        var curSelSearchTitle = document.getElementById("search-" + op);
+        if(curSelSearchTitle){
+          var ori = document.getElementById("search-" + $scope.curSelSearchKw);
+          if(ori){ ori.style.backgroundColor = null; }
+          curSelSearchTitle.style.backgroundColor = "#ccc";
 
-      $scope.focusSearch = function(val){
-        $scope.keyword = val;
-        $scope.keywordBackup = val;
-        $scope.$digest();
+          $scope.curSelSearchKw = $scope.curSelSearchKw*1 + signal*1;
+          $scope.keyword = curSelSearchTitle.text;
+          $scope.keywordBackup = curSelSearchTitle.text;
+          $scope.$digest();
+        }
       }
 
       $scope.mouseEnterSearch = function(val){
@@ -48,11 +58,14 @@
       $scope.searchTitle = function(){
         if($scope.keyword){
           $scope.showSearchDropDown = true;
+          $scope.curSelSearchKw = -1;
           $scope.keywordBackup = $scope.keyword;
           meanData.getDocTitleByKeyword($scope.keyword).then(function(res){
             $scope.docsTile = res.data;
           });
-        }  
+        }else{
+          $scope.showSearchDropDown = false;
+        }
       };
       
       $scope.doSearch = function(){
@@ -83,19 +96,19 @@
       scope: false,
       restrict: "A",
       link: function(scope, elem, attr){
-        // scope.keyword = attr.toFocus;
         elem.on('click', function(){
           scope.clickSearch();
         });
-        elem.on('mouseenter', function(){
-          scope.mouseEnterSearch(attr.toFocus);
+        elem.on('mouseenter', function(evt){
+          scope.mouseEnterSearch(attr.toFocus, evt);
         });
-        elem.on('mouseleave', function(){
-          scope.mouseLeaveSearch();
+        elem.on('mouseleave', function(evt){
+          scope.mouseLeaveSearch(evt);
         });
-        elem.on('focus', function(){
+        /*
+        elem.on('focus', function(evt){
           scope.focusSearch(attr.toFocus);
-        });
+        });*/
       }
     }
   });
@@ -104,16 +117,22 @@
       scope: false,
       restrict: "A",
       link: function(scope, elem, attr){
-        elem.on('keydown', function(val){
-          if(val.keyCode == 13){
+        elem.on('keydown', function(evt){
+          if(evt.keyCode == 13){
             scope.doSearch();
           }
-          if(val.keyCode == 40 || val.keyCode == 38){
+          if(evt.keyCode == 40 || evt.keyCode == 38){
             if(scope.showSearchDropDown){
-              var e = document.getElementById("search-0");
-              if(e){
-                e.focus();
+              evt.preventDefault();
+              if(evt.keyCode == 40){
+                scope.focusSearch(1);
+              }else{
+                scope.focusSearch(-1);
               }
+              // e.focus();
+              // var event = new MouseEvent('mouseover', { 'view': window, 'bubbles': true, 'cancelable': true });
+              // e.dispatchEvent(event);
+              // e.style.backgroundColor = "red";
             }
           }
         });
