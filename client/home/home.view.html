@@ -1,15 +1,27 @@
 <br>
 <br>
 <div class="col-md-10 col-md-offset-1">
-	<div class="col-md-1 padding-zero">
+	<div class="col-md-1 padding-zero" style="max-width: 80px">
 		<select class="form-control" ng-model="selector" ng-init="selector='Doc'">
 			<option value="Doc">Doc</option>
 			<option value="Quiz">Quiz</option>
 		</select>
 	</div>
-	<div class="col-md-11 padding-zero">
+	<div class="col-md-10 padding-zero">
 		<input type="text" class="form-control" placeholder="[Please use lowercase] eg. promise / q.call / isolated scope" 
-        ng-model="keyword" ng-change="doSearch()">
+        ng-model="keyword" ng-change="searchTitle()" search-focus>
+
+		<div class="dropdown open" ng-show="showSearchDropDown">
+		  <ul class="dropdown-menu col-md-12">
+		    <li ng-repeat="dt in docsTile"><a href="#" to-focus="{{dt.title}}" id="search-{{$index}}">{{dt.title}}</a></li>
+		  </ul>
+		</div>
+        
+	</div>
+	<div>
+		<button class="btn btn-primary col-md-1" style="max-width: 40px" ng-click="doSearch()">
+			<i class="fa fa-search" aria-hidden="true"></i>
+		</button>
 	</div>
     
 </div>

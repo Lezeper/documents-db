@@ -50,7 +50,7 @@
     };
 
     var getDocById = function(id){
-      return $http.get('/api/doc/' + id);
+      return $http.get('/api/doc/id/' + id);
     };
 
     var getDocCategories = function(){
@@ -71,6 +71,10 @@
 
     var deleteDoc = function(id){
       return $http.delete('/api/doc/' + id);
+    }
+
+    var getDocTitleByKeyword = function(keyword){
+      return $http.get('/api/s/d/' + keyword + "?need=title");
     }
 
     var getDocByKeyword = function(keyword){
@@ -111,6 +115,7 @@
       deleteDoc: deleteDoc,
 
       getQuestionByKeyword: getQuestionByKeyword,
+      getDocTitleByKeyword: getDocTitleByKeyword,
       getDocByKeyword: getDocByKeyword,
       getRelatedByKeyword: getRelatedByKeyword
     }

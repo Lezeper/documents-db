@@ -5,6 +5,8 @@
         $scope.meanData = meanData;
         $scope.docId = $stateParams.id;
 
+        $scope.hostName = $location.protocol() + "://" + location.host;
+
         $scope.isLoggedIn = authentication.isLoggedIn();
 
       	$scope.getDocCategories = function(){

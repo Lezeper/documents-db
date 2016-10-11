@@ -19,15 +19,15 @@ router.post("/login", userCtrl.login);
 router.post("/user", userCtrl.createUser);
 router.put("/user", userCtrl.updateUser);
 router.delete("/user", userCtrl.deleteUser);
-
+/*
 router.get("/q", questionCtrl.findAllQuestionCategories);
 router.get("/q/c/:category", questionCtrl.findQuestionsByCategory);
 router.get('/q/:id', questionCtrl.findQuestionById);
 router.post("/q", questionCtrl.createQuestion);
 router.put("/q", questionCtrl.updateQuestion);
 router.delete("/q/:id", questionCtrl.deleteQuestion);
-
-router.get('/doc/:id', docCtrl.findDocById);
+*/
+router.get('/doc/id/:id', docCtrl.findDocById);
 router.get("/doc", docCtrl.findAllDocCategories);
 router.get("/doc/c/:category", docCtrl.findDocByCategory);
 router.post("/doc", docCtrl.createDoc);
