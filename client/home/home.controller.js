@@ -105,9 +105,15 @@
       restrict: "A",
       link: function(scope, elem, attr){
         elem.on('keydown', function(val){
+          if(val.keyCode == 13){
+            scope.doSearch();
+          }
           if(val.keyCode == 40 || val.keyCode == 38){
             if(scope.showSearchDropDown){
-              document.getElementById("search-0").focus();
+              var e = document.getElementById("search-0");
+              if(e){
+                e.focus();
+              }
             }
           }
         });
