@@ -15,7 +15,7 @@
       $scope.clickSearch = function(){
         $scope.keywordBackup = $scope.keyword;
         $scope.$digest();
-        $scope.doSearch();
+        $scope.doSearch(1);
       }
       
       $scope.focusSearch = function(signal){
@@ -68,7 +68,7 @@
         }
       };
       
-      $scope.doSearch = function(){
+      $scope.doSearch = function(signal){
         if($scope.keyword && $scope.selector){
           $scope.showSearchDropDown = false;
           if($scope.selector == 'Quiz'){
@@ -82,6 +82,7 @@
           if($scope.selector == 'Doc'){
             meanData.getDocByKeyword($scope.keyword).then(function (res){
               $scope.docs = res.data;
+              if(signal == 1){ $scope.docs[0].showAnswer= true; }
               $scope.totalItems = res.data.length;
               $scope.currentPage = 1;
               $scope.updateDocList();
@@ -105,10 +106,6 @@
         elem.on('mouseleave', function(evt){
           scope.mouseLeaveSearch(evt);
         });
-        /*
-        elem.on('focus', function(evt){
-          scope.focusSearch(attr.toFocus);
-        });*/
       }
     }
   });
@@ -119,7 +116,7 @@
       link: function(scope, elem, attr){
         elem.on('keydown', function(evt){
           if(evt.keyCode == 13){
-            scope.doSearch();
+            scope.doSearch(1);
           }
           if(evt.keyCode == 40 || evt.keyCode == 38){
             if(scope.showSearchDropDown){
@@ -129,10 +126,6 @@
               }else{
                 scope.focusSearch(-1);
               }
-              // e.focus();
-              // var event = new MouseEvent('mouseover', { 'view': window, 'bubbles': true, 'cancelable': true });
-              // e.dispatchEvent(event);
-              // e.style.backgroundColor = "red";
             }
           }
         });
