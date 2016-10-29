@@ -12,9 +12,8 @@ module.exports.createUser = function (req, res) {
   user.created = new Date();
 
   user.save(function (err) {
-    if(err){
+    if(err)
       return res.status(500).json(err)
-    }
     return res.status(201).json({
       "message": "user created."
     });
@@ -25,9 +24,8 @@ module.exports.createUser = function (req, res) {
 module.exports.login = function (req, res) {
   passport.authenticate('local', function (err, user, info) {
     var token;
-    if(err){
+    if(err)
       return res.status(404).json(err);
-    }
     if(user){
       token = user.generateJwt();
       res.status(200);
@@ -42,50 +40,39 @@ module.exports.login = function (req, res) {
 
 module.exports.findAllUsers = function (req, res) {
   User.find({}, function (err, users) {
-    if(err){
+    if(err)
       return res.send(500, err);
-    }
     res.json(users);
   })
 };
 
 module.exports.findUserById = function (req, res) {
   User.findById(req.params.id, function (err, user) {
-    if(err){
+    if(err)
       return res.status(500, err);
-    }
     res.json(user);
   })
 };
 
 module.exports.updateUser = function (req, res) {
-  User.findById(req.body._id, function (err, user) {
-    if(!user){
-      return res.status(404).json({"message": "user not found"});
-    }
-
-    user.name = req.body.name;
-    if(req.body.password){
+  var user = new User();
+  if(req.body.password)
       user.setPassword(req.body.password);
-    }
+  user.name = req.body.name;
 
-    user.save(function (err) {
-      if(err){
-        return res.status(500).json(err);
-      }
-      return res.json({
-        "message": "user updated!"
-      });
-    })
-
-  })
+  User.findOneAndUpdate({_id: req.body._id}, user, function(err, user){
+    if(err)
+      return res.send(500, err)
+    return res.status(200).json({
+      "message": "User updated!"
+    });
+  });
 };
 
 module.exports.deleteUser = function (req, res) {
   User.findByIdAndRemove(req.params.id, function (err) {
-    if(err){
+    if(err)
       return res.send(500, err);
-    }
     return res.status(204).json({
       "message": "Successful delete user."
     })

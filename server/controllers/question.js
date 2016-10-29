@@ -22,7 +22,7 @@ module.exports.createQuestion = function (req, res) {
 
 };
 
-module.exports.findAllQuestionCategories = function (req, res) {
+module.exports.findAllQuesCategories = function (req, res) {
   Question.find().distinct('category', function (err, categories) {
     if(err){
       return res.send(500, err);
@@ -57,7 +57,7 @@ module.exports.findAllQuestionCategories = function (req, res) {
   }
 };
 
-module.exports.findQuestionById = function (req, res) {
+module.exports.findQuesById = function (req, res) {
   Question.findById(req.params.id, function (err, question) {
     if(err){
       return res.status(500, err);
@@ -66,7 +66,7 @@ module.exports.findQuestionById = function (req, res) {
   })
 };
 
-module.exports.findQuestionsByCategory = function (req, res) {
+module.exports.findQuesByCategory = function (req, res) {
   Question.find({category: req.params.category}, function (err, questions) {
     if(err){
       return res.status(500, err);

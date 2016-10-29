@@ -15,7 +15,7 @@
       $scope.clickSearch = function(){
         $scope.keywordBackup = $scope.keyword;
         $scope.$digest();
-        $scope.doSearch(1);
+        $scope.doSearch(0);
       }
       
       $scope.focusSearch = function(signal){
@@ -67,7 +67,9 @@
           $scope.showSearchDropDown = false;
         }
       };
-      
+      /* signal: 1-> if I enter the search keyword, then need to check whether is specific 
+                  0-> because I select a specific keytitle, so is already specific
+      */
       $scope.doSearch = function(signal){
         if($scope.keyword && $scope.selector){
           $scope.showSearchDropDown = false;
@@ -82,7 +84,9 @@
           if($scope.selector == 'Doc'){
             meanData.getDocByKeyword($scope.keyword).then(function (res){
               $scope.docs = res.data;
-              if(signal == 1){ $scope.docs[0].showAnswer= true; }
+              if(signal == 1 && $scope.curSelSearchKw != -1 || signal == 0){ 
+                $scope.docs[0].showAnswer= true; 
+              }
               $scope.totalItems = res.data.length;
               $scope.currentPage = 1;
               $scope.updateDocList();

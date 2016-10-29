@@ -17,11 +17,10 @@
 		<li role="presentation" ng-class="{ active: isActive('/doc') }">
 			<a href="/doc">Doc</a>
 		</li>
-		<!--
-		<li role="presentation" ng-class="{ active: isActive('/q') }">
-			<a href="/q">Quiz</a>
+		<li ng-show="isLoggedIn" role="presentation" ng-class="{ active: isActive('/admin') }">
+			<a href="/admin">Admin</a>
 		</li>
-		-->
+		
 		<!-- <li role="presentation" ng-class="{ active: isActive('/test') }">
 			<a href="/test">Test</a>
 		</li> -->

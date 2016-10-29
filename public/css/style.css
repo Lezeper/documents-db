@@ -2,11 +2,14 @@ body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
-
 a {
   color: #00B7FF;
 }
-
+ul {
+	list-style: none;
+	margin-left: 0;
+	padding-left: 0;
+}
 .show-hide{
 	transition: all linear 0.5s;
 }

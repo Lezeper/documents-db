@@ -18,7 +18,7 @@ function getAllByKeyword(keyword, category, need){
 };
 
 // require check mongoose model exisit or not if merge those two function.
-module.exports.getDocByKeyword = function(req, res){
+module.exports.findAllDocsByKeyword = function(req, res){
 	getAllByKeyword(req.params.keyword, 'Document', req.query.need).then(function(data){
 		res.json(data);
 	},function(err){
@@ -26,7 +26,7 @@ module.exports.getDocByKeyword = function(req, res){
 	});
 };
 
-module.exports.getQuestionByKeyword = function (req, res) {
+module.exports.findAllQuesByKeyword = function (req, res) {
   	getAllByKeyword(req.params.keyword, 'Question', req.query.need).then(function(data){
 		res.json(data);
 	},function(err){

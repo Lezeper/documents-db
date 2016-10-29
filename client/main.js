@@ -13,13 +13,23 @@
           templateUrl: "/auth/auth.view.html",
           controller: "loginCtrl"
         })
-        .state('documents', {
-          url: '/doc?id',
+        .state('documentNav', {
+          url: '/doc',
+          templateUrl: "/document/document.nav.view.html",
+          controller: "docNavCtrl"
+        })
+        .state('documentsByCategory', {
+          url: '/doc/:mainCategory/:category?id',
           templateUrl: "/document/document.view.html",
           controller: "docCtrl"
         })
+        .state('admin', {
+          url: '/admin',
+          templateUrl: "/admin/admin.view.html",
+          controller: "adminCtrl"
+        })
         .state('questions', {
-          url: '/q?id',
+          url: '/q/:category?id',
           templateUrl: "/question/question.view.html",
           controller: "questionsCtrl"
         });
@@ -68,5 +78,12 @@
         }
       }
     }
-  }]);
+  }]).directive('subCatCounts', function(){
+    return function(scope, element, attrs){
+      scope.meanData.getDocCountsByCategory(attrs.subCatCounts)
+                          .then(function(result){
+        element.html(result.data);
+      })
+    };
+  });
 })();

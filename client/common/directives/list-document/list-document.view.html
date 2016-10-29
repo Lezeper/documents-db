@@ -63,7 +63,7 @@
 	        	<div>
 	        		<hr>
 		    		<label>Link</label>
-		    		<span class="form-control">{{hostName}}/{{doc.group}}?id={{doc._id}}</span>
+		    		<span class="form-control">{{hostName}}/{{doc.group}}/{{mainCategory}}/{{subCategory}}?id={{doc._id}}</span>
 		    	</div>
 				<div ng-show="doc.author">
 					<hr>
@@ -82,7 +82,6 @@
 	        	<button class="btn btn-primary btn-xs" ng-click="updateDoc(doc, selRelatedsUpdate)">Update</button>
 	        	<button class="btn btn-default btn-xs" ng-click="resetUpdateDoc(doc);">Cancel</button>
 	        </div>
-	    	<!-- <button class="btn btn-link" ng-click="copyLink(doc.group, doc._id)">Get Link</button> -->
 	    </div>
 		<div ng-show="isLoggedIn">
 			<button class="btn btn-link" ng-click="doc.isUpdateDoc=true;doc.showAnswer=true;doDeepCopy(doc)"><i class="fa fa-pencil"></i></button>
