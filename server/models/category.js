@@ -9,6 +9,10 @@ var category = new mongoose.Schema({
 		type: Array,
 		required: false
 	},
+	weight: {
+		type: Number,
+		required:false
+	},
 	group: {
 		type: String,
 		required: true

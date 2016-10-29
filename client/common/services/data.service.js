@@ -96,10 +96,6 @@
       return $http.get(serverUrl + '/cat/' + group);
     }
 
-    var getCategoriesByMainCategory = function(group, category){
-      return $http.get(serverUrl + '/cat/' + group + '/' + category);
-    }
-
     var createCategory = function(cat){
       return $http.post(serverUrl + '/cat', cat);
     }
@@ -152,7 +148,6 @@
 
       getCategories: getCategories,
       getCategoriesByGroup: getCategoriesByGroup,
-      getCategoriesByMainCategory: getCategoriesByMainCategory,
       createCategory: createCategory,
       updateCategory: updateCategory,
       deleteCategory: deleteCategory,

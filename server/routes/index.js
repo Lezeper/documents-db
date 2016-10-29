@@ -30,7 +30,6 @@ router.put("/que", questionCtrl.updateQuestion);
 router.delete("/que/id/:id", questionCtrl.deleteQuestion);
 
 router.get("/cat/:group", categoryCtrl.findCategoriesByGroup);
-router.get("/cat/:group/:category", categoryCtrl.findCatesByMainCateogry)
 router.post("/cat", categoryCtrl.createCategory);
 router.put("/cat", categoryCtrl.updateCategory);
 router.delete("/cat/id/:id", categoryCtrl.deleteCategory);

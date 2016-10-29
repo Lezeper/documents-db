@@ -1,4 +1,4 @@
-# Programming Qustions DB
+# Programming Documents DB
 
 ### Framework and Plugin			
 				Mongoose
@@ -24,8 +24,6 @@
 
                 GET	   /api/cat             - find all technical categories
                 GET	   /api/cat/:group		- find all categories by group (doc, que...)
-                GET	   /api/cat/:group/:category
-                							- find all categories by MainCategory
                 POST   /api/cat             - create technical category
                 PUT    /api/cat             - update technical category
                 DELETE /api/cat             - delete a technical category
@@ -71,6 +69,7 @@
 ##### Cateogry
 				main: String, unique, required
 				sub: Array[name]
+				weight: Number
 				group: String, required
 
 ### Front End Routing
@@ -79,11 +78,19 @@
 				/doc			- documents navigation page
 				/doc/:mainCategory/:subCategory?id
 								- documents	by category
+				/admin			- admin home page
+
+### Functions in each page
+				/ 				- search, update
+				/doc 			- (nav) CRUD
+				/doc/:m/:s 		- (doc) CRUD
+				/admin			- 
 
 ### Difficulties
 ##### Category and Counts showing design
 				Front End (Main Category)
 					- Angular 12	(Sub Category) (Counts)
 					- jQuery 10		(Sub Category) (Counts)
-				Category model will include main field and sub field(Array). When page loaded each Sub Category, then call the server to return responding Counts.
-
+				Category model will include main field and sub field
+				(Array). When page loaded each Sub Category, then call
+				the server to return responding Counts.

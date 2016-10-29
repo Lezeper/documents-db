@@ -35,3 +35,9 @@ ul {
 .category-btn li{
 	margin: 5px 5px;
 }
+.font-center{
+	text-align: center;
+}
+.same-line{
+	display:inline;
+}

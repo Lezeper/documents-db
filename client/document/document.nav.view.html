@@ -3,8 +3,38 @@
 	<div ng-init="getCategories()">
 		<ul class="category-btn">
 			<li ng-repeat="mc in mainCategories">
-				<h4><strong>{{mc.main}}</strong></h4>
-				<label class="btn btn-default" ng-repeat="subc in mc.sub" ng-click="goToSubCatPage(mc.main,subc)">
+				<h4>
+					<strong>{{mc.main}}</strong>
+					<div class="same-line" ng-show="isLoggedIn">
+						<button class="btn btn-xs btn-warning" ng-click="mc.showUpdate=true">
+							<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+						</button>
+						<button class="btn btn-xs btn-warning" ng-click="deleteCategory(mc._id)">
+							<i class="fa fa-times" aria-hidden="true"></i>
+						</button>
+					</div>
+				</h4>
+				<!-- Update category nav -->
+				<div ng-show="mc.showUpdate" class="well" ng-init="uCat._id=mc._id">
+					<div class="form-group">
+						<label for="uMainCat">Main Category</label>
+						<input class="form-control" type="text" id="uMainCat" ng-model="uCat.main" ng-init="uCat.main=mc.main" />
+					</div>
+					<div class="form-group">
+						<label for="uSubCat">Sub Category</label>
+						<input type="text" id="uSubCat" class="form-control" ng-list="," ng-model="uCat.sub" ng-init="uCat.sub=mc.sub"/>
+					</div>
+					<div class="form-group">
+						<label for="uWeight">Weight</label>
+						<input type="Number" class="form-control" ng-model="uCat.weight" ng-init="uCat.weight=mc.weight" />
+					</div>
+					<div class="form-group">
+						<button type="submit" class="btn btn-primary" ng-click="updateCategory(uCat)">Update</button>
+						<button type="reset" class="btn btn-default" ng-click="mc.showUpdate=false">Cancel</button>
+					</div>
+				</div>
+				<!-- /Update category nav -->
+				<label class="btn btn-default" ng-repeat="subc in mc.sub" ng-click="goToSubCatPage(mc.main, subc)">
 					<input type="radio" autocomplete="off" name="category"> {{subc}}
 					<span class="badge" sub-cat-counts="{{subc}}"></span>
 				</label>
@@ -16,17 +46,17 @@
 	</div>
 	<br>
 	<!-- /Navigation Bar -->
-	<!-- Add new document -->
-	<div class="col-sm-8 col-sm-offset-2" ng-show="showAdd">
+	<!-- Add new category nav -->
+	<div class="col-sm-8 col-sm-offset-2 well" ng-show="showAdd">
 		<form ng-submit="submitCat()" novalidate>
 			<h2 class="text-center">Add new Category</h2>
 			<div class="form-group">
-				<label for="category"><span style="color:red">*</span> Category Name</label>
-				<input type="text" class="form-control" id="category" ng-model="addCat.main">
+				<label for="mainCat"><span style="color:red">*</span>Main Category</label>
+				<input type="text" class="form-control" id="mainCat" ng-model="addCat.main">
 			</div>
 			<div class="form-group">
-				<label for="sub">Sub</label>
-				<input class="form-control" id="sub" ng-model="addCat.sub"/>
+				<label for="subCat">Sub Category</label>
+				<input class="form-control" id="subCat" ng-model="addCat.sub"/>
 			</div>
 			<div class="form-group">
 				<label for="group"><span style="color:red">*</span> Group</label>
@@ -35,11 +65,14 @@
 					<option value="que">Question</option>
 				</select>
 			</div>
+			<div class="form-group">
+				<label for="weight">Weight</label>
+				<input type="Number" id="weight" class="form-control" ng-model="addCat.weight" />
+			</div>
 			<br>
 			<button type="submit" class="btn btn-primary">Submit</button>
 			<button type="button" class="btn btn-default" ng-click="showAdd=false">Cancel</button>
 		</form>
 	</div>
-	<!-- /Add new document -->
+	<!-- /Add new category nav -->
 </div>
-<list-doc></list-doc>
