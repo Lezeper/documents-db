@@ -75,11 +75,11 @@
 ### Front End Routing
 				/				- index page
 				/login			- admin login page
-				/doc			- documents navigation page
-				/doc/:mainCategory/:subCategory?id
+				/nav/doc		- documents navigation page
+				/sd/doc/:mainCategory/:subCategory?id
 								- documents	by category or specific one
-				/quiz			- quiz naviagation page
-				/quiz/:mainCategory/:subCategory?id
+				/nav/que		- quiz naviagation page
+				/sd/que/:mainCategory/:subCategory?id
 								- questions	by category or specific one
 				/admin			- admin home page
 

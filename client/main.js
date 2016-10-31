@@ -13,10 +13,10 @@
           templateUrl: "/auth/auth.view.html",
           controller: "loginCtrl"
         })
-        .state('documentNav', {
-          url: '/doc',
-          templateUrl: "/document/document.nav.view.html",
-          controller: "docNavCtrl"
+        .state('data nav', {
+          url: '/nav/:group',
+          templateUrl: "/data_nav/data.nav.view.html",
+          controller: "dataNavCtrl"
         })
         .state('documentsByCategory', {
           url: '/doc/:mainCategory/:category?id',
@@ -28,11 +28,7 @@
           templateUrl: "/admin/admin.view.html",
           controller: "adminCtrl"
         })
-        .state('questions', {
-          url: '/q/:category?id',
-          templateUrl: "/question/question.view.html",
-          controller: "questionsCtrl"
-        });
+        
         $urlRouterProvider.otherwise('/');
 
       $locationProvider.html5Mode(true);

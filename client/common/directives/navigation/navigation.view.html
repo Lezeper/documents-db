@@ -15,17 +15,13 @@
 			<a href="/">Home</a>
 		</li>
 		<li role="presentation" ng-class="{ active: isActive('/doc') }">
-			<a href="/doc">Doc</a>
+			<a href="/nav/doc">Doc</a>
 		</li>
 		<li role="presentation" ng-class="{ active: isActive('/quiz') }">
-			<a href="/doc">Quiz</a>
+			<a href="/nav/que">Quiz</a>
 		</li>
 		<li ng-show="isLoggedIn" role="presentation" ng-class="{ active: isActive('/admin') }">
 			<a href="/admin">Admin</a>
 		</li>
-		
-		<!-- <li role="presentation" ng-class="{ active: isActive('/test') }">
-			<a href="/test">Test</a>
-		</li> -->
 	</ul>
 </div>

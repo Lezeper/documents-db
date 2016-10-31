@@ -49,7 +49,7 @@
 	<!-- Add new category nav -->
 	<div class="col-sm-8 col-sm-offset-2 well" ng-show="showAdd">
 		<form ng-submit="submitCat()" novalidate>
-			<h2 class="text-center">Add new Category</h2>
+			<h2 class="text-center">Add new {{gourp}} category</h2>
 			<div class="form-group">
 				<label for="mainCat"><span style="color:red">*</span>Main Category</label>
 				<input type="text" class="form-control" id="mainCat" ng-model="addCat.main">
@@ -57,13 +57,6 @@
 			<div class="form-group">
 				<label for="subCat">Sub Category</label>
 				<input class="form-control" id="subCat" ng-model="addCat.sub"/>
-			</div>
-			<div class="form-group">
-				<label for="group"><span style="color:red">*</span> Group</label>
-				<select class="form-control" id="group" ng-model="addCat.group">
-					<option value="doc">Document</option>
-					<option value="que">Question</option>
-				</select>
 			</div>
 			<div class="form-group">
 				<label for="weight">Weight</label>
