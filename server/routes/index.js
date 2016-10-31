@@ -42,6 +42,7 @@ router.put("/doc", docCtrl.updateDoc);
 router.delete("/doc/id/:id", docCtrl.deleteDoc);
 
 router.get("/count/doc/:category", countCtrl.countDocByCategory);
+router.get("/count/que/:category", countCtrl.countQueByCategory);
 
 router.get("/s/q/:keyword?", seachCtrl.findAllQuesByKeyword);
 router.get("/s/d/:keyword?", seachCtrl.findAllDocsByKeyword);

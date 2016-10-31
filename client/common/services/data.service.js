@@ -25,7 +25,7 @@
 
     /***** Question *****/
 
-    var getQuestionsByCategory = function(category){
+    var getQuesByCategory = function(category){
       return $http.get(serverUrl + '/que/c/' + category); 
     };
 
@@ -33,23 +33,23 @@
       return $http.get(serverUrl + '/s/q/' + keyword); 
     }
 
-    var getQuestionById = function(id){
+    var getQueById = function(id){
       return $http.get(serverUrl + '/que/id/' + id); 
     };
 
-    var getQuestionCategory = function(){
+    var getQueCategories = function(){
       return $http.get(serverUrl + '/que/c');
     };
 
-    var createQuestion = function (newQuestion) {
+    var createQue = function (newQuestion) {
       return $http.post(serverUrl + '/que', newQuestion, {});
     };
 
-    var updateQuestion = function (updateQuestion) {
+    var updateQue = function (updateQuestion) {
       return $http.put(serverUrl + '/que', updateQuestion, {});
     };
 
-    var deleteQuestion = function (id) {
+    var deleteQue = function (id) {
       return $http.delete(serverUrl + '/que/id/' + id, {});
     };
 
@@ -113,6 +113,10 @@
       return $http.get(serverUrl + '/count/doc/' + category);
     }
 
+    var getQueCountsByCategory = function(category){
+      return $http.get(serverUrl + '/count/que/' + category);
+    }
+
     var getRelatedByKeyword = function(keyword){
       var p =new Promise(function(resolve, reject){
         $q.all([
@@ -132,12 +136,12 @@
       deleteUser: deleteUser,
       getUserById: getUserById,
 
-      getQuestionById: getQuestionById,
-      getQuestionCategory: getQuestionCategory,
-      getQuestionsByCategory: getQuestionsByCategory,
-      createQuestion: createQuestion,
-      updateQuestion: updateQuestion,
-      deleteQuestion: deleteQuestion,
+      getQueById: getQueById,
+      getQueCategories: getQueCategories,
+      getQuesByCategory: getQuesByCategory,
+      createQue: createQue,
+      updateQue: updateQue,
+      deleteQue: deleteQue,
 
       getDocById: getDocById,
       getDocCategories: getDocCategories,
@@ -157,7 +161,8 @@
       getDocByKeyword: getDocByKeyword,
       getRelatedByKeyword: getRelatedByKeyword,
 
-      getDocCountsByCategory: getDocCountsByCategory
+      getDocCountsByCategory: getDocCountsByCategory,
+      getQueCountsByCategory: getQueCountsByCategory
     }
   }])
 })();

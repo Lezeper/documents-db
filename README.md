@@ -40,6 +40,9 @@
 
                 GET	   /api/count/doc/:category
                 							- count the numbers of doc by category
+                GET	   /api/count/que/:category
+                							- count the numbers of que by
+                							category
 
 ### DB Model
 ##### User
@@ -52,7 +55,7 @@
 				title: String, unique, required
 				description: String
 				usage: String
-				related: Array
+				related: Array[title, group, _id]
 				notes: String
 				category: String, required
 				group: String, required
@@ -67,7 +70,7 @@
 				category: String, required
 				created: Date, required
 ##### Cateogry
-				main: String, unique, required
+				main: String, required
 				sub: Array[name]
 				weight: Number
 				group: String, required
@@ -76,11 +79,13 @@
 				/				- index page
 				/login			- admin login page
 				/nav/doc		- documents navigation page
-				/sd/doc/:mainCategory/:subCategory?id
-								- documents	by category or specific one
+				/doc/:mainCategory/:subCategory
+								- documents	by category
+				/doc?id 		- specific document
 				/nav/que		- quiz naviagation page
-				/sd/que/:mainCategory/:subCategory?id
+				/que/:mainCategory/:subCategory?id
 								- questions	by category or specific one
+				/que?id 		- specific question
 				/admin			- admin home page
 
 ### Functions in each page
@@ -97,3 +102,9 @@
 				Category model will include main field and sub field
 				(Array). When page loaded each Sub Category, then call
 				the server to return responding Counts.
+##### Two ways to make update
+				1. After doing ng-repeat, modified the data based on the 
+				original data. There is no new variable declare. But 
+				using this way, it will be a little bit complicated to 
+				cancel the update, we need to backup original data by using angular.copy before clicking update button.
+				2. declare a new variable, use ng-init.

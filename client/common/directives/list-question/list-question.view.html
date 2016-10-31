@@ -5,46 +5,68 @@
 		<input type="number" ng-model="numPerPage" style="max-width: 40px" />
 	</div>
 	<br><br>
-	<div class="panel panel-default" ng-repeat="question in filteredQuestions">
-	    <div class="panel-heading" ng-click="showAnswer = ! showAnswer" style="cursor: pointer">
-	        <h3 class="panel-title" ng-class="{strike: question.isUpdateQuestion}" ng-show="!question.isUpdateQuestion"><strong>{{question.title}}</strong></h3>
-	        <input type="text" style="width: 100%" ng-model="question.title" ng-show="question.isUpdateQuestion"/>
-	    </div>
-	    <div class="panel-body show-hide" ng-show="showAnswer">
-	    	<div>
-	    		<p ng-class="{strike: question.isUpdateQuestion}" ng-bind-html="question.answer"></p>
-	        	<p class="buttom-right">- {{question.author}}</p>
-	    	</div>
-	        <div ng-show="question.isUpdateQuestion">
-	       		<hr style="clear: both">
-	       		<p><strong>Updated Contents:</strong></p>
-	        	<p ng-bind-html="updateQ.answer"></p>
-	        	<hr style="clear: both">
-	        	<textarea style="width: 100%" ng-model="updateQ.answer" placeholder="You can write HTML code here. Leave it blank if u don't want to make a change."></textarea>
-	        	<input type="text" placeholder="Author (option)" ng-model="updateQ.author" />
-
-	        	<hr>
-	        	<div ng-include="'common/template/update-related.view.html'" ng-show="question.isUpdateQuestion" ng-init="selRelatedsUpdate = question.related;"></div>
-
-	        	<br><br>
-	        	<button class="btn btn-primary btn-xs" ng-click="updateQuestion(question, updateQ)">Update</button>
-	        	<button class="btn btn-default btn-xs" ng-click="question.isUpdateQuestion=false">Cancel</button>
-	        </div>
-
-	    	<div ng-show="!question.isUpdateQuestion">
-				<div ng-show="question.related.length != 0">
-					<hr>
+	<div ng-repeat="question in filteredQuestions">
+		<!-- Show Question Area -->
+		<div class="panel panel-default" ng-show="!question.isUpdateQuestion">
+			<!-- Title -->
+		    <div class="panel-heading" ng-click="showAnswer=!showAnswer" style="cursor: pointer">
+		        <h3 class="panel-title">
+		        	<strong>{{question.title}}</strong>
+		        </h3>
+		    </div>
+		    <!-- /Title -->
+		    <!-- Panel Body -->
+		    <div class="panel-body show-hide" ng-show="showAnswer">
+			    <!-- Answer -->
+			    <p ng-bind-html="question.answer"></p>
+			    <!-- /Answer -->
+		    	<!-- Related -->
+		    	<div ng-show="question.related.length != 0">
+		    		<hr>
 	    			<label>Related</label>
 		        	<div ng-repeat="curRelated in question.related">
 						<a href="/{{curRelated.group}}?id={{curRelated._id}}" target="_blank">{{curRelated.title}}</a>
 					</div>
 	    		</div>
-			</div>
-	    </div>
-	    
-	    
-	    <button class="btn btn-link" ng-click="question.isUpdateQuestion=true;showAnswer=true"><i class="fa fa-pencil"></i></button>
-	    <button class="btn btn-link" ng-click="deleteQuestion(question)"><i class="fa fa-remove"></i></button>
+		    	<!-- /Related -->
+		    	<hr>
+		    	<!-- Link -->
+		    	<div class="form-group">
+		    		<label for="link">Link</label>
+		    		<textarea id="link" class="form-control" style="resize: none;" readonly>{{hostName}}/{{question.group}}?id={{question._id}}</textarea>
+		    	</div>
+		    	<!-- /Link -->
+		    </div>
+		    <!-- /Panel Body -->
+		    <!-- Update and Remove Button -->
+		    <div ng-show="isLoggedIn">
+		    	<button class="btn btn-link" ng-click="question.isUpdateQuestion=true;showAnswer=true;selRelateds=question.related"><i class="fa fa-pencil"></i></button>
+		    	<button class="btn btn-link" ng-click="deleteQuestion(question)"><i class="fa fa-remove"></i></button>
+		    </div>
+		    <!-- /Update and Remove Button -->
+		</div>
+		<!-- /Show Question -->
+	    <!-- Update Question Area-->
+        <div ng-show="question.isUpdateQuestion" class="well" ng-init="updateQ._id=question._id">
+        	<!-- Update Title -->
+        	<div class="form-group">
+        		<label for="uTitle">Update Title</label>
+        		<input type="text" id="uTitle" class="form-control" ng-init="updateQ.title=question.title" ng-model="updateQ.title"/>
+        	</div>
+        	<!-- /Update Title -->
+        	<!-- Update Contents -->
+        	<div class="form-group">
+        		<label for="uContents"><strong>Updated Contents:</strong></label>
+        		<textarea class="form-control" id="uContents" ng-init="updateQ.answer=question.answer" ng-model="updateQ.answer" ui-tinymce="tinymceUsage"></textarea>
+        	</div>
+        	<!-- /Update Contents -->
+        	<related></related>
+        	<div class="form-group">
+        		<button class="btn btn-primary btn-xs" ng-click="updateQuestion(question, updateQ, selRelateds)">Update</button>
+        		<button type="reset" class="btn btn-default btn-xs" ng-click="question.isUpdateQuestion=false;updateQ=question;">Cancel</button>
+        	</div>
+        </div>
+	    <!-- /Update Question Area-->
 	</div>
 	<ul uib-pagination boundary-links="true" total-items="totalItems" ng-model="currentPage" class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;" items-per-page="numPerPage" ng-show="filteredQuestions"></ul>
 </div>

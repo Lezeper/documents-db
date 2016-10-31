@@ -7,7 +7,7 @@ module.exports.createQuestion = function (req, res) {
   question.title = req.body.title.toLowerCase();
   question.answer = req.body.answer;
   question.author = req.body.author;
-  question.group = "q";
+  question.group = "que";
   question.related = req.body.related;
   question.category = req.body.category;
   question.created = new Date();
@@ -76,6 +76,16 @@ module.exports.findQuesByCategory = function (req, res) {
 };
 
 module.exports.updateQuestion = function (req, res) {
+  req.body.created = new Date();
+  console.log(req.body);
+  Question.findOneAndUpdate({_id: req.body._id}, req.body, function(err, document){
+    if(err)
+      return res.send(500, err);
+    res.status(200).json({
+      "message": "Question updated!"
+    });
+  });
+  /*
   Question.findById(req.body._id, function (err, question) {
     if(!question){
       return res.status(404).json({"message": "question not found"});
@@ -96,8 +106,7 @@ module.exports.updateQuestion = function (req, res) {
         "message": "question updated!"
       });
     })
-
-  })
+  })*/
 };
 
 module.exports.deleteQuestion = function (req, res) {

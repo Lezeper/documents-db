@@ -2,7 +2,6 @@ var mongoose = require('mongoose');
 var category = new mongoose.Schema({
 	main: {
 		type: String,
-		unique: true,
 		required: true
 	},
 	sub: {

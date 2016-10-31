@@ -2,8 +2,8 @@
 <div class="col-sm-8 col-sm-offset-2 font-center">
 	<h2>{{subCategory}}</h2>
 </div>
-<div ng-init="getDocByCategory()" class="col-sm-8 col-sm-offset-2">
-	<button class="btn btn-primary" ng-click="goToDoc()">Go Back</button>
+<div ng-init="getDocsByCategory()" class="col-sm-8 col-sm-offset-2">
+	<button class="btn btn-primary" ng-click="goToDataNav()">Go Back</button>
 	<label class="btn btn-warning" ng-click="showAdd=true;showCategories()" ng-show="isLoggedIn">+</label>
 </div>
 <!-- /document nav -->

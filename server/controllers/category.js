@@ -17,27 +17,16 @@ module.exports.createCategory = function(req, res){
 	category.group = req.body.group;
 	category.weight = req.body.weight;
 
-	category.save(function(err){
-		if(err){
-			// if main dumplicates
-			if(err.code == 11000){
-				Category.findOne({main: req.body.main}, function(err, category_){
-					// check whether sub name duplicate
-					if(category_.sub.indexOf(req.body.sub) >= 0)
-						return res.status(500).send();
-					category_.sub.push(req.body.sub);
-					Category.findOneAndUpdate({_id: category_._id}, category_, function(err){
-						if(err)
-							return res.status(500).send(err);
-						res.status(201).json({"message": "Category created!"});
-					});
-				});
-			}else{
+	// find whether the category exist
+	Category.find({main: req.body.main, group: req.body.group}, function(err, categories){
+		if(categories.length > 0)
+			return res.status(200).json({"message": "Category Already Exist!"});
+
+		category.save(function(err){
+			if(err)
 				return res.status(500).send(err);
-			}
-		}else{
 			res.status(201).json({"message": "Category created!"});
-		}
+		});
 	});
 };
 

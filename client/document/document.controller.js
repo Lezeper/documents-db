@@ -17,11 +17,11 @@
           });
         };
 
-        $scope.goToDoc = function(){
-          $location.path("/doc");
+        $scope.goToDataNav = function(){
+          $location.path("/nav/doc");
         };
         
-    		$scope.getDocByCategory = function(){
+    		$scope.getDocsByCategory = function(){
           if(!$scope.docId){
               meanData.getDocByCategory($scope.subCategory).then(function (data) {
                 $scope.docs = data.data;
@@ -44,7 +44,7 @@
 
               meanData.createDoc($scope.addD).then(function (res) {
                 alert(res.data.message);
-                $scope.getDocByCategory();
+                $scope.getDocsByCategory();
                 $scope.showAdd = false;
                 $scope.addD = null; // reset add document panel
                 }, function(err){

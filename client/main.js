@@ -13,22 +13,37 @@
           templateUrl: "/auth/auth.view.html",
           controller: "loginCtrl"
         })
-        .state('data nav', {
+        .state('dataNav', {
           url: '/nav/:group',
           templateUrl: "/data_nav/data.nav.view.html",
           controller: "dataNavCtrl"
         })
         .state('documentsByCategory', {
-          url: '/doc/:mainCategory/:category?id',
+          url: '/doc/:mainCategory/:category',
           templateUrl: "/document/document.view.html",
           controller: "docCtrl"
+        })
+        .state('specific_document', {
+          url: '/doc?id',
+          templateUrl: "/document/document.view.html",
+          controller: "docCtrl"
+        })
+        .state('questionByCategory', {
+          url: '/que/:mainCategory/:category',
+          templateUrl: "/question/question.view.html",
+          controller: "queCtrl"
+        })
+        .state('specific_question', {
+          url: '/que?id',
+          templateUrl: "/question/question.view.html",
+          controller: "queCtrl"
         })
         .state('admin', {
           url: '/admin',
           templateUrl: "/admin/admin.view.html",
           controller: "adminCtrl"
         })
-        
+
         $urlRouterProvider.otherwise('/');
 
       $locationProvider.html5Mode(true);
@@ -76,10 +91,18 @@
     }
   }]).directive('subCatCounts', function(){
     return function(scope, element, attrs){
-      scope.meanData.getDocCountsByCategory(attrs.subCatCounts)
+      if(scope.group == 'doc'){
+        scope.meanData.getDocCountsByCategory(attrs.subCatCounts)
                           .then(function(result){
-        element.html(result.data);
-      })
+          element.html(result.data);
+        });
+      }
+      if(scope.group == 'que'){
+        scope.meanData.getQueCountsByCategory(attrs.subCatCounts)
+                          .then(function(result){
+          element.html(result.data);
+        });
+      }
     };
   });
 })();
