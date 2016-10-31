@@ -36,7 +36,7 @@
 	    			<hr>
 		    			<label>Related</label>
 			        	<div ng-repeat="curRelated in doc.related">
-							<a href="/{{curRelated.group}}?id={{curRelated._id}}" target="_blank">{{curRelated.title}}</a>
+							<a href="/{{doc.group}}/{{mainCategory}}/{{subCategory}}?id={{doc._id}}" target="_blank">{{curRelated.title}}</a>
 						</div>
 		    		</div>
 	    		</div>
@@ -52,8 +52,14 @@
 				</div>
 	        	<div class="form-group" ng-show="doc.isUpdateDoc"> 
 	        		<hr>
-	        		<label>Category</label>
-	        		<input type="text" class="form-control" ng-model="doc.category" />
+	        		<div class="form-group">
+						<label for="category"><span style="color:red">*</span> Category</label>
+						<select class="form-control" id="category" ng-model="doc.category">
+							<optgroup ng-repeat="co in categoriesOptions" label="{{co.main}}">
+								<option ng-repeat="cos in co.sub">{{cos}}</option>
+							</optgroup>
+						</select>
+					</div>
 	        	</div>
 	        	<div ng-show="doc.isUpdateDoc">
 	        		<hr>
@@ -73,18 +79,12 @@
 	    	</div>
 	        <div ng-show="doc.isUpdateDoc">
 	        	<hr style="clear: both">
-	        	
-	        	<!-- <div class="form-group" ng-show="!isLoggedIn">
-	        		<label>Author</label>
-	        		<input type="text" placeholder="Author (option)" class="form-control" ng-model="doc.author" />
-	        	</div> -->
-	        	
 	        	<button class="btn btn-primary btn-xs" ng-click="updateDoc(doc, selRelatedsUpdate)">Update</button>
 	        	<button class="btn btn-default btn-xs" ng-click="resetUpdateDoc(doc);">Cancel</button>
 	        </div>
 	    </div>
 		<div ng-show="isLoggedIn">
-			<button class="btn btn-link" ng-click="doc.isUpdateDoc=true;doc.showAnswer=true;doDeepCopy(doc)"><i class="fa fa-pencil"></i></button>
+			<button class="btn btn-link" ng-click="doc.isUpdateDoc=true;doc.showAnswer=true;doDeepCopy(doc);showCategories()"><i class="fa fa-pencil"></i></button>
 			<button class="btn btn-link" ng-click="deleteDoc(doc)"><i class="fa fa-remove"></i></button>
 		</div>
 	</div>

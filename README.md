@@ -77,7 +77,10 @@
 				/login			- admin login page
 				/doc			- documents navigation page
 				/doc/:mainCategory/:subCategory?id
-								- documents	by category
+								- documents	by category or specific one
+				/quiz			- quiz naviagation page
+				/quiz/:mainCategory/:subCategory?id
+								- questions	by category or specific one
 				/admin			- admin home page
 
 ### Functions in each page

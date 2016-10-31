@@ -32,8 +32,6 @@
 		        scope.resetUpdateDoc = function(doc){
 		          if(confirm("Are you sure to discard your records?")){
 		          	scope.backupDoc.isUpdateDoc = false;
-		          	// doc = scope.backupDoc;
-		          	// doc.usage = scope.backupDoc.usage;
 		          	
 		          	Object.keys(doc).forEach(function(property){
 		          		doc[property] = scope.backupDoc[property];
@@ -67,7 +65,6 @@
 						scope.meanData.deleteDoc(doc._id).then(function(res){
 							alert(res.data.message);
 							scope.getDocByCategory(doc.category);
-						scope.getDocCategories();
 						},function(res){
 							alert(res.statusText);
 						});

@@ -5,7 +5,7 @@ module.exports.findDocById = function(req, res){
 	Document.findById(req.params.id, function(err, document){
 		if(err)
 			return res.send(500, err);
-		return res.json(document);
+		res.json(document);
 	});
 };
 
@@ -56,8 +56,8 @@ module.exports.createDoc = function(req, res){
 	document.created = new Date();
 	document.save(function(err){
 		if(err)
-			return res.send(500, err);
-		return res.status(201).json({
+			return res.status(500).json(err);
+		res.status(201).json({
 			"message": "Document created!"
 		});
 	});
@@ -67,7 +67,7 @@ module.exports.updateDoc = function(req, res){
 	Document.findOneAndUpdate({_id: req.body._id}, req.body, function(err, document){
 		if(err)
 			return res.send(500, err);
-		return res.status(200).json({
+		res.status(200).json({
 			"message": "Document updated!"
 		});
 	});
@@ -77,7 +77,7 @@ module.exports.deleteDoc = function(req, res){
 	Document.findByIdAndRemove(req.params.id, function(err){
 		if(err)
 			return res.send(500, err);
-		return res.json({						// no status need, or u can't receive message
+		res.json({						// no status need, or u can't receive message
 			"message": "Successful delete document."
 		});
 	})

@@ -18,9 +18,9 @@ var auth = jwt({
 router.get("/user", userCtrl.findAllUsers);
 router.get("/user/:id", userCtrl.findUserById);
 router.post("/login", userCtrl.login);
-router.post("/user", userCtrl.createUser);
-router.put("/user", userCtrl.updateUser);
-router.delete("/user", userCtrl.deleteUser);
+// router.post("/user", userCtrl.createUser);
+// router.put("/user", userCtrl.updateUser);
+// router.delete("/user", userCtrl.deleteUser);
 
 router.get("/que/c", questionCtrl.findAllQuesCategories);
 router.get("/que/c/:category", questionCtrl.findQuesByCategory);

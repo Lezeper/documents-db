@@ -11,9 +11,15 @@
 
         $scope.isLoggedIn = authentication.isLoggedIn();
 
+        $scope.showCategories = function(){
+          meanData.getCategoriesByGroup('doc').then(function(res){
+            $scope.categoriesOptions = res.data;
+          });
+        };
+
         $scope.goToDoc = function(){
           $location.path("/doc");
-        }
+        };
         
     		$scope.getDocByCategory = function(){
           if(!$scope.docId){
@@ -38,12 +44,11 @@
 
               meanData.createDoc($scope.addD).then(function (res) {
                 alert(res.data.message);
-                $scope.getDocCategories();
                 $scope.getDocByCategory();
                 $scope.showAdd = false;
                 $scope.addD = null; // reset add document panel
-                }, function(res){
-                alert(res.statusText);
+                }, function(err){
+                alert(err.data.message);
               });
             });
           }
