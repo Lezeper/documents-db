@@ -85,28 +85,6 @@ module.exports.updateQuestion = function (req, res) {
       "message": "Question updated!"
     });
   });
-  /*
-  Question.findById(req.body._id, function (err, question) {
-    if(!question){
-      return res.status(404).json({"message": "question not found"});
-    }
-
-    question.title = req.body.title.toLowerCase();
-    question.answer = req.body.answer;
-    question.author = req.body.author;
-    question.related = req.body.related;
-    question.category = req.body.category;
-    question.created = new Date();
-
-    question.save(function (err) {
-      if(err){
-        return res.status(500).json(err);
-      }
-      return res.json({
-        "message": "question updated!"
-      });
-    })
-  })*/
 };
 
 module.exports.deleteQuestion = function (req, res) {

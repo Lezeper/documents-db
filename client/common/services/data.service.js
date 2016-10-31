@@ -29,10 +29,6 @@
       return $http.get(serverUrl + '/que/c/' + category); 
     };
 
-    var getQuestionByKeyword = function(keyword){
-      return $http.get(serverUrl + '/s/q/' + keyword); 
-    }
-
     var getQueById = function(id){
       return $http.get(serverUrl + '/que/id/' + id); 
     };
@@ -51,6 +47,14 @@
 
     var deleteQue = function (id) {
       return $http.delete(serverUrl + '/que/id/' + id, {});
+    };
+
+    var getQueTitleByKeyword = function(keyword){
+      return $http.get(serverUrl + '/s/q/' + keyword + "?need=title"); 
+    };
+
+    var getQuesByKeyword = function(keyword){
+      return $http.get(serverUrl + '/s/q/' + keyword + "?need="); 
     };
 
     /***** Document *****/
@@ -156,8 +160,9 @@
       updateCategory: updateCategory,
       deleteCategory: deleteCategory,
 
-      getQuestionByKeyword: getQuestionByKeyword,
+      getQueTitleByKeyword: getQueTitleByKeyword,
       getDocTitleByKeyword: getDocTitleByKeyword,
+      getQuesByKeyword: getQuesByKeyword,
       getDocByKeyword: getDocByKeyword,
       getRelatedByKeyword: getRelatedByKeyword,
 

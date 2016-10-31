@@ -83,7 +83,7 @@
 								- documents	by category
 				/doc?id 		- specific document
 				/nav/que		- quiz naviagation page
-				/que/:mainCategory/:subCategory?id
+				/que/:mainCategory/:subCategory
 								- questions	by category or specific one
 				/que?id 		- specific question
 				/admin			- admin home page

@@ -60,9 +60,17 @@
           $scope.showSearchDropDown = true;
           $scope.curSelSearchKw = -1;
           $scope.keywordBackup = $scope.keyword;
-          meanData.getDocTitleByKeyword($scope.keyword).then(function(res){
-            $scope.docsTile = res.data;
-          });
+
+          if($scope.selector == 'Doc'){
+            meanData.getDocTitleByKeyword($scope.keyword).then(function(res){
+              $scope.findedTile = res.data;
+            });
+          }
+          if($scope.selector == 'Quiz'){
+            meanData.getQueTitleByKeyword($scope.keyword).then(function(res){
+              $scope.findedTile = res.data;
+            });
+          }
         }else{
           $scope.showSearchDropDown = false;
         }
@@ -73,12 +81,15 @@
       $scope.doSearch = function(signal){
         if($scope.keyword && $scope.selector){
           $scope.showSearchDropDown = false;
+          $scope.currentPage = 1;
           if($scope.selector == 'Quiz'){
-            meanData.getQuestionByKeyword($scope.keyword).then(function (res){
+            meanData.getQuesByKeyword($scope.keyword).then(function (res){
               $scope.questions = res.data;
+              if((signal == 1 && $scope.curSelSearchKw != -1) || signal == 0){ 
+                $scope.questions[0].showAnswer= true; 
+              }
               $scope.totalItems = res.data.length;
-              $scope.currentPage = 1;
-              $scope.updateQuestionList();
+              $scope.updateQueList();
             });
           }
           if($scope.selector == 'Doc'){
@@ -88,7 +99,6 @@
                 $scope.docs[0].showAnswer= true; 
               }
               $scope.totalItems = res.data.length;
-              $scope.currentPage = 1;
               $scope.updateDocList();
             });
           }

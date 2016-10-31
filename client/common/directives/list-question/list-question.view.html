@@ -9,14 +9,14 @@
 		<!-- Show Question Area -->
 		<div class="panel panel-default" ng-show="!question.isUpdateQuestion">
 			<!-- Title -->
-		    <div class="panel-heading" ng-click="showAnswer=!showAnswer" style="cursor: pointer">
+		    <div class="panel-heading" ng-click="question.showAnswer=!question.showAnswer" style="cursor: pointer">
 		        <h3 class="panel-title">
 		        	<strong>{{question.title}}</strong>
 		        </h3>
 		    </div>
 		    <!-- /Title -->
 		    <!-- Panel Body -->
-		    <div class="panel-body show-hide" ng-show="showAnswer">
+		    <div class="panel-body show-hide" ng-show="question.showAnswer">
 			    <!-- Answer -->
 			    <p ng-bind-html="question.answer"></p>
 			    <!-- /Answer -->
@@ -40,7 +40,7 @@
 		    <!-- /Panel Body -->
 		    <!-- Update and Remove Button -->
 		    <div ng-show="isLoggedIn">
-		    	<button class="btn btn-link" ng-click="question.isUpdateQuestion=true;showAnswer=true;selRelateds=question.related"><i class="fa fa-pencil"></i></button>
+		    	<button class="btn btn-link" ng-click="question.isUpdateQuestion=true;question.showAnswer=true;selRelateds=question.related"><i class="fa fa-pencil"></i></button>
 		    	<button class="btn btn-link" ng-click="deleteQuestion(question)"><i class="fa fa-remove"></i></button>
 		    </div>
 		    <!-- /Update and Remove Button -->
