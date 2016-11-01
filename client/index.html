@@ -2,6 +2,7 @@
 <html lang="en" ng-app="app">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>MEAN Stack Starter</title>
     <base href="/">
     <link rel="stylesheet" href="css/font-awesome.min.css">
@@ -24,12 +25,14 @@
 </head>
 <body>
 <div class="container" ng-controller="mainCtrl">
-    <navigation ng-controller="navCtrl"></navigation>
+    <div class="row">
+        <navigation ng-controller="navCtrl"></navigation>
+    </div>
     <div class="row" style="margin-top: 10px">
         <div ui-view></div>
     </div>
     <hr>
-    <footer ng-controller="footerCtrl" class="text-center">
+    <footer ng-controller="footerCtrl" class="text-center row">
         <i class="fa fa-copyright" aria-hidden="true"></i> {{year}} Lewis - v0.9.5, 10/31/2016 updated
     </footer>
 </div>

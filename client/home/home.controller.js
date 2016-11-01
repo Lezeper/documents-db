@@ -4,6 +4,7 @@
 
       $scope.showSearchDropDown = false;
       $scope.curSelSearchKw = -1;
+      $scope.isLoggedIn = authentication.isLoggedIn();
 
       $scope.hostName = $location.protocol() + "://" + location.host;
 

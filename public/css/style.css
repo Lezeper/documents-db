@@ -10,10 +10,13 @@ ul {
 	margin-left: 0;
 	padding-left: 0;
 }
-.show-hide{
+code[class*="language-"], pre[class*="language-"] {
+	white-space: pre-wrap;		
+}
+.show-hide {
 	transition: all linear 0.5s;
 }
-.show-hide.ng-hide{
+.show-hide.ng-hide {
 	opacity: 0;
 }
 .strike {
@@ -35,12 +38,26 @@ ul {
 .category-btn li{
 	margin: 5px 5px;
 }
-.font-center{
+.font-center {
 	text-align: center;
 }
-.same-line{
+.same-line {
 	display:inline;
 }
-.font-bold{
+.font-bold {
 	font-weight: bold;
+}
+
+@media only screen and (max-device-width: 480px) {
+	body {
+		padding: 20px;
+	}
+	div.container {
+		margin: 0;
+		width: 100%;
+		padding: 0;
+	}
+	p pre {
+		font-size: 12px;
+	}
 }
