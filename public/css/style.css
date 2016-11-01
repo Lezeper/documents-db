@@ -41,3 +41,6 @@ ul {
 .same-line{
 	display:inline;
 }
+.font-bold{
+	font-weight: bold;
+}

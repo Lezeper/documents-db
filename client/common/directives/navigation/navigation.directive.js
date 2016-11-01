@@ -19,7 +19,9 @@
 	
     $scope.isLoggedIn = authentication.isLoggedIn();
     $scope.isActive = function(viewLocation){
-      return viewLocation === $location.path();
+      if(viewLocation === '/')
+        return $location.path() === viewLocation;
+      return $location.path().indexOf(viewLocation) >= 0;
     };
   }])
 })();

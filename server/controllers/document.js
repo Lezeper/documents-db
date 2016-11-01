@@ -64,6 +64,7 @@ module.exports.createDoc = function(req, res){
 };
 
 module.exports.updateDoc = function(req, res){
+	req.body.created = new Date();
 	Document.findOneAndUpdate({_id: req.body._id}, req.body, function(err, document){
 		if(err)
 			return res.send(500, err);
