@@ -1,90 +1,120 @@
-<div class="col-sm-8 col-sm-offset-2">
+<div class="col-sm-10 col-sm-offset-1">
 	<div ng-show="filteredDocs">
 		<hr>
 		<label># per page: </label>
 		<input type="number" ng-model="numPerPage" style="max-width: 40px" />
 	</div>
 	<br><br>
-	<div class="panel panel-default" ng-repeat="doc in filteredDocs" on-finish-repeat="onFinishRepeat">
-	    <div class="panel-heading" ng-click="doc.showAnswer = ! doc.showAnswer" style="cursor: pointer">
-	        <h3 class="panel-title" ng-class="{strike: doc.isUpdateDoc}" ng-show="!doc.isUpdateDoc">
-	        	<strong>{{doc.title}}</strong>
-	        </h3>
-	        <input type="text" style="width: 100%" ng-model="doc.title" ng-show="doc.isUpdateDoc"/>
-	    </div>
-	    <div class="panel-body show-hide" ng-show="doc.showAnswer">
-	    	<div>
-	    		<label>Description</label>
-	    		<p ng-show="!doc.isUpdateDoc">{{doc.description}}</p>
-	    		<textarea ng-show="doc.isUpdateDoc" ng-model="doc.description" class="form-control"></textarea>
-	    		<hr>
+
+	<div ng-repeat="doc in filteredDocs" on-finish-repeat="onFinishRepeat">
+		<!-- Panel Show Area -->
+		<div class="panel panel-default" ng-show="!doc.isUpdateDoc">
+			<!-- Panel title -->
+		    <div class="panel-heading" ng-click="doc.showAnswer=!doc.showAnswer" style="cursor: pointer">
+		        <h3 class="panel-title"><strong>{{doc.title}}</strong></h3>
+		    </div>
+		    <!-- /Panel title -->
+		    <div class="panel-body show-hide" ng-show="doc.showAnswer">
+		    	<!-- Description -->
+		    	<div class="form-group" ng-show="doc.description">
+	    			<label>Description</label>
+	    			<textarea class="form-control" style="resize: none;" readonly>{{doc.description}}</textarea>
+	    			<hr>
+	    		</div>
+	    		<!-- /Description -->
+	    		<!-- Usage -->
 	    		<div class="form-group">
 	    			<label>Usage</label>
 	    			<p ng-bind-html="doc.usage"></p>
 	    		</div>
-	    		<div ng-show="doc.isUpdateDoc">
-	    			<div class="form-group">
-		        		<label>Update Usage</label>
-		        		<textarea ui-tinymce="tinymceUsage" class="form-control" ng-model="doc.usage"></textarea>
-		        	</div>
-	    		</div>
-
-	    		<div ng-show="!doc.isUpdateDoc">
-	    			<div ng-show="doc.related.length > 0">
-	    			<hr>
-		    			<label>Related</label>
-			        	<div ng-repeat="curRelated in doc.related">
-							<a href="/{{doc.group}}?id={{doc._id}}" target="_blank">{{curRelated.title}}</a>
-						</div>
-		    		</div>
-	    		</div>
-
-	    		<div ng-include="'common/template/update-related.view.html'" ng-show="doc.isUpdateDoc" ng-init="selRelatedsUpdate=doc.related;"></div>
-	    		
-				<div ng-show="!doc.isUpdateDoc">
-					<div ng-show="doc.notes">
-						<hr>
-						<label>Notes</label>
-						<p>{{doc.notes}}</p>
+				<!-- /Usage -->
+				<!-- Related -->
+				<div ng-show="doc.related.length > 0">
+    				<hr>
+	    			<label>Related</label>
+		        	<div ng-repeat="curRelated in doc.related">
+						<a href="/{{doc.group}}?id={{doc._id}}" target="_blank">{{curRelated.title}}</a>
 					</div>
+	    		</div>
+				<!-- /Related -->
+				<!-- Notes -->
+				<div ng-show="doc.notes">
+					<hr>
+					<label>Notes</label>
+					<p>{{doc.notes}}</p>
 				</div>
-	        	<div class="form-group" ng-show="doc.isUpdateDoc"> 
-	        		<hr>
-	        		<div class="form-group">
-						<label for="category"><span style="color:red">*</span> Category</label>
-						<select class="form-control" id="category" ng-model="doc.category">
-							<optgroup ng-repeat="co in categoriesOptions" label="{{co.main}}">
-								<option ng-repeat="cos in co.sub">{{cos}}</option>
-							</optgroup>
-						</select>
-					</div>
-	        	</div>
-	        	<div ng-show="doc.isUpdateDoc">
-	        		<hr>
-	        		<label>Notes</label>
-	        		<textarea class="form-control" ng-model="doc.notes"></textarea>
-	        	</div>
-	        	<div class="form-group">
-	        		<hr>
+				<!-- /Notes -->
+				<hr>
+				<!-- Link -->
+				<div class="form-group">
 		    		<label>Link</label>
 		    		<input type="text" class="form-control" value="{{hostName}}/{{doc.group}}?id={{doc._id}}" />
 		    	</div>
+		    	<!-- /Link -->
+		        <!-- Author -->
 				<div ng-show="doc.author">
 					<hr>
 					<p class="footer-style">Updated by {{doc.author}} on {{doc.created | date:'yyyy-MM-dd HH:mm:ss'}}</p>
 				</div>
-
-	    	</div>
-	        <div ng-show="doc.isUpdateDoc">
-	        	<hr style="clear: both">
+				<!-- /Author -->
+		    </div>
+			<div ng-show="isLoggedIn">
+				<button class="btn btn-link" ng-click="doc.isUpdateDoc=true;doc.showAnswer=true;doDeepCopy(doc);showCategories()"><i class="fa fa-pencil"></i></button>
+				<button class="btn btn-link" ng-click="deleteDoc(doc)"><i class="fa fa-remove"></i></button>
+			</div>
+		</div>
+		<!-- /Panel Show Area -->
+		<!-- Update Area -->
+		<div ng-show="doc.isUpdateDoc" class="well">
+			<!-- Update Title -->
+			<div class="form-group">
+				<label>Title</label>
+		        <input type="text" class="form-control" ng-model="doc.title"/>
+			</div>
+			<!-- /Update Title -->
+			<!-- Update Descroption -->
+			<div class="form-group">
+				<label>Update Description</label>
+				<textarea ng-model="doc.description" class="form-control"></textarea>
+			</div>
+			<!-- /Update Descroption -->
+			<!-- Update Usage -->
+			<div class="form-group">
+        		<label>Update Usage</label>
+        		<textarea ui-tinymce="tinymceUsage" class="form-control" ng-model="doc.usage"></textarea>
+        	</div>
+        	<!-- /Update Usage -->
+        	<!-- Update Related -->
+        	<div ng-include="'common/template/update-related.view.html'" ng-show="doc.isUpdateDoc" ng-init="selRelatedsUpdate=doc.related;"></div>
+        	<!-- /Update Related -->
+        	<!-- Update Category -->
+        	<hr>
+    		<div class="form-group">
+				<label for="category"><span style="color:red">*</span> Category</label>
+				<select class="form-control" id="category" ng-model="doc.category">
+					<optgroup ng-repeat="co in categoriesOptions" label="{{co.main}}">
+						<option ng-repeat="cos in co.sub">{{cos}}</option>
+					</optgroup>
+				</select>
+			</div>
+			<!-- /Update Category -->
+        	<!-- Update Notes -->
+        	<div class="form-group">
+        		<hr>
+    			<label>Notes</label>
+    			<textarea class="form-control" ng-model="doc.notes"></textarea>
+        	</div>
+        	<!-- /Update Notes -->
+        	<hr>
+        	<!-- Update Button -->
+        	<div class="form-group">
 	        	<button class="btn btn-primary btn-xs" ng-click="updateDoc(doc, selRelatedsUpdate)">Update</button>
 	        	<button class="btn btn-default btn-xs" ng-click="resetUpdateDoc(doc);">Cancel</button>
-	        </div>
-	    </div>
-		<div ng-show="isLoggedIn">
-			<button class="btn btn-link" ng-click="doc.isUpdateDoc=true;doc.showAnswer=true;doDeepCopy(doc);showCategories()"><i class="fa fa-pencil"></i></button>
-			<button class="btn btn-link" ng-click="deleteDoc(doc)"><i class="fa fa-remove"></i></button>
+        	</div>
+        	<!-- /Update Button -->
 		</div>
+		<!-- /Update Area -->
 	</div>
+
 	<ul uib-pagination boundary-links="true" total-items="totalItems" ng-model="currentPage" class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;" items-per-page="numPerPage" ng-show="filteredDocs"></ul>
 </div>

@@ -64,7 +64,7 @@
 					if(confirm("Are you sure to delete this document?")){
 						scope.meanData.deleteDoc(doc._id).then(function(res){
 							alert(res.data.message);
-							scope.getDocByCategory(doc.category);
+							scope.getDocsByCategory(doc.category);
 						},function(res){
 							alert(res.statusText);
 						});
