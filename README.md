@@ -94,6 +94,28 @@
 				/doc/:m/:s 		- (doc) CRUD
 				/admin			- 
 
+### Modules
+##### Document Lists
+		Need from parent:	prismHighlight
+		Functions:
+				if(docId): get specific doc, or show all.
+				doDeepCopy: when click update button, make backupCopy.
+				updateDocList:  update current page.
+				resetUpdateDoc: reset current doc to backup.
+				updateDoc: update
+				deleteDoc: delete
+##### Related Lists
+		start:	scope.selRelateds = model.related;
+		Need from parent:	None
+		Functions:
+				removeCurSelRelated: remove selected related from list.
+				addThisRelated: add selected tag to list.
+				getRelatedByKeyword: search related by keyword
+##### Category selector
+		start:	showCategories(model.group); categorySetter(model.category);
+		Need from parent:	None
+		
+
 ### Difficulties
 ##### Category and Counts showing design
 				Front End (Main Category)
@@ -108,3 +130,17 @@
 				using this way, it will be a little bit complicated to 
 				cancel the update, we need to backup original data by using angular.copy before clicking update button.
 				2. declare a new variable, use ng-init.
+
+### Bugs
+##### ng-repeat scope
+				The scope of a directive which inside ng-repeat is isolated scope. Even {scope: false};
+				<ng-repeat>
+					<directive></directive>
+				</ng-repeat>
+##### update ng-model
+				Need to go over all the property of ng-model to make
+				update change.
+				updateQ = question will not works. But below works:
+				Object.keys(updateQ).forEach(function(property){
+	          		updateQ[property] = question[property];
+	          	});	

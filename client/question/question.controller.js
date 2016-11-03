@@ -1,13 +1,8 @@
 (function () {
-  angular.module('app').controller('queCtrl', ['$scope', 'meanData', 'authentication', '$location', '$sce', '$stateParams',
-    function ($scope, meanData, authentication, $location, $sce, $stateParams) {
-
-        $scope.meanData = meanData;
-        $scope.queId = $stateParams.id;
-        $scope.subCategory = $stateParams.category;
-        $scope.mainCategory = $stateParams.mainCategory;
-        $scope.authentication = authentication;
-
+  angular.module('app').controller('queCtrl', ['$scope', 'meanData', 'authentication', '$location', 
+    '$stateParams', '$state', function ($scope, meanData, authentication, $location, $stateParams, 
+      $state) {
+      
         $scope.hostName = $location.protocol() + "://" + location.host;
 
         $scope.isLoggedIn = authentication.isLoggedIn();
@@ -22,16 +17,14 @@
           $location.path("/nav/que");
         };
 
-        $scope.getQuesByCategory = function(){
-          if(!$scope.docId){
-              meanData.getQuesByCategory($scope.subCategory).then(function (data) {
-                $scope.questions = data.data;
-                $scope.totalItems = data.data.length;
-                $scope.currentPage = 1;
-                $scope.updateQueList();
-            });
-          }
-        };
+        $scope.addQuePage = function(){
+          $scope.addQ = new Object();
+          $scope.showAdd=true;
+          $scope.showCategories('que');
+          $scope.addQ.category = $stateParams.category;
+          $scope.categorySetter($scope.addQ.category);
+          $scope.selRelateds = [];
+        }
 
         $scope.submitQue = function(){
           if($scope.addQ){
@@ -45,9 +38,7 @@
 
               meanData.createQue($scope.addQ).then(function (res) {
                 alert(res.data.message);
-                $scope.getQuesByCategory();
-                $scope.showAdd = false;
-                $scope.addQ = null; // reset add document panel
+                $state.reload();
                 }, function(err){
                 alert(err.data.message);
               });

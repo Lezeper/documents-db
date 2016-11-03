@@ -1,19 +1,32 @@
 (function () {
-	angular.module('app').directive('listDoc', function () {
+	angular.module('app').directive('listDoc', ['$stateParams', 'meanData', 
+					'$state', function ($stateParams, meanData, $state) {
 		return {
       		restrict: 'E',
       		require: '?ngModel',
 			scope: false,
       		templateUrl: '/common/directives/list-document/list-document.view.html',
       		link: function(scope, element, attr){
+
       			scope.numPerPage = 5;
 
+		        scope.docId = $stateParams.id;
+		        scope.subCategory = $stateParams.category;
+		        scope.mainCategory = $stateParams.mainCategory;
+
       			if(scope.docId){
-      				scope.meanData.getDocById(scope.docId).then(function(res){
+      				meanData.getDocById(scope.docId).then(function(res){
       					scope.filteredDocs = [res.data];
       					scope.filteredDocs[0].showAnswer = true;
       				});
-      			}
+      			} else {
+      				meanData.getDocByCategory(scope.subCategory).then(function (data) {
+		                scope.docs = data.data;
+		                scope.totalItems = data.data.length;
+		                scope.currentPage = 1;
+		                scope.updateDocList();
+		            });
+		    	}
 
       			scope.doDeepCopy = function(doc){
       				scope.backupDoc = angular.copy(doc);
@@ -35,20 +48,33 @@
 		          	
 		          	Object.keys(doc).forEach(function(property){
 		          		doc[property] = scope.backupDoc[property];
-		          	});	          
+		          	});
 		          	setTimeout(function(){
 		          		scope.prismHighlight();
 		          	});
+
+		          	doc.showAnswer = true;
 		          }
 		        }
+		        
+		        scope.updateDocPage = function(doc){
+		        	doc.isUpdateDoc=true;
+		        	scope.doDeepCopy(doc);
+		        	// category directive
+		        	scope.showCategories(doc.group);
+		        	scope.categorySetter(doc.category);
+		        	// related directive
+		        	scope.selRelateds = doc.related;
+		        }
 
-			    scope.updateDoc = function(doc, selRelatedsUpdate){
+			    scope.updateDoc = function(doc){
 					if(confirm("Are you sure to make a update?")){
 						doc.related = [];
-		          		selRelatedsUpdate.forEach(function(elem){
+						// related directive
+		          		scope.selRelateds.forEach(function(elem){
 			            	doc.related.push(elem);
 			          	});
-			      		scope.meanData.updateDoc(doc).then(function (res) {
+			      		meanData.updateDoc(doc).then(function (res) {
 			        		alert(res.data.message);
 			        		doc.isUpdateDoc=false;
 			        		setTimeout(function(){
@@ -62,9 +88,9 @@
 
 				scope.deleteDoc = function(doc){
 					if(confirm("Are you sure to delete this document?")){
-						scope.meanData.deleteDoc(doc._id).then(function(res){
+						meanData.deleteDoc(doc._id).then(function(res){
 							alert(res.data.message);
-							scope.getDocsByCategory(doc.category);
+							$state.reload();
 						},function(res){
 							alert(res.statusText);
 						});
@@ -72,5 +98,5 @@
 				};
       		}
     	}
-  	})
+  	}]);
 })();

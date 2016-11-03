@@ -1,11 +1,12 @@
 (function(){
-	angular.module('app').directive('related', function(){
+	angular.module('app').directive('related', ['meanData',
+			function(meanData){
 		return {
 			scope: false,
 			restrict: 'E',
 			templateUrl: '/common/directives/related/related.view.html',
 			link: function(scope, element, attr){
-
+				
 				scope.removeCurSelRelated = function(selRelateds, index){
 		          selRelateds.splice(index, 1);
 		        };
@@ -28,27 +29,23 @@
 		          }
 		        };
 
-		        scope.getRelatedByKeyword = function(searchRelatedKeyword, rest){
+		        scope.getRelatedByKeyword = function(searchRelatedKeyword){
 		          if(searchRelatedKeyword){
-		            scope.meanData.getRelatedByKeyword(searchRelatedKeyword).then(function(data){
+		            meanData.getRelatedByKeyword(searchRelatedKeyword).then(function(data){
 		              var relateds = [];
 		              data.forEach(function(object){
 		                object.data.forEach(function(obj){
 		                  relateds.push(obj);
 		                });
 		              });
-		              if(rest == 'put'){
-		                scope.relatedsUpdate = relateds;
-		              }
-		              if(rest == 'post'){
-		                scope.relateds = relateds;
-		              }
+		              scope.relateds = relateds;
+		              scope.$digest();
 		            });
+		          }else{
+		          	scope.relateds = null;
 		          }
 		        };
-
-
 			}
 		}
-	})
+	}]);
 })();

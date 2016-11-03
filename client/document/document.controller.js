@@ -1,40 +1,38 @@
 (function () {
-  angular.module('app').controller('docCtrl', ['$scope', 'meanData', 'authentication', '$location', '$sce', '$stateParams',
-    function ($scope, meanData, authentication, $location, $sce, $stateParams) {
-        
-        $scope.meanData = meanData;
-        $scope.docId = $stateParams.id;
-        $scope.subCategory = $stateParams.category;
-        $scope.mainCategory = $stateParams.mainCategory;
+  angular.module('app').controller('docCtrl', ['$scope', 'meanData', 'authentication', '$location', 
+    '$state', '$stateParams', function ($scope, meanData, 
+      authentication, $location, $state, $stateParams) {
         
         $scope.hostName = $location.protocol() + "://" + location.host;
 
         $scope.isLoggedIn = authentication.isLoggedIn();
 
-        $scope.showCategories = function(){
-          meanData.getCategoriesByGroup('doc').then(function(res){
-            $scope.categoriesOptions = res.data;
-          });
-        };
-
         $scope.goToDataNav = function(){
           $location.path("/nav/doc");
         };
-        
-    		$scope.getDocsByCategory = function(){
-          if(!$scope.docId){
-              meanData.getDocByCategory($scope.subCategory).then(function (data) {
-                $scope.docs = data.data;
-                $scope.totalItems = data.data.length;
-                $scope.currentPage = 1;
-                $scope.updateDocList();
-            });
+
+        $scope.cancelAddDoc = function(){
+          if(confirm("Are you sure to discard the create?")){
+            // from related directive
+            $scope.selRelateds = null;
+            $scope.addD = null;
           }
-    		};
+        }
+
+        $scope.addDocPage = function(){
+          $scope.addD = new Object();
+          $scope.showAdd=true;
+          $scope.addD.category=$stateParams.category;
+          // category directive
+          $scope.showCategories('doc');
+          $scope.categorySetter($scope.addD.category);
+          $scope.selRelateds = [];
+        }
 
       	$scope.submitDoc = function(){
           if($scope.addD){
             $scope.addD.related = [];
+            // from related directive
             $scope.selRelateds.forEach(function(elem){
               $scope.addD.related.push(elem);
             });
@@ -44,9 +42,7 @@
 
               meanData.createDoc($scope.addD).then(function (res) {
                 alert(res.data.message);
-                $scope.getDocsByCategory();
-                $scope.showAdd = false;
-                $scope.addD = null; // reset add document panel
+                $state.reload();
                 }, function(err){
                 alert(err.data.message);
               });

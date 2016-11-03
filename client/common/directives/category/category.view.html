@@ -1,0 +1,8 @@
+<div class="form-group">
+	<label for="category"><span style="color:red">*</span> Category</label>
+	<select class="form-control" id="category" ng-model="model_">
+		<optgroup ng-repeat="co in categoriesOptions" label="{{co.main}}">
+			<option ng-repeat="cos in co.sub">{{cos}}</option>
+		</optgroup>
+	</select>
+</div>

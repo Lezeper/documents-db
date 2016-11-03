@@ -1,4 +1,4 @@
-<div class="col-sm-8 col-sm-offset-2">
+<div class="col-sm-10 col-sm-offset-1">
 	<div ng-show="filteredQuestions">
 		<hr>
 		<label># per page: </label>
@@ -40,31 +40,34 @@
 		    <!-- /Panel Body -->
 		    <!-- Update and Remove Button -->
 		    <div ng-show="isLoggedIn">
-		    	<button class="btn btn-link" ng-click="question.isUpdateQuestion=true;question.showAnswer=true;selRelateds=question.related"><i class="fa fa-pencil"></i></button>
+		    	<button class="btn btn-link" ng-click="updateQuePage(question)"><i class="fa fa-pencil"></i></button>
 		    	<button class="btn btn-link" ng-click="deleteQuestion(question)"><i class="fa fa-remove"></i></button>
 		    </div>
 		    <!-- /Update and Remove Button -->
 		</div>
 		<!-- /Show Question -->
 	    <!-- Update Question Area-->
-        <div ng-show="question.isUpdateQuestion" class="well" ng-init="updateQ._id=question._id">
+        <div ng-show="question.isUpdateQuestion" class="well">
         	<!-- Update Title -->
         	<div class="form-group">
         		<label for="uTitle">Update Title</label>
-        		<input type="text" id="uTitle" class="form-control" ng-init="updateQ.title=question.title" ng-model="updateQ.title"/>
+        		<input type="text" id="uTitle" class="form-control" ng-model="question.title"/>
         	</div>
         	<!-- /Update Title -->
         	<!-- Update Contents -->
         	<div class="form-group">
         		<label for="uContents"><strong>Updated Contents:</strong></label>
-        		<textarea class="form-control" id="uContents" ng-init="updateQ.answer=question.answer" ng-model="updateQ.answer" ui-tinymce="tinymceUsage"></textarea>
+        		<textarea class="form-control" id="uContents" ng-model="question.answer" ui-tinymce="tinymceUsage"></textarea>
         	</div>
         	<!-- /Update Contents -->
         	<related></related>
+        	<category></category>
+        	<!-- Update Buttons -->
         	<div class="form-group">
-        		<button class="btn btn-primary btn-xs" ng-click="updateQuestion(question, updateQ, selRelateds)">Update</button>
-        		<button type="reset" class="btn btn-default btn-xs" ng-click="question.isUpdateQuestion=false;updateQ=question;">Cancel</button>
+        		<button class="btn btn-primary btn-xs" ng-click="updateQuestion(question, selRelateds)">Update</button>
+        		<button type="reset" class="btn btn-default btn-xs" ng-click="cancelUpdateQue(question)">Cancel</button>
         	</div>
+        	<!-- /Update Buttons -->
         </div>
 	    <!-- /Update Question Area-->
 	</div>

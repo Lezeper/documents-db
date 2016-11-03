@@ -2,9 +2,9 @@
 <div class="col-sm-8 col-sm-offset-2 font-center">
 	<h2>{{subCategory}}</h2>
 </div>
-<div ng-init="getQuesByCategory()" class="col-sm-8 col-sm-offset-2">
+<div class="col-sm-8 col-sm-offset-2">
 	<button class="btn btn-primary" ng-click="goToDataNav()">Go Back</button>
-	<label class="btn btn-warning" ng-click="showAdd=true;showCategories()" ng-show="isLoggedIn">+</label>
+	<label class="btn btn-warning" ng-click="addQuePage()" ng-show="isLoggedIn">+</label>
 </div>
 <!-- /question nav -->
 <!-- Add new question -->
@@ -19,14 +19,7 @@
 			<label for="answer">Answer</label>
 			<textarea id="answer" ng-model="addQ.answer" ui-tinymce="tinymceUsage" class="form-control"></textarea>
 		</div>
-		<div class="form-group">
-			<label for="category"><span style="color:red">*</span> Category</label>
-			<select class="form-control" id="category" ng-init="addQ.category=subCategory" ng-model="addQ.category">
-				<optgroup ng-repeat="co in categoriesOptions" label="{{co.main}}">
-					<option ng-repeat="cos in co.sub">{{cos}}</option>
-				</optgroup>
-			</select>
-		</div>
+		<category></category>
 		<related></related>
 		<br>
 		<button type="submit" class="btn btn-primary">Submit</button>

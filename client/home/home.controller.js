@@ -49,8 +49,6 @@
         $scope.filteredDocs = null;
       }
 
-      $scope.meanData = meanData;
-
       $scope.$watch('selector', function(){
         $scope.keyword = "";
         clearPanels();
