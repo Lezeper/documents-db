@@ -49,11 +49,11 @@
 
 			    scope.$watch('currentPage + numPerPage', scope.updateQueList);
 
-			    scope.updateQuestion = function(question, selRelateds){
+			    scope.updateQuestion = function(question, selRelateds, categorModel_){
 			    	if(confirm("Are you sure to update?")){
-			    		authentication.currentUser().then(function(res){
-				          question.author = res.name;
-				        });
+			    		var changed = (categorModel_ == question.category ? false : true);
+			    		question.category = categorModel_;
+				        question.author = authentication.currentUser().name;
 				        question.related = [];
 		          		selRelateds.forEach(function(elem){
 			            	question.related.push(elem);
@@ -61,6 +61,8 @@
 				        
 	              		meanData.updateQue(question).then(function(res){
 							alert(res.data.message);
+							if(changed)
+								return $state.reload();
 							question.isUpdateQuestion = false;
 						}, function(res){
 							alert(res.statusText);
@@ -70,10 +72,10 @@
 
 				scope.cancelUpdateQue = function(question){
 					if(confirm("Are you sure to discards update?")){
-						question.isUpdateQuestion=false;
 						Object.keys(question).forEach(function(property){
 			          		question[property] = scope.questionBackup[property];
 			          	});
+						question.isUpdateQuestion=false;
 					}
 				}
 

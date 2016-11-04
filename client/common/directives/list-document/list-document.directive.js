@@ -67,15 +67,19 @@
 		        	scope.selRelateds = doc.related;
 		        }
 
-			    scope.updateDoc = function(doc){
+			    scope.updateDoc = function(doc, categorModel_){
+			    	var changed = (categorModel_ == doc.category ? false : true);
 					if(confirm("Are you sure to make a update?")){
 						doc.related = [];
+						doc.category = categorModel_;
 						// related directive
 		          		scope.selRelateds.forEach(function(elem){
 			            	doc.related.push(elem);
 			          	});
 			      		meanData.updateDoc(doc).then(function (res) {
 			        		alert(res.data.message);
+			        		if(changed)
+			        			return $state.reload();
 			        		doc.isUpdateDoc=false;
 			        		setTimeout(function(){
 				          		scope.prismHighlight();

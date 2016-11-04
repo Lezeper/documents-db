@@ -9,7 +9,7 @@
       		link: function(scope, element, attr){
       			
       			scope.categorySetter = function(model){
-      				scope.model_ = model;
+      				scope.categorModel_ = model;
       			};
 
       			scope.showCategories = function(group){

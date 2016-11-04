@@ -77,7 +77,6 @@ module.exports.findQuesByCategory = function (req, res) {
 
 module.exports.updateQuestion = function (req, res) {
   req.body.created = new Date();
-  console.log(req.body);
   Question.findOneAndUpdate({_id: req.body._id}, req.body, function(err, document){
     if(err)
       return res.send(500, err);
@@ -88,7 +87,6 @@ module.exports.updateQuestion = function (req, res) {
 };
 
 module.exports.deleteQuestion = function (req, res) {
-  // console.log(req.params.id);
   Question.findByIdAndRemove(req.params.id, function (err) {
     if(err){
       return res.send(500, err);

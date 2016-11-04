@@ -32,6 +32,7 @@
       	$scope.submitDoc = function(){
           if($scope.addD){
             $scope.addD.related = [];
+            $scope.addD.category = $scope.categorModel_;
             // from related directive
             $scope.selRelateds.forEach(function(elem){
               $scope.addD.related.push(elem);

@@ -32,7 +32,7 @@
             $scope.selRelateds.forEach(function(elem){
               $scope.addQ.related.push(elem);
             });
-            
+            $scope.addQ.category = $scope.categorModel_;
             $scope.addQ.author = authentication.currentUser().name;
 
             meanData.createQue($scope.addQ).then(function (res) {
