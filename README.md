@@ -131,6 +131,11 @@
 				cancel the update, we need to backup original data by using angular.copy before clicking update button.
 				2. declare a new variable, use ng-init.
 
+### Future Features
+				1. Self-Test module
+				2. Admin Module (doc #, daily visits)
+				3. 
+
 ### Bugs
 ##### ng-repeat scope
 				The scope of a directive which inside ng-repeat is isolated scope. Even {scope: false};

@@ -11,8 +11,7 @@ var categoryCtrl = require("../controllers/category");
 var countCtrl = require("../controllers/count");
 
 var auth = jwt({
-  secret: config.secretKey,
-  userProperty: "payload"
+  secret: config.secretKey
 });
 
 router.get("/user", userCtrl.findAllUsers);

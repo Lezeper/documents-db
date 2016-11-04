@@ -4,11 +4,13 @@
       restrict: 'EA',
       templateUrl: '/common/directives/navigation/navigation.view.html'
     }
-  }).controller('navCtrl', ['$scope', '$location', 'authentication', function($scope, $location, authentication){
+  }).controller('navCtrl', ['$scope', '$location', 'authentication', '$state', '$window',
+  function($scope, $location, authentication, $state, $window){
     $scope.logout = function () {
       authentication.logout();
-      window.location.href = "/";
+      $window.location.href = "/";
     };
+    
     // get current user
 	  $scope.currentUser = authentication.currentUser();
 	

@@ -1,6 +1,7 @@
 (function () {
   angular.module('app')
-    .controller('loginCtrl', ['$scope', 'authentication', 'meanData', function ($scope, authentication, meanData) {
+    .controller('loginCtrl', ['$scope', 'authentication', 'meanData', '$window','$rootScope', 
+      function ($scope, authentication, meanData, $window, $rootScope) {
 
       $scope.error = false;
 

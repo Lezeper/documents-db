@@ -20,7 +20,7 @@
         payload = JSON.parse(payload);
 
         return payload.exp > Date.now() / 1000;
-      }else{
+      } else {
         return false;
       }
     };
