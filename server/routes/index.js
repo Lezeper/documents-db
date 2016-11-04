@@ -25,21 +25,21 @@ router.post("/login", userCtrl.login);
 router.get("/que/c", questionCtrl.findAllQuesCategories);
 router.get("/que/c/:category", questionCtrl.findQuesByCategory);
 router.get("/que/id/:id", questionCtrl.findQuesById);
-router.post("/que", questionCtrl.createQuestion);
-router.put("/que", questionCtrl.updateQuestion);
-router.delete("/que/id/:id", questionCtrl.deleteQuestion);
+router.post("/que", auth, questionCtrl.createQuestion);
+router.put("/que", auth, questionCtrl.updateQuestion);
+router.delete("/que/id/:id", auth, questionCtrl.deleteQuestion);
 
 router.get("/cat/:group", categoryCtrl.findCategoriesByGroup);
-router.post("/cat", categoryCtrl.createCategory);
-router.put("/cat", categoryCtrl.updateCategory);
-router.delete("/cat/id/:id", categoryCtrl.deleteCategory);
+router.post("/cat", auth, categoryCtrl.createCategory);
+router.put("/cat", auth, categoryCtrl.updateCategory);
+router.delete("/cat/id/:id", auth, categoryCtrl.deleteCategory);
 
 router.get("/doc/c", docCtrl.findAllDocCategories);
 router.get("/doc/c/:category", docCtrl.findDocsByCategory);
 router.get("/doc/id/:id", docCtrl.findDocById);
-router.post("/doc", docCtrl.createDoc);
-router.put("/doc", docCtrl.updateDoc);
-router.delete("/doc/id/:id", docCtrl.deleteDoc);
+router.post("/doc", auth, docCtrl.createDoc);
+router.put("/doc", auth, docCtrl.updateDoc);
+router.delete("/doc/id/:id", auth, docCtrl.deleteDoc);
 
 router.get("/count/doc/:category", countCtrl.countDocByCategory);
 router.get("/count/que/:category", countCtrl.countQueByCategory);

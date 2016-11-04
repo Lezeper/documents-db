@@ -10,7 +10,6 @@
             $scope.error = true;
           })
           .then(function () {
-            
             window.location.href = "/";
           })
       };

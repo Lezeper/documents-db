@@ -1,6 +1,12 @@
 (function () {
-  angular.module('app').service('meanData', ['$http', '$q', function meanData($http, $q) {
+  angular.module('app').service('meanData', ['$http', '$q', 'authentication',
+   function meanData($http, $q, authentication) {
     var serverUrl = "/api";
+    var auth = {
+        headers: {
+          Authorization: 'Bearer ' + authentication.getToken()
+        }
+    };
     /***** User *****/
 
     var getAllUsers = function () {
@@ -12,15 +18,15 @@
     };
 
     var createUser = function (newUser) {
-      return $http.post(serverUrl + '/user', newUser, {});
+      return $http.post(serverUrl + '/user', newUser, auth);
     };
 
     var updateUser = function (updateUser) {
-      return $http.put(serverUrl + '/user', updateUser, {});
+      return $http.put(serverUrl + '/user', updateUser, auth);
     };
 
     var deleteUser = function (id) {
-      return $http.delete(serverUrl + '/user?id=' + id, {});
+      return $http.delete(serverUrl + '/user?id=' + id, auth);
     };
 
     /***** Question *****/
@@ -38,15 +44,15 @@
     };
 
     var createQue = function (newQuestion) {
-      return $http.post(serverUrl + '/que', newQuestion, {});
+      return $http.post(serverUrl + '/que', newQuestion, auth);
     };
 
     var updateQue = function (updateQuestion) {
-      return $http.put(serverUrl + '/que', updateQuestion, {});
+      return $http.put(serverUrl + '/que', updateQuestion, auth);
     };
 
     var deleteQue = function (id) {
-      return $http.delete(serverUrl + '/que/id/' + id, {});
+      return $http.delete(serverUrl + '/que/id/' + id, auth);
     };
 
     var getQueTitleByKeyword = function(keyword){
@@ -72,15 +78,15 @@
     };
 
     var createDoc = function(doc){
-      return $http.post(serverUrl + '/doc', doc);
+      return $http.post(serverUrl + '/doc', doc, auth);
     };
 
     var updateDoc = function(doc){
-      return $http.put(serverUrl + '/doc', doc);
+      return $http.put(serverUrl + '/doc', doc, auth);
     };
 
     var deleteDoc = function(id){
-      return $http.delete(serverUrl + '/doc/id/' + id);
+      return $http.delete(serverUrl + '/doc/id/' + id, auth);
     }
 
     var getDocTitleByKeyword = function(keyword){
@@ -101,15 +107,15 @@
     }
 
     var createCategory = function(cat){
-      return $http.post(serverUrl + '/cat', cat);
+      return $http.post(serverUrl + '/cat', cat, auth);
     }
 
     var updateCategory = function(cat){
-      return $http.put(serverUrl + '/cat', cat);
+      return $http.put(serverUrl + '/cat', cat, auth);
     }
 
     var deleteCategory = function(id){
-      return $http.delete(serverUrl + '/cat/id/' + id);
+      return $http.delete(serverUrl + '/cat/id/' + id, auth);
     }
 
     /***** Count *****/

@@ -41,6 +41,8 @@ userSchema.methods.generateJwt = function () {
   
   return jwt.sign({
     _id: this._id,
+    email: this.email,
+    name: this.name,
     exp: parseInt(expiry.getTime() / 1000)
   }, config.secretKey)
 };

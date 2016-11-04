@@ -32,16 +32,14 @@
             $scope.selRelateds.forEach(function(elem){
               $scope.addQ.related.push(elem);
             });
+            
+            $scope.addQ.author = authentication.currentUser().name;
 
-            authentication.currentUser().then(function(res){
-              $scope.addQ.author = res.name;
-
-              meanData.createQue($scope.addQ).then(function (res) {
-                alert(res.data.message);
-                $state.reload();
-                }, function(err){
-                alert(err.data.message);
-              });
+            meanData.createQue($scope.addQ).then(function (res) {
+              alert(res.data.message);
+              $state.reload();
+              }, function(err){
+              alert(err.data.message);
             });
           }
         };

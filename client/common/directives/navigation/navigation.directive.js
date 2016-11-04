@@ -10,12 +10,7 @@
       window.location.href = "/";
     };
     // get current user
-	var promise = authentication.currentUser();
-	if(promise){
-		promise.then(function(value){
-	    	$scope.currentUser = value;
-	    });
-	}
+	  $scope.currentUser = authentication.currentUser();
 	
     $scope.isLoggedIn = authentication.isLoggedIn();
     $scope.isActive = function(viewLocation){

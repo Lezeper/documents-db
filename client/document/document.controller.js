@@ -37,15 +37,13 @@
               $scope.addD.related.push(elem);
             });
 
-            authentication.currentUser().then(function(res){
-              $scope.addD.author = res.name;
+            $scope.addD.author = authentication.currentUser().name;
 
-              meanData.createDoc($scope.addD).then(function (res) {
-                alert(res.data.message);
-                $state.reload();
-                }, function(err){
-                alert(err.data.message);
-              });
+            meanData.createDoc($scope.addD).then(function (res) {
+              alert(res.data.message);
+              $state.reload();
+              }, function(err){
+              alert(err.data.message);
             });
           }
       	};
