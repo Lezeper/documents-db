@@ -118,6 +118,23 @@
       return $http.delete(serverUrl + '/cat/id/' + id, auth);
     }
 
+    /***** Log *****/
+    var getAllLogs = function(){
+      return $http.get(serverUrl + '/log', auth);
+    }
+
+    var getLogsByIp = function(ip){
+      return $http.get(serverUrl + '/log?ip=' + ip, auth)
+    }
+
+    var getLogsByDate = function(date){
+      return $http.get(serverUrl + '/log?date=' + date, auth);
+    }
+
+    var deleteAllLogs = function(){
+      return $http.delete(serverUrl + '/log', auth);
+    }
+
     /***** Count *****/
     var getDocCountsByCategory = function(category){
       return $http.get(serverUrl + '/count/doc/' + category);
@@ -125,6 +142,14 @@
 
     var getQueCountsByCategory = function(category){
       return $http.get(serverUrl + '/count/que/' + category);
+    }
+
+    var getDocCounts = function(){
+      return $http.get(serverUrl + '/count/doc');
+    }
+
+    var getQueCounts = function(){
+      return $http.get(serverUrl + '/count/que');
     }
 
     var getRelatedByKeyword = function(keyword){
@@ -172,8 +197,15 @@
       getDocByKeyword: getDocByKeyword,
       getRelatedByKeyword: getRelatedByKeyword,
 
+      getAllLogs: getAllLogs,
+      getLogsByIp: getLogsByIp,
+      getLogsByDate: getLogsByDate,
+      deleteAllLogs: deleteAllLogs,
+
       getDocCountsByCategory: getDocCountsByCategory,
-      getQueCountsByCategory: getQueCountsByCategory
+      getQueCountsByCategory: getQueCountsByCategory,
+      getDocCounts: getDocCounts,
+      getQueCounts: getQueCounts
     }
   }])
 })();

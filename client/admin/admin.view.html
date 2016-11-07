@@ -1,0 +1,13 @@
+<div style="padding: 20px">
+	<div class="col-sm-3 list-group">
+		<a role="presentation" class="list-group-item"><p class="font-center-bold">Admin Panel</p></a>
+		<a ui-sref="admin.overviews" class="list-group-item" ng-class="{ active: isActive('/admin/overviews') }">Overviews</a>
+		<a ui-sref="admin.users" class="list-group-item" ng-class="{ active: isActive('/admin/user') }">Users</a>
+		<a ui-sref="admin.access" class="list-group-item" ng-class="{ active: isActive('/admin/access') }">Access</a>
+		<a ui-sref="admin.source" class="list-group-item" ng-class="{ active: isActive('/admin/source') }">Source Code</a>
+	</div>
+
+	<div class="col-sm-9">
+		<ui-view></ui-view>
+	</div>	
+</div>

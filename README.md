@@ -8,36 +8,41 @@
 				Jwt
 
 ### RESTful API
-				GET    /api/doc/c			- find all document categories
+				(* means it has been protected by token)
+##### Documents
                 GET    /api/doc/id/:id     	- find specific document
                 GET    /api/doc/c/:category?- find all documents by category
-                POST   /api/doc             - create document
-                PUT    /api/doc             - update document
-                DELETE /api/doc/id/:id		- delete document
-
-                GET    /api/que/c			- find all question categories
+               *POST   /api/doc             - create document
+               *PUT    /api/doc             - update document
+               *DELETE /api/doc/id/:id		- delete document
+##### Quizs
                 GET    /api/que/id/:id     	- find specific question
                 GET    /api/que/c/:category - find all questions by category
-                POST   /api/que             - create question
-                PUT    /api/que             - update question
-                DELETE /api/que/id/:id		- delete question
-
+               *POST   /api/que             - create question
+               *PUT    /api/que             - update question
+               *DELETE /api/que/id/:id		- delete question
+##### Category
                 GET	   /api/cat             - find all technical categories
                 GET	   /api/cat/:group		- find all categories by group (doc, que...)
-                POST   /api/cat             - create technical category
-                PUT    /api/cat             - update technical category
-                DELETE /api/cat             - delete a technical category
-				
+               *POST   /api/cat             - create technical category
+               *PUT    /api/cat             - update technical category
+               *DELETE /api/cat             - delete a technical category
+##### Search				
 				GET	   /api/s/q/:keyword?	- find all questions by keyword and need
 				GET	   /api/s/d/:keyword?	- find all documents by keyword and need
-
+##### User
 				GET    /api/user     		- find all user
-                GET    /api/:id      		- find specific user
-                POST   /api/login    		- user login
-                POST   /api/user     		- user register
+                GET    /api/user/:id      	- find specific user
+               *POST   /api/login    		- user login
+               *POST   /api/user     		- user register
                 PUT    /api/user     		- update user
                 DELETE /api/user     		- delete user
-
+##### Log
+               *GET    /api/log?ip/?date 	- find logs may by conditions
+               *Delete /api/log 		    - delete all logs 
+##### Counter
+				GET    /api/count/doc 		- count # of documents
+				GET    /api/count/que 	    - count # of questions
                 GET	   /api/count/doc/:category
                 							- count the numbers of doc by category
                 GET	   /api/count/que/:category
@@ -74,6 +79,10 @@
 				sub: Array[name]
 				weight: Number
 				group: String, required
+##### Logger
+				ip: String, required
+				target: String, required
+				created: Date, required
 
 ### Front End Routing
 				/				- index page
@@ -86,13 +95,18 @@
 				/que/:mainCategory/:subCategory
 								- questions	by category or specific one
 				/que?id 		- specific question
-				/admin			- admin home page
+				/admin/overviews- admin overviews page
+				/admin/access	- logger for monitoring visitor
+				/admin/users	- user lists
+				/admin/source 	- hot update
 
 ### Functions in each page
-				/ 				- search, update
-				/doc 			- (nav) CRUD
+				/ 				- search bar, update and delete
+				/nav/doc 		- (nav) Doc Category CRUD
 				/doc/:m/:s 		- (doc) CRUD
-				/admin			- 
+				/nav/que 		- (nav) Que Category CRUD
+				/que/:m/:s 		- (que) CRUD
+				/admin/access	- logger check and delete 
 
 ### Modules
 ##### Document Lists
@@ -133,8 +147,9 @@
 
 ### Future Features
 				1. Self-Test module
-				2. Admin Module (doc #, daily visits)
-				3. 
+				2. Admin Module (doc #, daily visits, hot update)
+				3. MongoDB Lab vs DreamHost
+				4. Actice Code
 
 ### Bugs
 ##### ng-repeat scope

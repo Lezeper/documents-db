@@ -1,30 +1,34 @@
-<!-- question nav -->
-<div class="col-sm-10 col-sm-offset-1 font-center">
-	<h2>{{subCategory}}</h2>
-</div>
-<div class="col-sm-10 col-sm-offset-1">
-	<button class="btn btn-primary" ng-click="goToDataNav()">Go Back</button>
-	<label class="btn btn-warning" ng-click="addQuePage()" ng-show="isLoggedIn">+</label>
-</div>
-<!-- /question nav -->
-<!-- Add new question -->
-<div class="col-sm-8 col-sm-offset-2 well" ng-show="showAdd">
-	<form ng-submit="submitQue()" novalidate>
-		<h2 class="text-center">Add new Question</h2>
-		<div class="form-group">
-			<label for="title"><span style="color:red">*</span> Question Title</label>
-			<input type="text" class="form-control" id="title" ng-model="addQ.title">
+<div class="col-sm-12">
+	<!-- question nav -->
+	<div class="lists-style">
+		<div class="font-center">
+			<h2>{{subCategory}}</h2>
 		</div>
-		<div class="form-group" ng-init="prismHighlight()">
-			<label for="answer">Answer</label>
-			<textarea id="answer" ng-model="addQ.answer" ui-tinymce="tinymceUsage" class="form-control"></textarea>
+		<div class="">
+			<button class="btn btn-primary" ng-click="goToDataNav()">Go Back</button>
+			<label class="btn btn-warning" ng-click="addQuePage()" ng-show="isLoggedIn">+</label>
 		</div>
-		<category></category>
-		<related></related>
-		<br>
-		<button type="submit" class="btn btn-primary">Submit</button>
-		<button type="button" class="btn btn-default" ng-click="showAdd=false">Cancel</button>
-	</form>
+		<!-- /question nav -->
+		<!-- Add new question -->
+		<div class="well" ng-show="showAdd">
+			<form ng-submit="submitQue()" novalidate>
+				<h2 class="text-center">Add new Question</h2>
+				<div class="form-group">
+					<label for="title"><span style="color:red">*</span> Question Title</label>
+					<input type="text" class="form-control" id="title" ng-model="addQ.title">
+				</div>
+				<div class="form-group" ng-init="prismHighlight()">
+					<label for="answer">Answer</label>
+					<textarea id="answer" ng-model="addQ.answer" ui-tinymce="tinymceUsage" class="form-control"></textarea>
+				</div>
+				<category></category>
+				<related></related>
+				<br>
+				<button type="submit" class="btn btn-primary">Submit</button>
+				<button type="button" class="btn btn-default" ng-click="showAdd=false">Cancel</button>
+			</form>
+		</div>
+		<!-- /Add new question -->
+		<list-que></list-que>
+	</div>
 </div>
-<!-- /Add new question -->
-<list-que></list-que>

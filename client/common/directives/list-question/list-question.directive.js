@@ -19,12 +19,15 @@
 		          		scope.showAnswer = !scope.showAnswer;
 		          });
 		        } else {
-		        	meanData.getQuesByCategory(scope.subCategory).then(function (data) {
-		                scope.questions = data.data;
-		                scope.totalItems = data.data.length;
-		                scope.currentPage = 1;
-		                scope.updateQueList();
-		            });
+		        	if(scope.subCategory){
+		        		meanData.getQuesByCategory(scope.subCategory).then(function (data) {
+			                scope.questions = data.data;
+			                scope.totalItems = data.data.length;
+			                scope.currentPage = 1;
+			                scope.updateQueList();
+			            });
+		        	}
+		        	
 		        }
 
 		        scope.updateQuePage = function(question){

@@ -20,12 +20,14 @@
       					scope.filteredDocs[0].showAnswer = true;
       				});
       			} else {
-      				meanData.getDocByCategory(scope.subCategory).then(function (data) {
-		                scope.docs = data.data;
-		                scope.totalItems = data.data.length;
-		                scope.currentPage = 1;
-		                scope.updateDocList();
-		            });
+      				if(scope.subCategory){
+      					meanData.getDocByCategory(scope.subCategory).then(function (data) {
+			                scope.docs = data.data;
+			                scope.totalItems = data.data.length;
+			                scope.currentPage = 1;
+			                scope.updateDocList();
+			            });
+      				}
 		    	}
 
       			scope.doDeepCopy = function(doc){

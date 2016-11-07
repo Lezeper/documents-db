@@ -39,9 +39,29 @@
           controller: "queCtrl"
         })
         .state('admin', {
-          url: '/admin',
+          url: '/admin/',
           templateUrl: "/admin/admin.view.html",
           controller: "adminCtrl"
+        })
+        .state('admin.overviews', {
+          url: 'overviews/',
+          templateUrl: "/admin/overviews/admin.overviews.view.html",
+          controller: "adminOverviewsCtrl"
+        })
+        .state('admin.users', {
+          url: 'users/',
+          templateUrl: "/admin/users/admin.users.view.html",
+          controller: "adminUsersCtrl"
+        })
+        .state('admin.access', {
+          url: 'access/',
+          templateUrl: "/admin/access/admin.access.view.html",
+          controller: "adminAccessCtrl"
+        })
+        .state('admin.source', {
+          url: 'source/',
+          templateUrl: "/admin/source/admin.source.view.html",
+          controller: "adminSourceCtrl"
         })
 
         $urlRouterProvider.otherwise('/');

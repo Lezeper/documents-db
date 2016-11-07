@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var category = new mongoose.Schema({
+var categorySchema = new mongoose.Schema({
 	main: {
 		type: String,
 		required: true
@@ -18,4 +18,4 @@ var category = new mongoose.Schema({
 	}
 });
 
-mongoose.model('Category', category);
+mongoose.model('Category', categorySchema);

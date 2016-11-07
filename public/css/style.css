@@ -1,6 +1,6 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    padding: 50px;
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 a {
   color: #00B7FF;
@@ -41,11 +41,24 @@ code[class*="language-"], pre[class*="language-"] {
 .font-center {
 	text-align: center;
 }
+.font-center-bold {
+	text-align: center;
+	font-weight: bold;
+}
 .same-line {
 	display:inline;
 }
 .font-bold {
 	font-weight: bold;
+}
+.lists-style {
+	max-width: 500px;
+	margin-left:auto;
+    margin-right:auto;
+    display:block;
+}
+.body-style {
+	max-width: 1000px;
 }
 
 @media only screen and (max-device-width: 480px) {
@@ -58,6 +71,6 @@ code[class*="language-"], pre[class*="language-"] {
 		padding: 0;
 	}
 	p pre {
-		font-size: 12px;
+		font-size: 11px;
 	}
 }
