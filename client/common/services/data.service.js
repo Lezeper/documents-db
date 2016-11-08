@@ -135,6 +135,23 @@
       return $http.delete(serverUrl + '/log', auth);
     }
 
+    /***** Settings *****/
+    var getSettings = function(){
+      return $http.get(serverUrl + '/settings', auth);
+    }
+
+    var doDBBackup = function(){
+      return $http.get(serverUrl + '/settings/dbbu');
+    }
+
+    var updateSettings = function(settings){
+      return $http.put(serverUrl + '/settings', settings, auth);
+    }
+
+    var deleteSettings = function(){
+      return $http.delete(serverUrl + '/settings', auth);
+    }
+
     /***** Count *****/
     var getDocCountsByCategory = function(category){
       return $http.get(serverUrl + '/count/doc/' + category);
@@ -152,6 +169,7 @@
       return $http.get(serverUrl + '/count/que');
     }
 
+    /***** Others *****/
     var getRelatedByKeyword = function(keyword){
       var p =new Promise(function(resolve, reject){
         $q.all([
@@ -205,7 +223,13 @@
       getDocCountsByCategory: getDocCountsByCategory,
       getQueCountsByCategory: getQueCountsByCategory,
       getDocCounts: getDocCounts,
-      getQueCounts: getQueCounts
+      getQueCounts: getQueCounts,
+
+      getSettings: getSettings,
+      updateSettings: updateSettings,
+      deleteSettings: deleteSettings,
+
+      doDBBackup: doDBBackup
     }
   }])
 })();

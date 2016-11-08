@@ -1,0 +1,20 @@
+<div>
+	<h2 class="font-center">Model Generator</h2>
+
+	<div class="form-group">
+		<label>Model Name</label>
+		<input type="text" class="form-control" ng-model="mg.name"/>
+	</div>
+	<div class="form-group">
+		<label>Generate</label>
+		<div class="checkbox">
+			<label><input type="checkbox" ng-model="mg.side.c" ng-init="mg.side.c=true"/>Client Side Files</label>
+		</div>
+		<div class="checkbox">
+			<label><input type="checkbox" ng-model="mg.side.s" ng-init="mg.side.s=true"/>Server Side Files</label>
+		</div>
+	</div>
+	<div class="form-group font-center">
+		<button class="btn btn-primary" onClick="this.disabled=true" ng-click="doGenerate(mg)">Generate!</button>
+	</div>
+</div>

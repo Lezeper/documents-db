@@ -9,7 +9,8 @@ var docCtrl = require("../controllers/document");
 var seachCtrl = require("../controllers/search");
 var categoryCtrl = require("../controllers/category");
 var countCtrl = require("../controllers/count");
-var logCtrl = require("../controllers/logger");
+var logCtrl = require("../controllers/log");
+var settingsCtrl = require("../controllers/settings");
 
 var auth = jwt({
   secret: config.secretKey
@@ -47,6 +48,11 @@ router.get("/count/que/:category", countCtrl.countQueByCategory);
 
 router.get("/log?", auth, logCtrl.findAllLogs);
 router.delete("/log", auth, logCtrl.deleteAllLogs);
+
+router.get("/settings", auth, settingsCtrl.findSettings);
+router.put("/settings", auth, settingsCtrl.updateSettings);
+router.delete("/settings", auth, settingsCtrl.deleteSettings);
+router.get("/settings/dbbu", settingsCtrl.doDBBackup);
 
 router.get("/s/q/:keyword?", seachCtrl.findAllQuesByKeyword);
 router.get("/s/d/:keyword?", seachCtrl.findAllDocsByKeyword);

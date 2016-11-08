@@ -2,4 +2,5 @@ require('./user');
 require('./question');
 require('./document');
 require('./category');
-require('./logger');
+require('./settings');
+require('./log');

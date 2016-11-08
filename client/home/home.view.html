@@ -1,7 +1,7 @@
 <br>
 <br>
 <!-- Bug 1 -->
-<div hidden>
+<div hidden ng-cloak>
 	<category></category>
 	<related></related>
 </div>
@@ -36,5 +36,5 @@
 	</div>
 </div>
 <br>
-<list-que ng-show="selector == 'Quiz'"></list-que>
-<list-doc ng-show="selector == 'Doc'"></list-doc>
+<list-que ng-show="selector == 'Quiz'" ng-cloak></list-que>
+<list-doc ng-show="selector == 'Doc'" ng-cloak></list-doc>

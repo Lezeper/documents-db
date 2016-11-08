@@ -1,6 +1,7 @@
 (function () {
-  angular.module('app', ['ui.router', 'ngAnimate', 'ui.bootstrap', 'ngSanitize', 'ui.tinymce'])
-  .config(['$stateProvider', '$locationProvider', '$urlRouterProvider',
+  var app = angular.module('app', ['ui.router', 'ngAnimate', 'ui.bootstrap', 'ngSanitize', 'ui.tinymce']);
+  
+  app.config(['$stateProvider', '$locationProvider', '$urlRouterProvider',
     function ($stateProvider, $locationProvider, $urlRouterProvider) {
       $stateProvider
         .state('root', {
@@ -8,7 +9,7 @@
           templateUrl: '/home/home.view.html',
           controller: "homeCtrl"
         })
-        .state('login/register', {
+        .state('login', {
           url: '/login', // can't named "auth"
           templateUrl: "/auth/auth.view.html",
           controller: "loginCtrl"
@@ -58,19 +59,34 @@
           templateUrl: "/admin/access/admin.access.view.html",
           controller: "adminAccessCtrl"
         })
-        .state('admin.source', {
-          url: 'source/',
-          templateUrl: "/admin/source/admin.source.view.html",
-          controller: "adminSourceCtrl"
+        .state('admin.settings', {
+          url: 'settings/',
+          templateUrl: "/admin/settings/admin.settings.view.html",
+          controller: "adminSettingsCtrl"
+        })
+        .state('admin.mg', {
+          url: 'mg/',
+          templateUrl: "/admin/mg/admin.mg.view.html",
+          controller: "adminMgCtrl"
         })
 
         $urlRouterProvider.otherwise('/');
 
       $locationProvider.html5Mode(true);
 
-  }]).controller('footerCtrl', ['$scope', function ($scope) {
+  }]);
+
+  app.controller('footerCtrl', ['$scope', 'meanData', '$rootScope',
+        function ($scope, meanData, $rootScope) {
     $scope.year = new Date().getFullYear();
-  }]).controller('mainCtrl', ['$scope', '$rootScope', function($scope, $rootScope){
+    meanData.getSettings().then(function(res){
+      if(res.data.length == 1){
+        $rootScope.settings = res.data[0];
+      }
+    }); 
+  }]);
+
+  app.controller('mainCtrl', ['$scope', '$rootScope', function($scope, $rootScope){
     $rootScope.prismHighlight = function(){
       Prism.highlightAll();
     };
@@ -98,7 +114,9 @@
       $scope.prismHighlight();
     });
     
-  }]).directive('onFinishRepeat', ['$timeout', function($timeout){
+  }]);
+
+  app.directive('onFinishRepeat', ['$timeout', function($timeout){
     return {
       restrict: 'A',
       link: function(scope, element, attr){
@@ -109,7 +127,9 @@
         }
       }
     }
-  }]).directive('subCatCounts', function(){
+  }]);
+
+  app.directive('subCatCounts', function(){
     return function(scope, element, attrs){
       if(scope.group == 'doc'){
         scope.meanData.getDocCountsByCategory(attrs.subCatCounts)
@@ -125,4 +145,16 @@
       }
     };
   });
+
+  app.run(['$transitions', '$state', 'authentication', 
+          function($transitions, $state, authentication){
+    $transitions.onStart({}, function($transitions){
+
+      if($transitions.$to().name.indexOf('admin') >= 0){
+        if(!authentication.isLoggedIn())
+          $state.go('login');
+      }
+      
+    });
+  }]);
 })();

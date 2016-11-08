@@ -33,7 +33,7 @@
 ##### User
 				GET    /api/user     		- find all user
                 GET    /api/user/:id      	- find specific user
-               *POST   /api/login    		- user login
+                POST   /api/login    		- user login
                *POST   /api/user     		- user register
                 PUT    /api/user     		- update user
                 DELETE /api/user     		- delete user
@@ -48,8 +48,19 @@
                 GET	   /api/count/que/:category
                 							- count the numbers of que by
                 							category
+##### Settings
+			   *GET    /api/settings 		- get settings
+			   *GET    /api/settings/dbbu 	- DB backup signal
+			   *PUT    /api/settings 		- update settings
+			   *DELETE /api/settings 		- delete settings
 
 ### DB Model
+##### Settings
+				version: String, required
+				admin: String, required
+				web_title: String, required
+				db_backup: String 
+				created: Date, required
 ##### User
 				email: String, unique, required
 				name: String, required
@@ -85,6 +96,7 @@
 				created: Date, required
 
 ### Front End Routing
+				(* means protected)
 				/				- index page
 				/login			- admin login page
 				/nav/doc		- documents navigation page
@@ -95,18 +107,23 @@
 				/que/:mainCategory/:subCategory
 								- questions	by category or specific one
 				/que?id 		- specific question
-				/admin/overviews- admin overviews page
-				/admin/access	- logger for monitoring visitor
-				/admin/users	- user lists
-				/admin/source 	- hot update
+			   */admin/overviews- admin overviews page
+			   */admin/access	- logger for monitoring visitor
+			   */admin/users	- user lists
+			   */admin/settings - admin settings page
 
-### Functions in each page
+### Functions in some pages
 				/ 				- search bar, update and delete
 				/nav/doc 		- (nav) Doc Category CRUD
 				/doc/:m/:s 		- (doc) CRUD
+				/doc?id=		- specific doc
 				/nav/que 		- (nav) Que Category CRUD
+				/doc?id=		- specific que
 				/que/:m/:s 		- (que) CRUD
 				/admin/access	- logger check and delete 
+				/admin/overviews- # of doc,que
+				/admin/users	- user delete
+				/admin/settings - backup DB,
 
 ### Modules
 ##### Document Lists
@@ -150,6 +167,7 @@
 				2. Admin Module (doc #, daily visits, hot update)
 				3. MongoDB Lab vs DreamHost
 				4. Actice Code
+				5. Model Generator
 
 ### Bugs
 ##### ng-repeat scope

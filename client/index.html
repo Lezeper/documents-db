@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>MEAN Stack Starter</title>
     <base href="/">
     <link rel="stylesheet" href="css/font-awesome.min.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -33,7 +32,8 @@
     </div>
     <hr>
     <footer ng-controller="footerCtrl" class="text-center row">
-        <i class="fa fa-copyright" aria-hidden="true"></i> {{year}} Lewis - v0.9.6, 11/3/2016 updated
+        <title>{{settings.web_title}}</title>
+        <i class="fa fa-copyright" aria-hidden="true"></i> {{year}} {{settings.admin}} - {{settings.version}}, {{settings.created | date: "MM/dd/yyyy"}} updated
     </footer>
 </div>
 </body>

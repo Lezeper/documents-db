@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var loggerSchema = new mongoose.Schema({
+var logSchema = new mongoose.Schema({
 	ip: {
 		type: String,
 		required: true
@@ -18,4 +18,4 @@ var loggerSchema = new mongoose.Schema({
 	}
 });
 
-mongoose.model('Logger', loggerSchema);
+mongoose.model('Log', logSchema);

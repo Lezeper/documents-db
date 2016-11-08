@@ -1,4 +1,4 @@
 {
   "verbose": true,
-  "ignore": ["public/*", "client/*", "node_modules/*", "README"]
+  "ignore": ["public/*", "client/*", "node_modules/*", "backup/*", "README"]
 }
