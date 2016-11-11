@@ -123,6 +123,7 @@
         if(scope.$last === true){
           $timeout(function(){
             scope.$emit(attr.onFinishRepeat);
+            scope.prismHighlight();
           });
         }
       }

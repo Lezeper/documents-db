@@ -5,7 +5,7 @@
 		<input type="number" ng-model="numPerPage" style="max-width: 40px" />
 	</div>
 	<br><br>
-	<div ng-repeat="question in filteredQuestions">
+	<div ng-repeat="question in filteredQuestions" on-finish-repeat="onFinishRepeat">
 		<!-- Show Question Area -->
 		<div class="panel panel-default" ng-show="!question.isUpdateQuestion">
 			<!-- Title -->

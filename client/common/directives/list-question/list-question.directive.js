@@ -67,6 +67,9 @@
 							if(changed)
 								return $state.reload();
 							question.isUpdateQuestion = false;
+							setTimeout(function(){
+				          		scope.prismHighlight();
+				          	});
 						}, function(res){
 							alert(res.statusText);
 						});
@@ -79,6 +82,9 @@
 			          		question[property] = scope.questionBackup[property];
 			          	});
 						question.isUpdateQuestion=false;
+						setTimeout(function(){
+			          		scope.prismHighlight();
+			          	});
 					}
 				}
 

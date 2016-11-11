@@ -50,7 +50,7 @@ module.exports.doDBBackup = function(req, res){
 	var config = require('../config');
 	var exec = require('child_process').exec;
 	var date = new Date().toJSON().slice(0,10);
-	var cmd = 'mongodump -h ' + config.hosting + ' -d ' + config.databaseName 
+	var cmd = '/dh/mongo/bin/mongodump -h ' + config.hosting + ' -d ' + config.databaseName 
 	                    + ' -u ' + config.username + ' -p ' + config.password 
 	                          + ' -o backup/' + date;
 

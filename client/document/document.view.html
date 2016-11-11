@@ -21,13 +21,16 @@
 					<label for="description">Description</label>
 					<textarea class="form-control" id="description" ng-model="addD.description"></textarea>
 				</div>
-				<div class="form-group" ng-init="prismHighlight()">
+				<div class="form-group">
 					<label for="usage">Usage</label>
 					<textarea id="usage" ng-model="addD.usage" ui-tinymce="tinymceUsage" class="form-control"></textarea>
 				</div>
 				<category></category>
 				<related></related>
-				<br>
+				<div class="form-group">
+					<label>Notes</label>
+					<textarea ng-model="addD.notes" class="form-control"></textarea>
+				</div>
 				<button type="submit" class="btn btn-primary">Submit</button>
 				<button type="button" class="btn btn-default" ng-click="showAdd=false;cancelAddDoc()">Cancel</button>
 			</form>

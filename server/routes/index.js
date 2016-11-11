@@ -52,7 +52,7 @@ router.delete("/log", auth, logCtrl.deleteAllLogs);
 router.get("/settings", auth, settingsCtrl.findSettings);
 router.put("/settings", auth, settingsCtrl.updateSettings);
 router.delete("/settings", auth, settingsCtrl.deleteSettings);
-router.get("/settings/dbbu", settingsCtrl.doDBBackup);
+router.get("/settings/dbbu", auth, settingsCtrl.doDBBackup);
 
 router.get("/s/q/:keyword?", seachCtrl.findAllQuesByKeyword);
 router.get("/s/d/:keyword?", seachCtrl.findAllDocsByKeyword);

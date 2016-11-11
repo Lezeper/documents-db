@@ -111,6 +111,7 @@
 			   */admin/access	- logger for monitoring visitor
 			   */admin/users	- user lists
 			   */admin/settings - admin settings page
+			   */admin/mg 		- module management page
 
 ### Functions in some pages
 				/ 				- search bar, update and delete
@@ -164,10 +165,9 @@
 
 ### Future Features
 				1. Self-Test module
-				2. Admin Module (doc #, daily visits, hot update)
-				3. MongoDB Lab vs DreamHost
-				4. Actice Code
-				5. Model Generator
+				2. Hot update
+				3. Actice Code
+				4. Model Generator
 
 ### Bugs
 ##### ng-repeat scope
