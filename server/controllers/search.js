@@ -4,10 +4,13 @@ var Document = require('../models/document');
 
 function getAllByKeyword(keyword, category, need){
 	var p = new Promise(function(resolve, reject){
+		var lists = [];
+		var temp = keyword.split(" ");
+		for(var i = 0; i < temp.length; i++){
+			lists.push({'title' : {$regex: temp[i]}});
+		}
 		mongoose.model(category).find({
-			"$or": [
-				{'title' : {$regex: keyword}}
-			]
+			"$and": lists
 		}, need, function(err, data){
 			if(err)
 				reject(err);
