@@ -1,5 +1,6 @@
 (function () {
-  var app = angular.module('app', ['ui.router', 'ngAnimate', 'ui.bootstrap', 'ngSanitize', 'ui.tinymce']);
+  var app = angular.module('app', ['ui.router', 'ngAnimate', 'ui.bootstrap',
+                         'ngSanitize', 'ui.tinymce', 'ngclipboard']);
   
   app.config(['$stateProvider', '$locationProvider', '$urlRouterProvider',
     function ($stateProvider, $locationProvider, $urlRouterProvider) {

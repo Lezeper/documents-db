@@ -33,6 +33,9 @@ code[class*="language-"], pre[class*="language-"] {
 .padding-zero {
 	padding: 0;
 }
+.padding-left-zero {
+	padding-left: 0;
+}
 .margin-zero {
 	margin: 0;
 }
@@ -63,6 +66,9 @@ code[class*="language-"], pre[class*="language-"] {
 }
 .body-style {
 	max-width: 1000px;
+}
+.next-icon {
+	padding-left: 10px
 }
 
 @media only screen and (max-device-width: 480px) {

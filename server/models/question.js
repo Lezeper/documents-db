@@ -16,6 +16,12 @@ var questionSchema = new mongoose.Schema({
   position: {
     type: String
   },
+  notes: {
+    type: String
+  },
+  links: {
+	  type: Array
+  },
   author:{
     type: String,
     required: false

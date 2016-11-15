@@ -17,51 +17,48 @@
 		    <div class="panel-body show-hide" ng-show="doc.showAnswer">
 		    	<!-- Description -->
 		    	<div class="form-group" ng-show="doc.description">
-	    			<label>Description</label>
+	    			<label><i class="fa fa-align-justify" aria-hidden="true"></i><span class="next-icon">Description</span></label>
 	    			<textarea class="form-control" readonly>{{doc.description}}</textarea>
 	    			<hr>
 	    		</div>
 	    		<!-- /Description -->
 	    		<!-- Usage -->
 	    		<div class="form-group">
-	    			<label>Usage</label>
+	    			<label><i class="fa fa-file-text" aria-hidden="true"></i><span class="next-icon">Usage</span></label>
 	    			<p ng-bind-html="doc.usage"></p>
 	    		</div>
 				<!-- /Usage -->
 				<!-- Related -->
 				<div ng-show="doc.related.length > 0">
     				<hr>
-	    			<label>Related</label>
+	    			<label><i class="fa fa-share" aria-hidden="true"></i><span class="next-icon">Related</span></label>
 		        	<div ng-repeat="curRelated in doc.related">
 						<a href="/{{doc.group}}?id={{doc._id}}" target="_blank">{{curRelated.title}}</a>
 					</div>
 	    		</div>
 				<!-- /Related -->
-				<!-- Notes -->
-				<div ng-show="doc.notes">
+				<!-- Links -->
+				<div class="form-group" ng-if="doc.links.length>0">
 					<hr>
-					<label>Notes</label>
-					<p>{{doc.notes}}</p>
-				</div>
-				<!-- /Notes -->
-				<hr>
-				<!-- Link -->
-				<div class="form-group">
-		    		<label>Link</label>
-		    		<input type="text" class="form-control" value="{{hostName}}/{{doc.group}}?id={{doc._id}}" />
+		    		<label><i class="fa fa-link" aria-hidden="true"></i><span class="next-icon">External Links</span></label>
+		    		<div> 
+		    			<a href="{{link}}" target="_blank" style="display: block;" ng-repeat="link in doc.links track by $index">{{link}}</a>
+		    		</div>
 		    	</div>
-		    	<!-- /Link -->
+		    	
+		    	<!-- /Links -->
 		        <!-- Author -->
 				<div ng-show="doc.author">
 					<hr>
-					<p class="footer-style">Updated by {{doc.author}} on {{doc.created | date:'yyyy-MM-dd HH:mm:ss'}}</p>
+					<i class="fa fa-calendar-times-o" aria-hidden="true"></i><span class="footer-style next-icon">Updated by {{doc.author}} on {{doc.created | date:'yyyy-MM-dd HH:mm:ss'}}</span>
 				</div>
 				<!-- /Author -->
+				<div>
+					<button ng-if="isLoggedIn" class="btn btn-link padding-left-zero" ng-click="updateDocPage(doc)"><i class="fa fa-pencil"></i></button>
+					<button  ng-if="isLoggedIn" class="btn btn-link padding-left-zero" ng-click="deleteDoc(doc)"><i class="fa fa-remove"></i></button>
+					<button class="btn btn-link padding-left-zero"  ngclipboard data-clipboard-text="{{hostName}}/{{doc.group}}?id={{doc._id}}"><i class="fa fa-clipboard" aria-hidden="true"></i></button>
+				</div>
 		    </div>
-			<div ng-show="isLoggedIn">
-				<button class="btn btn-link" ng-click="updateDocPage(doc)"><i class="fa fa-pencil"></i></button>
-				<button class="btn btn-link" ng-click="deleteDoc(doc)"><i class="fa fa-remove"></i></button>
-			</div>
 		</div>
 		<!-- /Panel Show Area -->
 		<!-- Update Area -->
@@ -90,6 +87,12 @@
         	<!-- Update Category -->
     		<category></category>
 			<!-- /Update Category -->
+			<!-- Update Links -->
+			<div class="form-group">
+				<label>Links</label>
+				<input type="text" ng-model="doc.links" ng-list=";" class="form-control" />
+			</div>
+			<!-- /Update Links -->
         	<!-- Update Notes -->
         	<div class="form-group">
     			<label>Notes</label>

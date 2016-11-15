@@ -18,6 +18,9 @@ var documentSchema = new mongoose.Schema({
 		type: Array,
 		required:false
 	},
+	links: {
+		type: Array
+	},
 	notes: {
 		type: String,
 		required: false

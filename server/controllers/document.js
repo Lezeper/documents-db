@@ -48,6 +48,7 @@ module.exports.createDoc = function(req, res){
 	document.title = req.body.title.toLowerCase();
 	document.description = req.body.description;
 	document.usage = req.body.usage;
+	document.links = req.body.links;
 	document.related = req.body.related;
 	document.notes = req.body.notes;
 	document.category = req.body.category;

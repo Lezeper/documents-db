@@ -35,6 +35,14 @@
 				</div>
 				<category></category>
 				<related></related>
+				<div class="form-group">
+					<label>Links(seperate by ;)</label>
+					<input ng-model="addQ.links" ng-list=";" class="form-control" />
+				</div>
+				<div class="form-group">
+					<label>Notes</label>
+					<textarea class="form-control" ng-model="addQ.notes"></textarea>
+				</div>
 				<br>
 				<button type="submit" class="btn btn-primary">Submit</button>
 				<button type="button" class="btn btn-default" ng-click="showAdd=false">Cancel</button>
