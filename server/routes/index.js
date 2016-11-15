@@ -49,7 +49,7 @@ router.get("/count/que/:category", countCtrl.countQueByCategory);
 router.get("/log?", auth, logCtrl.findAllLogs);
 router.delete("/log", auth, logCtrl.deleteAllLogs);
 
-router.get("/settings", auth, settingsCtrl.findSettings);
+router.get("/settings", settingsCtrl.findSettings);
 router.put("/settings", auth, settingsCtrl.updateSettings);
 router.delete("/settings", auth, settingsCtrl.deleteSettings);
 router.get("/settings/dbbu", auth, settingsCtrl.doDBBackup);

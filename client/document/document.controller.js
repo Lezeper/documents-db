@@ -23,6 +23,8 @@
           $scope.addD = new Object();
           $scope.showAdd=true;
           $scope.addD.category=$stateParams.category;
+          $scope.addD.title = 
+                  $scope.subCategory.replace(' ','').toLowerCase()+" ";
           // category directive
           $scope.showCategories('doc');
           $scope.categorySetter($scope.addD.category);

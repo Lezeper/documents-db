@@ -18,22 +18,30 @@
 		    <!-- Panel Body -->
 		    <div class="panel-body show-hide" ng-show="question.showAnswer">
 			    <!-- Answer -->
-			    <p ng-bind-html="question.answer"></p>
+			    <div class="form-group">
+			    	<p ng-bind-html="question.answer" class="well"></p>
+			    </div>
+			    <hr>
 			    <!-- /Answer -->
 		    	<!-- Related -->
-		    	<div ng-show="question.related.length != 0">
-		    		<hr>
+		    	<div ng-show="question.related.length != 0" class="form-group">
 	    			<label>Related</label>
 		        	<div ng-repeat="curRelated in question.related">
 						<a href="/{{curRelated.group}}?id={{curRelated._id}}" target="_blank">{{curRelated.title}}</a>
 					</div>
 	    		</div>
 		    	<!-- /Related -->
-		    	<hr>
+			    <!-- Question belongs -->
+		    	<div ng-show="question.company" class="form-group">
+		    		<i class="fa fa-users" aria-hidden="true">
+		    			<strong style="padding-left: 10px">{{question.company}} - {{question.position}}</strong> position
+		    		</i>
+		    	</div>
+		    	<!-- /Question belongs -->
 		    	<!-- Link -->
 		    	<div class="form-group">
-		    		<label for="link">Link</label>
-		    		<input class="form-control" value="{{hostName}}/{{question.group}}?id={{question._id}}" />
+		    		<label for="link" class="col-sm-1" style="padding: 0; width: auto;"><i class="fa fa-link" aria-hidden="true"></i></label>
+		    		<p class="col-sm-11" >{{hostName}}/{{question.group}}?id={{question._id}}</p>
 		    	</div>
 		    	<!-- /Link -->
 		    </div>
@@ -60,6 +68,23 @@
         		<textarea class="form-control" id="uContents" ng-model="question.answer" ui-tinymce="tinymceUsage"></textarea>
         	</div>
         	<!-- /Update Contents -->
+        	<!-- Update Question belongs -->
+	    	<div>
+	    		<div class="form-group">
+					<label for="uCompany">Company</label>
+					<input type="text" class="form-control" id="uCompany" ng-model="question.company" />
+				</div>
+				<div class="form-group">
+					<label for="uPosition">Position</label>
+					<select id="position" class="form-control" ng-model="question.position">
+						<option></option>
+						<option>Front End</option>
+						<option>Back End</option>
+						<option>Full Stack</option>
+					</select>
+				</div>
+	    	</div>
+	    	<!-- /Update Question belongs -->
         	<related></related>
         	<category></category>
         	<!-- Update Buttons -->

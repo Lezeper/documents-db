@@ -141,7 +141,7 @@
     }
 
     var doDBBackup = function(){
-      return $http.get(serverUrl + '/settings/dbbu');
+      return $http.get(serverUrl + '/settings/dbbu', auth);
     }
 
     var updateSettings = function(settings){

@@ -21,6 +21,18 @@
 					<label for="answer">Answer</label>
 					<textarea id="answer" ng-model="addQ.answer" ui-tinymce="tinymceUsage" class="form-control"></textarea>
 				</div>
+				<div class="form-group">
+					<label for="company">Company</label>
+					<input type="text" id="company" class="form-control" ng-model="addQ.company" />
+				</div>
+				<div class="form-group">
+					<label for="position">Position</label>
+					<select id="position" class="form-control" ng-model="addQ.position">
+						<option>Front End</option>
+						<option>Back End</option>
+						<option>Full Stack</option>
+					</select>
+				</div>
 				<category></category>
 				<related></related>
 				<br>

@@ -5,6 +5,7 @@
 		$scope.backupDB = function(){
 			meanData.doDBBackup().then(function(res){
 				alert(res.data.message);
+				$state.reload();
 			});
 		}
 

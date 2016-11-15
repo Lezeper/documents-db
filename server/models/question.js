@@ -10,6 +10,12 @@ var questionSchema = new mongoose.Schema({
     type: String,
     required: false
   },
+  company: {
+    type: String
+  },
+  position: {
+    type: String
+  },
   author:{
     type: String,
     required: false
