@@ -52,17 +52,17 @@
 		    		</div>
 		    	</div>
 		    	<!-- /Links -->
-		    	<!-- CopyClipper -->
-		    	<button class="btn btn-default"  ngclipboard data-clipboard-text="{{hostName}}/{{question.group}}?id={{question._id}}"><i class="fa fa-clipboard" aria-hidden="true"></i></button>
-		    	<!-- /CopyClipper -->
+		    	<!-- Update and Remove Button -->
+			    <div>
+			    	<button ng-if="isLoggedIn" class="btn btn-link padding-left-zero" ng-click="updateQuePage(question)"><i class="fa fa-pencil"></i></button>
+			    	<button ng-if="isLoggedIn" class="btn btn-link padding-left-zero" ng-click="deleteQuestion(question)"><i class="fa fa-remove"></i></button>
+			    	<!-- CopyClipper -->
+			    	<button class="btn btn-link padding-left-zero"  ngclipboard data-clipboard-text="{{hostName}}/{{question.group}}?id={{question._id}}"><i class="fa fa-clipboard" aria-hidden="true"></i></button>
+			    	<!-- /CopyClipper -->
+			    </div>
+			    <!-- /Update and Remove Button -->
 		    </div>
 		    <!-- /Panel Body -->
-		    <!-- Update and Remove Button -->
-		    <div ng-show="isLoggedIn">
-		    	<button class="btn btn-link" ng-click="updateQuePage(question)"><i class="fa fa-pencil"></i></button>
-		    	<button class="btn btn-link" ng-click="deleteQuestion(question)"><i class="fa fa-remove"></i></button>
-		    </div>
-		    <!-- /Update and Remove Button -->
 		</div>
 		<!-- /Show Question -->
 	    <!-- Update Question Area-->
@@ -119,5 +119,5 @@
         </div>
 	    <!-- /Update Question Area-->
 	</div>
-	<ul uib-pagination boundary-links="true" total-items="totalItems" ng-model="currentPage" class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;" items-per-page="numPerPage" ng-show="filteredQuestions"></ul>
+	<ul uib-pagination boundary-links="true" total-items="totalItems" ng-model="currentPage" class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" max-size="5" rotate="false" last-text="&raquo;" items-per-page="numPerPage" ng-show="filteredQuestions"></ul>
 </div>

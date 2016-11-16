@@ -14,9 +14,9 @@
 
       			// receive question id
 		        if(scope.questionId){
-		    	      meanData.getQuestionById(scope.questionId).then(function(res){
+		    	      meanData.getQueById(scope.questionId).then(function(res){
 		          		scope.filteredQuestions = [res.data];
-		          		scope.showAnswer = !scope.showAnswer;
+		          		scope.filteredQuestions[0].showAnswer = true;
 		          });
 		        } else {
 		        	if(scope.subCategory){
