@@ -4,7 +4,7 @@ var Question = mongoose.model('Question');
 module.exports.createQuestion = function (req, res) {
   var question = new Question();
 
-  question.title = req.body.title.toLowerCase();
+  question.title = req.body.title.split("-").join("").toLowerCase();
   question.answer = req.body.answer;
   question.author = req.body.author;
   question.notes = req.body.notes;
@@ -81,6 +81,7 @@ module.exports.findQuesByCategory = function (req, res) {
 
 module.exports.updateQuestion = function (req, res) {
   req.body.created = new Date();
+  req.body.title = req.body.title.split("-").join("").toLowerCase();
   Question.findOneAndUpdate({_id: req.body._id}, req.body, function(err, document){
     if(err)
       return res.send(500, err);

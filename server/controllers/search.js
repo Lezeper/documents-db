@@ -5,7 +5,7 @@ var Document = require('../models/document');
 function getAllByKeyword(keyword, category, need){
 	var p = new Promise(function(resolve, reject){
 		var lists = [];
-		var temp = keyword.toLowerCase().split(" ");
+		var temp = keyword.split("-").join("").toLowerCase().split(" ");
 		for(var i = 0; i < temp.length; i++){
 			lists.push({'title' : {$regex: temp[i]}});
 		}

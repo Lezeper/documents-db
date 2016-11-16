@@ -24,7 +24,7 @@
           $scope.showAdd=true;
           $scope.addD.category=$stateParams.category;
           $scope.addD.title = 
-                  $scope.subCategory.replace(' ','').toLowerCase()+" ";
+                  $scope.subCategory.split("-","").join("").toLowerCase()+" ";
           // category directive
           $scope.showCategories('doc');
           $scope.categorySetter($scope.addD.category);
@@ -41,7 +41,6 @@
             });
 
             $scope.addD.author = authentication.currentUser().name;
-
             meanData.createDoc($scope.addD).then(function (res) {
               alert(res.data.message);
               $state.reload();

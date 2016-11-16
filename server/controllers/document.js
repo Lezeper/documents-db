@@ -45,7 +45,7 @@ module.exports.findDocsByCategory = function(req, res){
 
 module.exports.createDoc = function(req, res){
 	var document = new Document();
-	document.title = req.body.title.toLowerCase();
+	document.title = req.body.title.split("-").join("").toLowerCase();;
 	document.description = req.body.description;
 	document.usage = req.body.usage;
 	document.links = req.body.links;
@@ -66,6 +66,7 @@ module.exports.createDoc = function(req, res){
 
 module.exports.updateDoc = function(req, res){
 	req.body.created = new Date();
+	req.body.title = req.body.title.split("-").join("").toLowerCase();
 	Document.findOneAndUpdate({_id: req.body._id}, req.body, function(err, document){
 		if(err)
 			return res.send(500, err);

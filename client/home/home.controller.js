@@ -54,19 +54,19 @@
         clearPanels();
       });
 
-      $scope.searchTitle = function(){
-        if($scope.keyword){
+      $scope.searchTitle = function(keyword){
+        if(keyword){
           $scope.showSearchDropDown = true;
           $scope.curSelSearchKw = -1;
-          $scope.keywordBackup = $scope.keyword;
+          $scope.keywordBackup = keyword;
 
           if($scope.selector == 'Doc'){
-            meanData.getDocTitleByKeyword($scope.keyword).then(function(res){
+            meanData.getDocTitleByKeyword(keyword).then(function(res){
               $scope.findedTile = res.data;
             });
           }
           if($scope.selector == 'Quiz'){
-            meanData.getQueTitleByKeyword($scope.keyword).then(function(res){
+            meanData.getQueTitleByKeyword(keyword).then(function(res){
               $scope.findedTile = res.data;
             });
           }

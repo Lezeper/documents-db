@@ -61,7 +61,6 @@
 		          		selRelateds.forEach(function(elem){
 			            	question.related.push(elem);
 			          	});
-				        
 	              		meanData.updateQue(question).then(function(res){
 							alert(res.data.message);
 							if(changed)
