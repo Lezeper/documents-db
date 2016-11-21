@@ -42,7 +42,7 @@
 					<hr>
 		    		<label><i class="fa fa-link" aria-hidden="true"></i><span class="next-icon">External Links</span></label>
 		    		<div> 
-		    			<a href="{{link}}" target="_blank" style="display: block;" ng-repeat="link in doc.links track by $index">{{link}}</a>
+		    			<a href="{{link}}" target="_blank" style="display: block;overflow: auto" ng-repeat="link in doc.links track by $index">{{link}}</a>
 		    		</div>
 		    	</div>
 		    	

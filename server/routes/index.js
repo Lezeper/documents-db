@@ -45,6 +45,7 @@ router.get("/count/doc", countCtrl.countDoc);
 router.get("/count/que", countCtrl.countQue);
 router.get("/count/doc/:category", countCtrl.countDocByCategory);
 router.get("/count/que/:category", countCtrl.countQueByCategory);
+router.get("/count/que/all/:answer", countCtrl.countQueByAnswer);
 
 router.get("/log?", auth, logCtrl.findAllLogs);
 router.delete("/log", auth, logCtrl.deleteAllLogs);

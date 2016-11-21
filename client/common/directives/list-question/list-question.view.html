@@ -48,7 +48,7 @@
 		    	<div class="form-group" ng-if="question.links.length>0">
 		    		<label><i class="fa fa-link" aria-hidden="true"></i><span class="next-icon">External Links</span></label>
 		    		<div> 
-		    			<a href="{{link}}" target="_blank" style="display: block;" ng-repeat="link in question.links track by $index">{{link}}</a>
+		    			<a href="{{link}}" target="_blank" style="display: block;overflow: auto" ng-repeat="link in question.links track by $index">{{link}}</a>
 		    		</div>
 		    	</div>
 		    	<!-- /Links -->

@@ -169,6 +169,10 @@
       return $http.get(serverUrl + '/count/que');
     }
 
+    var getQueCountsByAnswer = function(answer){
+      return $http.get(serverUrl + '/count/que/all/' + answer);
+    }
+
     /***** Others *****/
     var getRelatedByKeyword = function(keyword){
       var p =new Promise(function(resolve, reject){
@@ -224,6 +228,7 @@
       getQueCountsByCategory: getQueCountsByCategory,
       getDocCounts: getDocCounts,
       getQueCounts: getQueCounts,
+      getQueCountsByAnswer: getQueCountsByAnswer,
 
       getSettings: getSettings,
       updateSettings: updateSettings,

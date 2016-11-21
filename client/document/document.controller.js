@@ -24,7 +24,7 @@
           $scope.showAdd=true;
           $scope.addD.category=$stateParams.category;
           $scope.addD.title = 
-                  $scope.subCategory.split("-","").join("").toLowerCase()+" ";
+                  $scope.subCategory.toLowerCase()+" ";
           // category directive
           $scope.showCategories('doc');
           $scope.categorySetter($scope.addD.category);

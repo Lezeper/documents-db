@@ -13,5 +13,11 @@
 				$scope.queNums = res.data;
 			});
 		}
+
+		$scope.getQueNullCounts = function(){
+			meanData.getQueCountsByAnswer('null').then(function(res){
+				$scope.nullQueNums = res.data;
+			});
+		}
 	}])
 })();
