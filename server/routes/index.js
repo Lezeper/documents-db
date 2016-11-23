@@ -11,6 +11,7 @@ var categoryCtrl = require("../controllers/category");
 var countCtrl = require("../controllers/count");
 var logCtrl = require("../controllers/log");
 var settingsCtrl = require("../controllers/settings");
+var requestCtrl = require("../controllers/request");
 
 var auth = jwt({
   secret: config.secretKey
@@ -57,6 +58,10 @@ router.get("/settings/dbbu", auth, settingsCtrl.doDBBackup);
 
 router.get("/s/q/:keyword?", seachCtrl.findAllQuesByKeyword);
 router.get("/s/d/:keyword?", seachCtrl.findAllDocsByKeyword);
+
+router.get("/req", requestCtrl.getAllUserRequests);
+router.post("/req", requestCtrl.createUserRequest);
+router.delete("/req/:id", requestCtrl.deleteUserRequest);
 
 router.post("/login", userCtrl.login);
 

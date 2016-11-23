@@ -20,8 +20,27 @@
 			    <!-- Answer -->
 			    <div class="form-group">
 			    	<p ng-bind-html="question.answer"></p>
+			    	<button class="btn btn-link" style="float: right;" ng-click="question.showCorrect=true">Not Correct?</button>
 			    </div>
-			    <hr>
+			    <!-- Correct Answer -->
+			    <form ng-show="question.showCorrect" novalidate>
+			    	<hr style="clear: both">
+			    	<div class="form-group">
+				    	<label>Leave a Comment to Lewis(Admin)</label>
+				    	<textarea class="form-control" ng-model="editor.contents"></textarea>	
+				    </div>
+				    <div class="form-group">
+				    	<label>Your name (Option)</label>
+				    	<input type="text" class="form-control" ng-model="editor.name"/>
+				    </div>
+			    	<div class="form-group">
+			    		<button class="btn btn-primary" type="
+			    		submit" ng-click="sendRequest(editor, question)">Submit</button>
+			    		<button class="btn btn-default" type="reset" ng-click="question.showCorrect=false">Cancel</button>
+			    	</div>
+			    </form>
+			    <!-- /Correct Answer -->
+			    <hr style="clear: both">
 			    <!-- /Answer -->
 		    	<!-- Related -->
 		    	<div ng-show="question.related.length != 0" class="form-group">

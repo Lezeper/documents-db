@@ -70,6 +70,11 @@
           templateUrl: "/admin/mg/admin.mg.view.html",
           controller: "adminMgCtrl"
         })
+        .state('admin.request', {
+          url: 'request/',
+          templateUrl: "/admin/request/admin.req.view.html",
+          controller: "userReqCtrl"
+        })
 
         $urlRouterProvider.otherwise('/');
 

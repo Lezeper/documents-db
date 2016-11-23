@@ -173,6 +173,19 @@
       return $http.get(serverUrl + '/count/que/all/' + answer);
     }
 
+    /***** User Request *****/
+    var getAllUserRequests = function(){
+      return $http.get(serverUrl + '/req');
+    }
+
+    var sendUserRequest = function(req){
+      return $http.post(serverUrl + '/req', req);
+    }
+
+    var deleteUserRequest = function(id){
+      return $http.delete(serverUrl + '/req/' + id);
+    }
+
     /***** Others *****/
     var getRelatedByKeyword = function(keyword){
       var p =new Promise(function(resolve, reject){
@@ -233,6 +246,10 @@
       getSettings: getSettings,
       updateSettings: updateSettings,
       deleteSettings: deleteSettings,
+
+      getAllUserRequests: getAllUserRequests,
+      sendUserRequest: sendUserRequest,
+      deleteUserRequest: deleteUserRequest,
 
       doDBBackup: doDBBackup
     }

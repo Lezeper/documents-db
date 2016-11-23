@@ -48,11 +48,18 @@
                 GET	   /api/count/que/:category
                 							- count the numbers of que by
                 							category
+                GET    /api/count/que/all/:answer
+                							- count the number of que by 
+                							answer
 ##### Settings
 			   *GET    /api/settings 		- get settings
 			   *GET    /api/settings/dbbu 	- DB backup signal
 			   *PUT    /api/settings 		- update settings
 			   *DELETE /api/settings 		- delete settings
+##### User Request
+			   *GET    /api/req 			- get all user requests
+				POST   /api/req 			- create user request
+			   *DELETE /api/req/:id 		- delete user request by id
 
 ### DB Model
 ##### Settings
@@ -93,6 +100,11 @@
 ##### Logger
 				ip: String, required
 				target: String, required
+				created: Date, required
+##### UserRequest
+				contents: String
+				name: String
+				link: String
 				created: Date, required
 
 ### Front End Routing

@@ -4,3 +4,4 @@ require('./document');
 require('./category');
 require('./settings');
 require('./log');
+require('./request');

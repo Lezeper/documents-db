@@ -30,6 +30,19 @@
 		        	
 		        }
 
+		        scope.sendRequest = function(req, que){
+		        	if(!req)
+		        		return alert("Invalid Input!");
+		        	req.link = scope.hostName + "/" + que.group + "?id=" + que._id;
+		        	meanData.sendUserRequest(req).then(function(res){
+		        		alert(res.data.message);
+		        		Object.keys(req).forEach(function(k){
+			        		req[k] = null;
+			        	});
+		        		que.showCorrect = false;
+		        	});
+		        }
+
 		        scope.updateQuePage = function(question){
 		        	question.isUpdateQuestion=true;
 		        	question.showAnswer=true;
