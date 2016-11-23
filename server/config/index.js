@@ -1,5 +1,5 @@
 var username = "ledzeper";
-var password = "LA4j6hSV5mcj";
+var password = "xsRr9yMw6U3K6vMa";
 var databaseName = "Programming_Documents";
 var hosting = "ps537705.dreamhostps.com:27017";
 

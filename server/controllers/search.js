@@ -5,9 +5,12 @@ var Document = require('../models/document');
 function getAllByKeyword(keyword, category, need){
 	var p = new Promise(function(resolve, reject){
 		var lists = [];
-		var temp = keyword.split("-").join("").toLowerCase().split(" ");
+		var temp = keyword.split("-").join("")
+					.toLowerCase().split(" ");
 		for(var i = 0; i < temp.length; i++){
-			lists.push({'title' : {$regex: temp[i]}});
+			// deal with $ sign problem
+			var t = temp[i].replace("$", "\\$");
+			lists.push({'title' : {$regex: t}});
 		}
 		mongoose.model(category).find({
 			"$and": lists
@@ -15,7 +18,7 @@ function getAllByKeyword(keyword, category, need){
 			if(err)
 				reject(err);
 			resolve(data);
-		});
+		}).limit(5);
 	});
 	return p;
 };

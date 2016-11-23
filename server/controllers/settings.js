@@ -29,6 +29,7 @@ var createSettings = function(req, res){
 }
 
 module.exports.updateSettings = function(req, res){
+	req.body.created = new Date();
 	Settings.findOneAndUpdate({_id: req.body._id}, req.body, 
 												function(err, settings){
 		if(err)

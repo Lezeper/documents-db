@@ -194,3 +194,5 @@
 				Object.keys(updateQ).forEach(function(property){
 	          		updateQ[property] = question[property];
 	          	});	
+##### Search Engine
+				Can't search the title which contain "/".
