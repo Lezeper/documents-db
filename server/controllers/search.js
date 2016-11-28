@@ -5,13 +5,17 @@ var Document = require('../models/document');
 function getAllByKeyword(keyword, category, need){
 	var p = new Promise(function(resolve, reject){
 		var lists = [];
+		var subLists = [];
 		var temp = keyword.split("-").join("")
 					.toLowerCase().split(" ");
 		for(var i = 0; i < temp.length; i++){
 			// deal with $ sign problem
 			var t = temp[i].replace("$", "\\$");
-			lists.push({'title' : {$regex: t}});
+			lists.push( { $or: [{'title' : {$regex: t}} , 
+								{'sub_title' : {$regex: t}}] } );
+			// subLists.push({'sub_title' : {$regex: t}});
 		}
+
 		mongoose.model(category).find({
 			"$and": lists
 		}, need, function(err, data){
@@ -19,6 +23,28 @@ function getAllByKeyword(keyword, category, need){
 				reject(err);
 			resolve(data);
 		}).limit(5);
+		/*
+		var p2 = new Promise(function(resolve2, reject2){
+			mongoose.model(category).find({
+				"$and": lists
+			}, need, function(err, data){
+				if(err)
+					reject2(err);
+				resolve2(data);
+			}).limit(5);
+		});
+		p2.then(function(data){
+			mongoose.model(category).find({
+				"$and": subLists
+			}, need, function(err, data2){
+				if(err)
+					reject(err);
+				var result = [];
+				result.push.apply(result, data);
+				result.push.apply(result, data2);
+				resolve(result);
+			}).limit(5);
+		});*/
 	});
 	return p;
 };

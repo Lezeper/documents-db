@@ -6,6 +6,9 @@ var questionSchema = new mongoose.Schema({
     unique: true,
     required: true
   },
+  sub_title: {
+    type: Array
+  },
   answer: {
     type: String,
     required: false

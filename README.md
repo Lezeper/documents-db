@@ -76,6 +76,7 @@
 				password: crypto, passport
 ##### Document
 				title: String, unique, required
+				sub_title: String
 				description: String
 				usage: String
 				related: Array[title, group, _id]

@@ -17,6 +17,10 @@
 					<label for="title"><span style="color:red">*</span> Question Title</label>
 					<input type="text" class="form-control" id="title" ng-model="addQ.title">
 				</div>
+				<div class="form-group">
+					<label for="sub-title">Sub Title(seperate by ";")</label>
+					<input type="text" class="form-control" id="sub-title" ng-model="addQ.sub_title" ng-list=";">
+				</div>
 				<div class="form-group" ng-init="prismHighlight()">
 					<label for="answer">Answer</label>
 					<textarea id="answer" ng-model="addQ.answer" ui-tinymce="tinymceUsage" class="form-control"></textarea>

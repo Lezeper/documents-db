@@ -6,6 +6,7 @@ module.exports.createQuestion = function (req, res) {
 
   question.title = req.body.title.split("-").join("").toLowerCase();
   question.answer = req.body.answer;
+  question.sub_title = req.body.sub_title;
   question.author = req.body.author;
   question.notes = req.body.notes;
   question.links = req.body.links;
