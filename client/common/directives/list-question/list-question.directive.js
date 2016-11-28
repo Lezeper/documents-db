@@ -55,7 +55,12 @@
 		        	scope.questionBackup = angular.copy(question);
 		        }
 
-				scope.updateQueList = function(){
+				scope.updateQueList = function(que){
+					if(typeof que == "object"){
+						var result = [];
+						result.push(que);
+						return scope.filteredQuestions = result;
+					}
 					var begin = (scope.currentPage - 1) * scope.numPerPage;
 					var end = begin + scope.numPerPage;
 					if(scope.questions){

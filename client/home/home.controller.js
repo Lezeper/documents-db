@@ -18,10 +18,15 @@
         $scope.$digest();
         $scope.doSearch(0);
       }
+
+      $scope.setDataId = function(id){
+        $scope.dataId = id;
+      }
       
       $scope.focusSearch = function(signal){
         var op = $scope.curSelSearchKw*1 + signal*1;
         var curSelSearchTitle = document.getElementById("search-" + op);
+        $scope.setDataId(curSelSearchTitle.dataset.dataId);
         if(curSelSearchTitle){
           var ori = document.getElementById("search-" + $scope.curSelSearchKw);
           if(ori){ ori.style.backgroundColor = null; }
@@ -82,28 +87,36 @@
           $scope.showSearchDropDown = false;
           $scope.currentPage = 1;
           if($scope.selector == 'Quiz'){
-            meanData.getQuesByKeyword($scope.keyword).then(function (res){
-              $scope.questions = res.data;
-              if((signal == 1 && $scope.curSelSearchKw != -1) || signal == 0){ 
-                $scope.questions[0].showAnswer= true; 
-              }
-              $scope.totalItems = res.data.length;
-              $scope.updateQueList();
-            });
+            if((signal == 1 && $scope.curSelSearchKw != -1) || signal == 0){ 
+              meanData.getQueById($scope.dataId).then(function(res){
+                res.data.showAnswer = true;
+                $scope.updateQueList(res.data);
+              });
+            } else {
+              meanData.getQuesByKeyword($scope.keyword).then(function (res){
+                $scope.questions = res.data;
+                $scope.totalItems = res.data.length;
+                $scope.updateQueList();
+              });
+            }
           }
           if($scope.selector == 'Doc'){
-            meanData.getDocByKeyword($scope.keyword).then(function (res){
-              $scope.docs = res.data;
-              if(signal == 1 && $scope.curSelSearchKw != -1 || signal == 0){ 
-                $scope.docs[0].showAnswer= true; 
-              }
-              $scope.totalItems = res.data.length;
-              $scope.updateDocList();
-            });
+            if(signal == 1 && $scope.curSelSearchKw != -1 || signal == 0){
+              console.log($scope.dataId);
+              meanData.getDocById($scope.dataId).then(function(res){
+                res.data.showAnswer = true;
+                $scope.updateDocList(res.data);
+              });
+            } else {
+              meanData.getDocByKeyword($scope.keyword).then(function (res){
+                $scope.docs = res.data;
+                $scope.totalItems = res.data.length;
+                $scope.updateDocList();
+              });
+            }
           }
         }else{clearPanels();}
       };
-      
     }]);
   angular.module('app').directive('toFocus', function(){
     return {
@@ -111,9 +124,11 @@
       restrict: "A",
       link: function(scope, elem, attr){
         elem.on('click', function(){
+          scope.setDataId(attr.dataId);
           scope.clickSearch();
         });
         elem.on('mouseenter', function(evt){
+          scope.setDataId(attr.dataId);
           scope.mouseEnterSearch(attr.toFocus, evt);
         });
         elem.on('mouseleave', function(evt){

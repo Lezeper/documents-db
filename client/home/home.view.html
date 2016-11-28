@@ -22,7 +22,7 @@
 		<div class="dropdown open" ng-show="showSearchDropDown">
 		  <ul class="dropdown-menu col-md-12">
 		    <li ng-repeat="dt in findedTile">
-		    	<a href="#" to-focus="{{dt.title}}" id="search-{{$index}}">{{dt.title}}</a>
+		    	<a href="#" to-focus="{{dt.title}}" data-data-id="{{dt._id}}" id="search-{{$index}}">{{dt.title}}</a>
 		    </li>
 		  </ul>
 		</div>
@@ -36,5 +36,5 @@
 	</div>
 </div>
 <br>
-<list-que ng-show="selector == 'Quiz'" ng-cloak></list-que>
-<list-doc ng-show="selector == 'Doc'" ng-cloak></list-doc>
+<list-que ng-if="selector == 'Quiz'"></list-que>
+<list-doc ng-if="selector == 'Doc'"></list-doc>

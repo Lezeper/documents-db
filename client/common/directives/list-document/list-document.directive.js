@@ -34,7 +34,12 @@
       				scope.backupDoc = angular.copy(doc);
       			}
 
-				scope.updateDocList = function(){
+				scope.updateDocList = function(doc){
+					if(typeof doc == "object"){
+						var result = [];
+						result.push(doc);
+						return scope.filteredDocs = result;
+					}
 					var begin = (scope.currentPage - 1) * scope.numPerPage;
 					var end = begin + scope.numPerPage;
 					if(scope.docs){
