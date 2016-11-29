@@ -1,0 +1,42 @@
+<div class="well" ng-show="showAdd">
+	<form ng-submit="submitQue()" novalidate>
+		<h2 class="text-center">Add new Question</h2>
+		<div class="form-group">
+			<label for="title"><span style="color:red">*</span> Question Title</label>
+			<input type="text" class="form-control" id="title" ng-model="addQ.title">
+		</div>
+		<div class="form-group">
+			<label for="sub-title">Sub Title(seperate by ";")</label>
+			<input type="text" class="form-control" id="sub-title" ng-model="addQ.sub_title" ng-list=";">
+		</div>
+		<div class="form-group" ng-init="prismHighlight()">
+			<label for="answer">Answer</label>
+			<textarea id="answer" ng-model="addQ.answer" ui-tinymce="tinymceUsage" class="form-control"></textarea>
+		</div>
+		<div class="form-group">
+			<label for="company">Company</label>
+			<input type="text" id="company" class="form-control" ng-model="addQ.company" />
+		</div>
+		<div class="form-group">
+			<label for="position">Position</label>
+			<select id="position" class="form-control" ng-model="addQ.position">
+				<option>Front End</option>
+				<option>Back End</option>
+				<option>Full Stack</option>
+			</select>
+		</div>
+		<category></category>
+		<related></related>
+		<div class="form-group">
+			<label>Links(seperate by ;)</label>
+			<input ng-model="addQ.links" ng-list=";" class="form-control" />
+		</div>
+		<div class="form-group">
+			<label>Notes</label>
+			<textarea class="form-control" ng-model="addQ.notes"></textarea>
+		</div>
+		<br>
+		<button type="submit" class="btn btn-primary">Submit</button>
+		<button type="button" class="btn btn-default" ng-click="showAdd=false">Cancel</button>
+	</form>
+</div>

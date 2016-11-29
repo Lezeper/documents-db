@@ -36,5 +36,6 @@
 	</div>
 </div>
 <br>
-<list-que ng-if="selector == 'Quiz'"></list-que>
-<list-doc ng-if="selector == 'Doc'"></list-doc>
+
+<list-que ng-show="selector == 'Quiz'" ng-cloak></list-que>
+<list-doc ng-show="selector == 'Doc'" ng-cloak></list-doc>

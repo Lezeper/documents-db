@@ -4,7 +4,7 @@
 		return {
 			scope: false,
       		restrict: 'E',
-      		templateUrl: '/common/directives/list-question/list-question.view.html',
+      		templateUrl: '/question/list-question/list-question.view.html',
       		link: function(scope, element, attr){
 
       			scope.numPerPage = 5;

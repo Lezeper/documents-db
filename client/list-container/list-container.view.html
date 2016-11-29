@@ -1,0 +1,19 @@
+<div class="col-sm-12">
+	<div class="lists-style">
+		<div class="font-center">
+			<h2>{{subCategory}}</h2>
+		</div>
+		<button class="btn btn-primary" ng-click="goToDataNav()">Go Back</button>
+		<div class="lists-style" style="min-height: 330px">
+			<div>
+				<hr>
+				<label># per page: </label>
+				<input type="number" ng-model="numPerPage" style="max-width: 40px" />
+				<ui-view></ui-view>
+			</div>
+		</div>
+		<div class="font-center">
+			<ul uib-pagination boundary-links="true" total-items="totalItems" ng-model="selectedPage" class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;" items-per-page="numPerPage" max-size="5" rotate="false"></ul>
+		</div>
+	</div>
+</div>

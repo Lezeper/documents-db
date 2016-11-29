@@ -1,17 +1,17 @@
 (function () {
-	angular.module('app').directive('listDoc', ['$stateParams', 'meanData', 
-					'$state', function ($stateParams, meanData, $state) {
+	angular.module('app').directive('listDoc', ['$rootScope','$stateParams', 'meanData', 
+					'$state', '$location', 
+					function ($rootScope, $stateParams, meanData, $state, $location) {
 		return {
       		restrict: 'E',
       		require: '?ngModel',
 			scope: false,
-      		templateUrl: '/common/directives/list-document/list-document.view.html',
+      		templateUrl: '/document/list-document/list-document.view.html',
       		link: function(scope, element, attr){
 
-      			scope.numPerPage = 5;
-
 		        scope.docId = $stateParams.id;
-		        scope.subCategory = $stateParams.category;
+		        scope.currentPage = $stateParams.page;
+		        // scope.subCategory = $stateParams.category;
 		        scope.mainCategory = $stateParams.mainCategory;
 
       			if(scope.docId){
@@ -23,16 +23,41 @@
       				if(scope.subCategory){
       					meanData.getDocByCategory(scope.subCategory).then(function (data) {
 			                scope.docs = data.data;
-			                scope.totalItems = data.data.length;
-			                scope.currentPage = 1;
+			                scope.$emit("totalItems", data.data.length);
+			                if(scope.currentPage){
+								scope.selectedPage = scope.currentPage;
+								changePage(scope.currentPage);
+							} else {
+								$location.path().search({page: 1});
+							}
 			                scope.updateDocList();
 			            });
       				}
 		    	}
 
+		    	scope.goToDocNav = function(){
+		            $location.path("/nav/doc");
+		        };
+
       			scope.doDeepCopy = function(doc){
       				scope.backupDoc = angular.copy(doc);
       			}
+
+      			var changePage = function(page){
+      				var begin = (page - 1) * scope.numPerPage;
+					var end = begin + scope.numPerPage;
+					if(scope.docs){
+				  		scope.filteredDocs = scope.docs.slice(begin, end);
+					}
+      			}
+
+      			scope.$on("changePage", function(evt, val){
+      				$location.path($location.path()).search({page: val});
+      			})
+      			scope.$on("changeNumPerPage", function(evt, val){
+      				scope.numPerPage = val;
+      				scope.updateDocList();
+      			})
 
 				scope.updateDocList = function(doc){
 					if(typeof doc == "object"){
@@ -40,14 +65,14 @@
 						result.push(doc);
 						return scope.filteredDocs = result;
 					}
-					var begin = (scope.currentPage - 1) * scope.numPerPage;
-					var end = begin + scope.numPerPage;
-					if(scope.docs){
-				  		scope.filteredDocs = scope.docs.slice(begin, end);
-					}
+					changePage(scope.currentPage);
 				}
 
-			    scope.$watch("currentPage + numPerPage", scope.updateDocList);
+			    scope.$watch("currentPage", function(){
+			    	if(scope.currentPage > 0){
+			    		scope.updateDocList();
+			    	}
+			    });
 
 		        scope.resetUpdateDoc = function(doc){
 		          if(confirm("Are you sure to discard your records?")){

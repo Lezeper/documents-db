@@ -17,28 +17,29 @@
         })
         .state('dataNav', {
           url: '/nav/:group',
-          templateUrl: "/data_nav/data.nav.view.html",
+          templateUrl: "/data-nav/data-nav.view.html",
           controller: "dataNavCtrl"
         })
-        .state('documentsByCategory', {
-          url: '/doc/:mainCategory/:category',
-          templateUrl: "/document/document.view.html",
-          controller: "docCtrl"
+        .state('listContainer', {
+          url: '/lc',
+          templateUrl: '/list-container/list-container.view.html',
+          controller: "listContainerCtrl"
+        })
+        .state('listContainer.doc', {
+          url: '/doc/:mainCategory/:category?page',
+          templateUrl: "/document/document.view.html"
         })
         .state('specific_document', {
           url: '/doc?id',
-          templateUrl: "/document/document.view.html",
-          controller: "docCtrl"
+          templateUrl: "/document/document.view.html"
         })
-        .state('questionByCategory', {
-          url: '/que/:mainCategory/:category',
-          templateUrl: "/question/question.view.html",
-          controller: "queCtrl"
+        .state('listContainer.que', {
+          url: '/que/:mainCategory/:category?page',
+          templateUrl: "/question/question.view.html"
         })
         .state('specific_question', {
           url: '/que?id',
-          templateUrl: "/question/question.view.html",
-          controller: "queCtrl"
+          templateUrl: "/question/question.view.html"
         })
         .state('admin', {
           url: '/admin/',
@@ -76,7 +77,7 @@
           controller: "userReqCtrl"
         })
 
-        $urlRouterProvider.otherwise('/');
+        // $urlRouterProvider.otherwise('/');
 
       $locationProvider.html5Mode(true);
 

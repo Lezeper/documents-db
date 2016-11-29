@@ -34,7 +34,7 @@
         };
 
         $scope.goToSubCatPage = function(mainCategory,category){
-          $location.path("/"+$scope.group+"/"+mainCategory+"/"+category);
+          $location.path("/lc/"+$scope.group+"/"+mainCategory+"/"+category).search({page: 1});
         };
 
         $scope.updateCategory = function(uCat){

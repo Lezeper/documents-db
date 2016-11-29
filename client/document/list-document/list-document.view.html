@@ -1,0 +1,103 @@
+<div ng-repeat="doc in filteredDocs" on-finish-repeat="onFinishRepeat">
+	<!-- Panel Show Area -->
+	<div class="panel panel-default" ng-show="!doc.isUpdateDoc">
+		<!-- Panel title -->
+	    <div class="panel-heading" ng-click="doc.showAnswer=!doc.showAnswer" style="cursor: pointer">
+	        <h3 class="panel-title"><strong>{{doc.title}}</strong></h3>
+	    </div>
+	    <!-- /Panel title -->
+	    <div class="panel-body show-hide" ng-show="doc.showAnswer">
+	    	<!-- Description -->
+	    	<div class="form-group" ng-show="doc.description">
+    			<label><i class="fa fa-align-justify" aria-hidden="true"></i><span class="next-icon">Description</span></label>
+    			<textarea class="form-control" readonly>{{doc.description}}</textarea>
+    			<hr>
+    		</div>
+    		<!-- /Description -->
+    		<!-- Usage -->
+    		<div class="form-group">
+    			<label><i class="fa fa-file-text" aria-hidden="true"></i><span class="next-icon">Usage</span></label>
+    			<p ng-bind-html="doc.usage"></p>
+    		</div>
+			<!-- /Usage -->
+			<!-- Related -->
+			<div ng-show="doc.related.length > 0">
+				<hr>
+    			<label><i class="fa fa-share" aria-hidden="true"></i><span class="next-icon">Related</span></label>
+	        	<div ng-repeat="curRelated in doc.related">
+					<a href="/{{doc.group}}?id={{doc._id}}" target="_blank">{{curRelated.title}}</a>
+				</div>
+    		</div>
+			<!-- /Related -->
+			<!-- Links -->
+			<div class="form-group" ng-if="doc.links.length>0">
+				<hr>
+	    		<label><i class="fa fa-link" aria-hidden="true"></i><span class="next-icon">External Links</span></label>
+	    		<div> 
+	    			<a href="{{link}}" target="_blank" style="display: block;overflow: auto" ng-repeat="link in doc.links track by $index">{{link}}</a>
+	    		</div>
+	    	</div>
+	    	
+	    	<!-- /Links -->
+	        <!-- Author -->
+			<div ng-show="doc.author">
+				<hr>
+				<i class="fa fa-calendar-times-o" aria-hidden="true"></i><span class="footer-style next-icon">Updated by {{doc.author}} on {{doc.created | date:'yyyy-MM-dd HH:mm:ss'}}</span>
+			</div>
+			<!-- /Author -->
+			<div>
+				<button ng-if="isLoggedIn" class="btn btn-link padding-left-zero" ng-click="updateDocPage(doc)"><i class="fa fa-pencil"></i></button>
+				<button  ng-if="isLoggedIn" class="btn btn-link padding-left-zero" ng-click="deleteDoc(doc)"><i class="fa fa-remove"></i></button>
+				<button class="btn btn-link padding-left-zero"  ngclipboard data-clipboard-text="{{hostName}}/{{doc.group}}?id={{doc._id}}"><i class="fa fa-clipboard" aria-hidden="true"></i></button>
+			</div>
+	    </div>
+	</div>
+	<!-- /Panel Show Area -->
+	<!-- Update Area -->
+	<div ng-show="doc.isUpdateDoc" class="well">
+		<!-- Update Title -->
+		<div class="form-group">
+			<label>Title</label>
+	        <input type="text" class="form-control" ng-model="doc.title"/>
+		</div>
+		<!-- /Update Title -->
+		<!-- Update Descroption -->
+		<div class="form-group">
+			<label>Update Description</label>
+			<textarea ng-model="doc.description" class="form-control"></textarea>
+		</div>
+		<!-- /Update Descroption -->
+		<!-- Update Usage -->
+		<div class="form-group">
+    		<label>Update Usage</label>
+    		<textarea ui-tinymce="tinymceUsage" class="form-control" ng-model="doc.usage"></textarea>
+    	</div>
+    	<!-- /Update Usage -->
+    	<!-- Update Related -->
+    	<related></related>
+    	<!-- /Update Related -->
+    	<!-- Update Category -->
+		<category></category>
+		<!-- /Update Category -->
+		<!-- Update Links -->
+		<div class="form-group">
+			<label>Links</label>
+			<input type="text" ng-model="doc.links" ng-list=";" class="form-control" />
+		</div>
+		<!-- /Update Links -->
+    	<!-- Update Notes -->
+    	<div class="form-group">
+			<label>Notes</label>
+			<textarea class="form-control" ng-model="doc.notes"></textarea>
+    	</div>
+    	<!-- /Update Notes -->
+    	<hr>
+    	<!-- Update Button -->
+    	<div class="form-group">
+        	<button class="btn btn-primary btn-xs" ng-click="updateDoc(doc, categorModel_)">Update</button>
+        	<button class="btn btn-default btn-xs" ng-click="resetUpdateDoc(doc);">Cancel</button>
+    	</div>
+    	<!-- /Update Button -->
+	</div>
+	<!-- /Update Area -->
+</div>

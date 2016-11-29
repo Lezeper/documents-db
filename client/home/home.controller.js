@@ -1,5 +1,6 @@
 (function () {
-  angular.module('app').controller('homeCtrl', ['$scope', '$window', '$location', 'meanData', 'authentication',
+  var app = angular.module('app');
+  app.controller('homeCtrl', ['$scope', '$window', '$location', 'meanData', 'authentication',
     function ($scope, $window, $location, meanData, authentication) {
 
       $scope.showSearchDropDown = false;
@@ -102,7 +103,6 @@
           }
           if($scope.selector == 'Doc'){
             if(signal == 1 && $scope.curSelSearchKw != -1 || signal == 0){
-              console.log($scope.dataId);
               meanData.getDocById($scope.dataId).then(function(res){
                 res.data.showAnswer = true;
                 $scope.updateDocList(res.data);
@@ -117,8 +117,9 @@
           }
         }else{clearPanels();}
       };
+
     }]);
-  angular.module('app').directive('toFocus', function(){
+  app.directive('toFocus', function(){
     return {
       scope: false,
       restrict: "A",
@@ -137,7 +138,7 @@
       }
     }
   });
-  angular.module('app').directive('searchFocus', function(){
+  app.directive('searchFocus', function(){
     return {
       scope: false,
       restrict: "A",
