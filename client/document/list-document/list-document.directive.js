@@ -11,7 +11,6 @@
 
 		        scope.docId = $stateParams.id;
 		        scope.currentPage = $stateParams.page;
-		        // scope.subCategory = $stateParams.category;
 		        scope.mainCategory = $stateParams.mainCategory;
 
       			if(scope.docId){
@@ -27,6 +26,7 @@
 			                if(scope.currentPage){
 								scope.selectedPage = scope.currentPage;
 								changePage(scope.currentPage);
+								scope.$emit("selectedPage", scope.currentPage);
 							} else {
 								$location.path().search({page: 1});
 							}

@@ -1,16 +1,16 @@
 (function () {
-	angular.module('app').directive('listQue', ['meanData', '$stateParams','authentication', '$state',
-		function (meanData, $stateParams, authentication, $state) {
+	angular.module('app').directive('listQue', ['meanData', '$stateParams',
+		'authentication', '$state', '$location',
+		function (meanData, $stateParams, authentication, $state, $location) {
 		return {
 			scope: false,
       		restrict: 'E',
       		templateUrl: '/question/list-question/list-question.view.html',
       		link: function(scope, element, attr){
 
-      			scope.numPerPage = 5;
-
       			scope.questionId = $stateParams.id;
-      			scope.subCategory = $stateParams.category;
+      			scope.mainCategory = $stateParams.mainCategory;
+      			scope.currentPage = $stateParams.page;
 
       			// receive question id
 		        if(scope.questionId){
@@ -22,8 +22,14 @@
 		        	if(scope.subCategory){
 		        		meanData.getQuesByCategory(scope.subCategory).then(function (data) {
 			                scope.questions = data.data;
-			                scope.totalItems = data.data.length;
-			                scope.currentPage = 1;
+			                scope.$emit("totalItems", data.data.length);
+			                if(scope.currentPage){
+								scope.selectedPage = scope.currentPage;
+								changePage(scope.currentPage);
+								scope.$emit("selectedPage", scope.currentPage);
+							} else {
+								$location.path().search({page: 1});
+							}
 			                scope.updateQueList();
 			            });
 		        	}
@@ -43,6 +49,14 @@
 		        	});
 		        }
 
+		        scope.$on("changePage", function(evt, val){
+      				$location.path($location.path()).search({page: val});
+      			})
+      			scope.$on("changeNumPerPage", function(evt, val){
+      				scope.numPerPage = val;
+      				scope.updateQueList();
+      			})
+
 		        scope.updateQuePage = function(question){
 		        	question.isUpdateQuestion=true;
 		        	question.showAnswer=true;
@@ -55,20 +69,28 @@
 		        	scope.questionBackup = angular.copy(question);
 		        }
 
+		        var changePage = function(page){
+      				var begin = (page - 1) * scope.numPerPage;
+					var end = begin + scope.numPerPage;
+					if(scope.questions){
+				  		scope.filteredQuestions = scope.questions.slice(begin, end);
+					}
+      			}
+
 				scope.updateQueList = function(que){
 					if(typeof que == "object"){
 						var result = [];
 						result.push(que);
 						return scope.filteredQuestions = result;
 					}
-					var begin = (scope.currentPage - 1) * scope.numPerPage;
-					var end = begin + scope.numPerPage;
-					if(scope.questions){
-				  		scope.filteredQuestions = scope.questions.slice(begin, end);
-					}
+					changePage(scope.currentPage);
 				}
 
-			    scope.$watch('currentPage + numPerPage', scope.updateQueList);
+			    scope.$watch("currentPage", function(){
+			    	if(scope.currentPage > 0){
+			    		scope.updateQueList();
+			    	}
+			    });
 
 			    scope.updateQuestion = function(question, selRelateds, categorModel_){
 			    	if(confirm("Are you sure to update?")){

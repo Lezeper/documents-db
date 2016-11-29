@@ -14,6 +14,10 @@
 			$scope.totalItems = val;
 		});
 
+		$scope.$on("selectedPage", function(evt, val){
+			$scope.selectedPage = val;
+		});
+
 		$scope.goToDataNav = function(){
 			$location.path("/nav/"+$location.path().split("/")[2]);
 		}
