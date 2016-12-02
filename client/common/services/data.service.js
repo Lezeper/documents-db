@@ -35,6 +35,12 @@
       return $http.get(serverUrl + '/que/c/' + category); 
     };
 
+    var getQuesByCategoryAndPage = function(category, page, num){
+      if(num > 0 && page > 0)
+        return $http.get(serverUrl + '/que/c/' + category + '/'
+                        + page + "?num="+num);
+    };
+
     var getQueById = function(id){
       return $http.get(serverUrl + '/que/id/' + id); 
     };
@@ -75,6 +81,13 @@
 
     var getDocByCategory = function(category){
       return $http.get(serverUrl + '/doc/c/' + category);
+    };
+
+    var getDocByCategoryAndPage = function(category, page, num){
+      if(num > 0 && page > 0){
+        return $http.get(serverUrl + '/doc/c/' + category + "/"
+                        + page + "?num=" + num);
+      }
     };
 
     var createDoc = function(doc){
@@ -208,6 +221,7 @@
 
       getQueById: getQueById,
       getQueCategories: getQueCategories,
+      getQuesByCategoryAndPage: getQuesByCategoryAndPage,
       getQuesByCategory: getQuesByCategory,
       createQue: createQue,
       updateQue: updateQue,
@@ -215,6 +229,7 @@
 
       getDocById: getDocById,
       getDocCategories: getDocCategories,
+      getDocByCategoryAndPage: getDocByCategoryAndPage,
       getDocByCategory: getDocByCategory,
       createDoc: createDoc,
       updateDoc: updateDoc,

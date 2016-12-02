@@ -12,6 +12,14 @@
       			scope.mainCategory = $stateParams.mainCategory;
       			scope.currentPage = $stateParams.page;
 
+		        var changePage = function(page){
+      				var begin = (page - 1) * scope.numPerPage;
+					var end = begin + scope.numPerPage;
+					if(scope.questions){
+				  		scope.filteredQuestions = scope.questions.slice(begin, end);
+					}
+      			}
+
       			// receive question id
 		        if(scope.questionId){
 		    	      meanData.getQueById(scope.questionId).then(function(res){
@@ -20,20 +28,19 @@
 		          });
 		        } else {
 		        	if(scope.subCategory){
-		        		meanData.getQuesByCategory(scope.subCategory).then(function (data) {
-			                scope.questions = data.data;
-			                scope.$emit("totalItems", data.data.length);
-			                if(scope.currentPage){
-								scope.selectedPage = scope.currentPage;
+		        		if(scope.currentPage){
+							meanData.getQuesByCategory(scope.subCategory).then(function (data) {
+				                scope.questions = data.data;
+				                scope.$emit("totalItems", data.data.length);
+				                scope.selectedPage = scope.currentPage;
 								changePage(scope.currentPage);
 								scope.$emit("selectedPage", scope.currentPage);
-							} else {
-								$location.path().search({page: 1});
-							}
-			                scope.updateQueList();
-			            });
+				                scope.updateQueList();
+				            });
+						} else {
+							$location.path().search({page: 1});
+						}
 		        	}
-		        	
 		        }
 
 		        scope.sendRequest = function(req, que){
@@ -51,6 +58,7 @@
 
 		        scope.$on("changePage", function(evt, val){
       				$location.path($location.path()).search({page: val});
+      				changePage(val);
       			})
       			scope.$on("changeNumPerPage", function(evt, val){
       				scope.numPerPage = val;
@@ -68,14 +76,6 @@
 
 		        	scope.questionBackup = angular.copy(question);
 		        }
-
-		        var changePage = function(page){
-      				var begin = (page - 1) * scope.numPerPage;
-					var end = begin + scope.numPerPage;
-					if(scope.questions){
-				  		scope.filteredQuestions = scope.questions.slice(begin, end);
-					}
-      			}
 
 				scope.updateQueList = function(que){
 					if(typeof que == "object"){

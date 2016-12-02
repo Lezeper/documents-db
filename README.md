@@ -11,13 +11,19 @@
 				(* means it has been protected by token)
 ##### Documents
                 GET    /api/doc/id/:id     	- find specific document
-                GET    /api/doc/c/:category?- find all documents by category
+                GET    /api/doc/c/:category - find all documents by category
+                GET    /api/doc/c/:category/:page?num
+                							- find all documents by category
+                							  and page
                *POST   /api/doc             - create document
                *PUT    /api/doc             - update document
                *DELETE /api/doc/id/:id		- delete document
 ##### Quizs
                 GET    /api/que/id/:id     	- find specific question
                 GET    /api/que/c/:category - find all questions by category
+                GET    /api/que/c/:category/:page?num
+                							- find all questions by category
+                							  and page
                *POST   /api/que             - create question
                *PUT    /api/que             - update question
                *DELETE /api/que/id/:id		- delete question

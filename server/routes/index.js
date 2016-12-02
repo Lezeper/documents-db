@@ -25,6 +25,7 @@ router.get("/user/:id", userCtrl.findUserById);
 
 // router.get("/que/c", questionCtrl.findAllQuesCategories);
 router.get("/que/c/:category", questionCtrl.findQuesByCategory);
+// router.get("/que/c/:category/:page?", questionCtrl.findQuesByCategoryAndPage);
 router.get("/que/id/:id", questionCtrl.findQuesById);
 router.post("/que", auth, questionCtrl.createQuestion);
 router.put("/que", auth, questionCtrl.updateQuestion);
@@ -37,6 +38,7 @@ router.delete("/cat/id/:id", auth, categoryCtrl.deleteCategory);
 
 // router.get("/doc/c", logCtrl.createLog, docCtrl.findAllDocCategories);
 router.get("/doc/c/:category", docCtrl.findDocsByCategory);
+router.get("/doc/c/:category/:page?", docCtrl.findDocsByCategoryAndPage);
 router.get("/doc/id/:id", docCtrl.findDocById);
 router.post("/doc", auth, docCtrl.createDoc);
 router.put("/doc", auth, docCtrl.updateDoc);

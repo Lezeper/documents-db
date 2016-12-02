@@ -13,6 +13,14 @@
 		        scope.currentPage = $stateParams.page;
 		        scope.mainCategory = $stateParams.mainCategory;
 
+		        var changePage = function(page){
+      				var begin = (page - 1) * scope.numPerPage;
+					var end = begin + scope.numPerPage;
+					if(scope.docs){
+				  		scope.filteredDocs = scope.docs.slice(begin, end);
+					}
+      			}
+
       			if(scope.docId){
       				meanData.getDocById(scope.docId).then(function(res){
       					scope.filteredDocs = [res.data];
@@ -20,18 +28,18 @@
       				});
       			} else {
       				if(scope.subCategory){
-      					meanData.getDocByCategory(scope.subCategory).then(function (data) {
-			                scope.docs = data.data;
-			                scope.$emit("totalItems", data.data.length);
-			                if(scope.currentPage){
-								scope.selectedPage = scope.currentPage;
+      					if(scope.currentPage){
+							meanData.getDocByCategory(scope.subCategory).then(function (data) {
+				                scope.docs = data.data;
+				                scope.$emit("totalItems", data.data.length);
+				                scope.selectedPage = scope.currentPage;
 								changePage(scope.currentPage);
 								scope.$emit("selectedPage", scope.currentPage);
-							} else {
-								$location.path().search({page: 1});
-							}
-			                scope.updateDocList();
-			            });
+				                scope.updateDocList();
+				            });
+						} else {
+							$location.path().search({page: 1});
+						}
       				}
 		    	}
 
@@ -43,16 +51,9 @@
       				scope.backupDoc = angular.copy(doc);
       			}
 
-      			var changePage = function(page){
-      				var begin = (page - 1) * scope.numPerPage;
-					var end = begin + scope.numPerPage;
-					if(scope.docs){
-				  		scope.filteredDocs = scope.docs.slice(begin, end);
-					}
-      			}
-
       			scope.$on("changePage", function(evt, val){
       				$location.path($location.path()).search({page: val});
+      				changePage(val);
       			})
       			scope.$on("changeNumPerPage", function(evt, val){
       				scope.numPerPage = val;

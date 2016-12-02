@@ -43,6 +43,15 @@ module.exports.findDocsByCategory = function(req, res){
 	});
 };
 
+module.exports.findDocsByCategoryAndPage = function(req, res){
+	Document.find({category: req.params.category}).skip(req.query.num*req.body.page)
+				.limit(req.query.num).exec(function(err, documents){
+		if(err)
+			return res.send(500, err);
+		res.json(documents);
+	});
+};
+
 module.exports.createDoc = function(req, res){
 	var document = new Document();
 	document.title = req.body.title.split("-").join("").toLowerCase();;

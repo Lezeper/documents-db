@@ -27,7 +27,8 @@
         })
         .state('listContainer.doc', {
           url: '/doc/:mainCategory/:category?page',
-          templateUrl: "/document/document.view.html"
+          templateUrl: "/document/document.view.html",
+          reloadOnSearch: false
         })
         .state('specific_document', {
           url: '/doc?id',
@@ -35,7 +36,8 @@
         })
         .state('listContainer.que', {
           url: '/que/:mainCategory/:category?page',
-          templateUrl: "/question/question.view.html"
+          templateUrl: "/question/question.view.html",
+          reloadOnSearch: false
         })
         .state('specific_question', {
           url: '/que?id',
@@ -117,10 +119,11 @@
       toolbar: 'undo redo | bold italic | alignleft aligncenter alignright | bullist numlist | codesample | link image',
       valid_elements : '*[*]'
     };
+
     $rootScope.$on('onFinishRepeat', function(evt){
       $scope.prismHighlight();
     });
-    
+
   }]);
 
   app.directive('onFinishRepeat', ['$timeout', function($timeout){
