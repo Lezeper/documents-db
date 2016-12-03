@@ -82,7 +82,7 @@
 				password: crypto, passport
 ##### Document
 				title: String, unique, required
-				sub_title: String
+				sub_title: Array
 				description: String
 				usage: String
 				related: Array[title, group, _id]
@@ -93,6 +93,7 @@
 				created: Datem required
 ##### Question
 				title: String, unique, required
+				sub_title: Array
 				answer: String
 				author: String
 				group: String, required
@@ -186,7 +187,7 @@
 				1. Self-Test module
 				2. Hot update
 				3. Actice Code
-				4. Model Generator
+				4. Off-Line Access
 
 ### Bugs
 ##### ng-repeat scope

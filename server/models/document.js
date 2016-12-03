@@ -6,6 +6,9 @@ var documentSchema = new mongoose.Schema({
 		unique: true,
 		required: true
 	},
+	sub_title: {
+	    type: Array
+	},
 	description: {
 		type: String,
 		required: false

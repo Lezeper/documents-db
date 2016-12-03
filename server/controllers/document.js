@@ -54,7 +54,8 @@ module.exports.findDocsByCategoryAndPage = function(req, res){
 
 module.exports.createDoc = function(req, res){
 	var document = new Document();
-	document.title = req.body.title.split("-").join("").toLowerCase();;
+	document.title = req.body.title.split("-").join("").toLowerCase();
+	document.sub_title = req.body.sub_title;
 	document.description = req.body.description;
 	document.usage = req.body.usage;
 	document.links = req.body.links;
