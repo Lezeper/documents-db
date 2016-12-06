@@ -36,6 +36,7 @@
 ##### Search				
 				GET	   /api/s/q/:keyword?	- find all questions by keyword and need
 				GET	   /api/s/d/:keyword?	- find all documents by keyword and need
+				GET    /api/s/all/:keyword? - find all by keyword and need
 ##### User
 				GET    /api/user     		- find all user
                 GET    /api/user/:id      	- find specific user
@@ -202,5 +203,13 @@
 				Object.keys(updateQ).forEach(function(property){
 	          		updateQ[property] = question[property];
 	          	});	
+##### DOM object effect by $scope.$digest
+				var elm = document.getElementById("search-0");
+				$scope.$digest();
+				// color not changed
+				console.log(elm);
+				// color changed
+				console.log(document.getElementById("search-0"))
+				document.getElementById("search-0").style.backgroundColor = "#ccc";
 ##### Search Engine
 				Can't search the title which contain "/".

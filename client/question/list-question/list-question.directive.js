@@ -11,6 +11,7 @@
       			scope.questionId = $stateParams.id;
       			scope.mainCategory = $stateParams.mainCategory;
       			scope.currentPage = $stateParams.page;
+      			scope.reverse = true;
 
 		        var changePage = function(page){
       				var begin = (page - 1) * scope.numPerPage;
@@ -19,6 +20,14 @@
 				  		scope.filteredQuestions = scope.questions.slice(begin, end);
 					}
       			}
+
+      			scope.orderByDate = function(item) {
+				    var parts = item.created.split('-');
+				    temp = parts[2].substring(0,2);
+				    var number = parseInt(temp + parts[1] + parts[0]);
+
+				    return -number;
+				};
 
       			// receive question id
 		        if(scope.questionId){
@@ -59,11 +68,15 @@
 		        scope.$on("changePage", function(evt, val){
       				$location.path($location.path()).search({page: val});
       				changePage(val);
-      			})
+      			});
       			scope.$on("changeNumPerPage", function(evt, val){
       				scope.numPerPage = val;
       				scope.updateQueList();
-      			})
+      			});
+      			scope.$on("changeDateSortOption", function(evt, val){
+      				scope.questions.reverse();
+      				scope.updateQueList();
+      			});
 
 		        scope.updateQuePage = function(question){
 		        	question.isUpdateQuestion=true;
@@ -75,6 +88,10 @@
 		        	scope.selRelateds=question.related;
 
 		        	scope.questionBackup = angular.copy(question);
+		        }
+
+		        scope.clearQueList = function(){
+		        	scope.filteredQuestions = null;
 		        }
 
 				scope.updateQueList = function(que){

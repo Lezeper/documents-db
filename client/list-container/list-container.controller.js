@@ -28,6 +28,10 @@
 			}
 		});
 
+		$scope.$watch("dateSortOption", function(){
+			$scope.$broadcast("changeDateSortOption", $scope.dateSortOption);
+		})
+
 		$scope.$watch("selectedPage", function(){
 	    	if($scope.selectedPage > 0){
 	    		$scope.$broadcast("changePage", $scope.selectedPage);

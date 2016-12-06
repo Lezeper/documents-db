@@ -12,6 +12,7 @@
 		<select class="form-control" ng-model="selector" ng-init="selector='Doc'">
 			<option value="Doc">Doc</option>
 			<option value="Quiz">Quiz</option>
+			<option value="All">All</option>
 		</select>
 	</div>
 	<!-- /Search Options -->
@@ -22,7 +23,7 @@
 		<div class="dropdown open" ng-show="showSearchDropDown">
 		  <ul class="dropdown-menu col-md-12">
 		    <li ng-repeat="dt in findedTile">
-		    	<a href="#" to-focus="{{dt.title}}" data-data-id="{{dt._id}}" id="search-{{$index}}">{{dt.title}}</a>
+		    	<a href="#" to-focus data-title="{{dt.title}}" data-data-group="{{dt.group}}" data-data-id="{{dt._id}}" id="search-{{$index}}" ng-bind-html="dt.title | titleDecorator: keyword"></a>
 		    </li>
 		  </ul>
 		</div>
@@ -39,7 +40,7 @@
 <div class="col-sm-12">
 	<div class="lists-style">
 	<br><br>
-		<list-que ng-show="selector == 'Quiz'" ng-cloak></list-que>
-		<list-doc ng-show="selector == 'Doc'" ng-cloak></list-doc>
+		<list-que ng-show="selector == 'Quiz' || selector == 'All'" ng-cloak></list-que>
+		<list-doc ng-show="selector == 'Doc' || selector == 'All'" ng-cloak></list-doc>
 	</div>
 </div>

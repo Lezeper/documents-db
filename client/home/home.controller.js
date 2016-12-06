@@ -13,7 +13,7 @@
         $scope.showSearchDropDown = false;
         $scope.$digest();
       });
-
+      /* when mouse left click */
       $scope.clickSearch = function(){
         $scope.keywordBackup = $scope.keyword;
         $scope.$digest();
@@ -23,20 +23,25 @@
       $scope.setDataId = function(id){
         $scope.dataId = id;
       }
-      
+
+      $scope.setDataGroup = function(group){
+        $scope.dataGroup = group;
+      }
+      /* when focus on each title (using up down arrow) */
       $scope.focusSearch = function(signal){
         var op = $scope.curSelSearchKw*1 + signal*1;
         var curSelSearchTitle = document.getElementById("search-" + op);
-        $scope.setDataId(curSelSearchTitle.dataset.dataId);
         if(curSelSearchTitle){
+          $scope.setDataId(curSelSearchTitle.dataset.dataId);
+          $scope.setDataGroup(curSelSearchTitle.dataset.dataGroup);
           var ori = document.getElementById("search-" + $scope.curSelSearchKw);
           if(ori){ ori.style.backgroundColor = null; }
-          curSelSearchTitle.style.backgroundColor = "#ccc";
-
+          
           $scope.curSelSearchKw = $scope.curSelSearchKw*1 + signal*1;
-          $scope.keyword = curSelSearchTitle.text;
-          $scope.keywordBackup = curSelSearchTitle.text;
+          $scope.keyword = curSelSearchTitle.dataset.title;
+          $scope.keywordBackup = curSelSearchTitle.dataset.title;
           $scope.$digest();
+          document.getElementById("search-" + op).style.backgroundColor = "#ccc";
         }
       }
 
@@ -53,6 +58,7 @@
       function clearPanels(){
         $scope.filteredQuestions = null;
         $scope.filteredDocs = null;
+        $scope.findedTile = null;
       }
 
       $scope.$watch('selector', function(){
@@ -76,6 +82,18 @@
               $scope.findedTile = res.data;
             });
           }
+          if($scope.selector == 'All'){
+            meanData.getRelatedByKeyword(keyword).then(function(res){
+              var results = [];
+              res.forEach(function(object){
+                object.data.forEach(function(obj){
+                  results.push(obj);
+                });
+              });
+              $scope.findedTile = results;
+              $scope.$digest();
+            });
+          }
         }else{
           $scope.showSearchDropDown = false;
         }
@@ -95,9 +113,9 @@
               });
             } else {
               meanData.getQuesByKeyword($scope.keyword).then(function (res){
-                $scope.questions = res.data;
-                $scope.totalItems = res.data.length;
-                $scope.updateQueList();
+                $scope.filteredQuestions = res.data;
+                // $scope.totalItems = res.data.length;
+                // $scope.updateQueList();
               });
             }
           }
@@ -109,9 +127,34 @@
               });
             } else {
               meanData.getDocByKeyword($scope.keyword).then(function (res){
-                $scope.docs = res.data;
-                $scope.totalItems = res.data.length;
-                $scope.updateDocList();
+                $scope.filteredDocs = res.data;
+                // $scope.totalItems = res.data.length;
+                // $scope.updateDocList();
+              });
+            }
+          }
+          if($scope.selector == 'All'){
+            $scope.clearQueList();
+            $scope.clearDocList();
+            if(signal == 1 && $scope.curSelSearchKw != -1 || signal == 0){
+              if($scope.dataGroup == 'doc'){
+                meanData.getDocById($scope.dataId).then(function(res){
+                  res.data.showAnswer = true;
+                  $scope.updateDocList(res.data);
+                });
+              }
+              if($scope.dataGroup == 'que'){
+                meanData.getQueById($scope.dataId).then(function(res){
+                  res.data.showAnswer = true;
+                  $scope.updateQueList(res.data);
+                });
+              }
+            } else {
+              meanData.getDocByKeyword($scope.keyword).then(function (res){
+                $scope.filteredDocs = res.data;
+              });
+              meanData.getQuesByKeyword($scope.keyword).then(function (res){
+                $scope.filteredQuestions = res.data;
               });
             }
           }
@@ -126,17 +169,44 @@
       link: function(scope, elem, attr){
         elem.on('click', function(){
           scope.setDataId(attr.dataId);
+          scope.setDataGroup(attr.dataGroup);
           scope.clickSearch();
         });
         elem.on('mouseenter', function(evt){
           scope.setDataId(attr.dataId);
-          scope.mouseEnterSearch(attr.toFocus, evt);
+          scope.setDataGroup(attr.dataGroup);
+          scope.mouseEnterSearch(attr.title, evt);
         });
         elem.on('mouseleave', function(evt){
           scope.mouseLeaveSearch(evt);
         });
       }
     }
+  });
+  app.filter("titleDecorator",function(){
+    return function(t, k){
+      var result = "";
+      var title = t;
+
+      var addStrong = function(title, keyword){
+        var index = title.indexOf(keyword);
+        if(index >= 0){
+          var temp = title.split(keyword);
+          result += temp[0] + "<strong>"+keyword+"</strong>" 
+          return temp[1];
+        }
+      }
+
+      k.split(" ").forEach(function(str){
+        var temp = addStrong(title, str);
+        if(typeof temp !== 'undefined'){
+          title = temp;
+        }
+        
+      });
+      
+      return result + title;
+    };
   });
   app.directive('searchFocus', function(){
     return {

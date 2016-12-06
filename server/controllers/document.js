@@ -1,6 +1,19 @@
 var mongoose = require('mongoose');
 var Document = mongoose.model('Document');
 
+var titleProcessor = function(title){
+	if(!title)
+		return title;
+	if(Array.isArray(title)){
+		var result = [];
+		title.forEach(function(t){
+			result.push(t.split("-").join("").toLowerCase());
+		});
+		return result;
+	}
+  	return title.split("-").join("").toLowerCase();
+}
+
 module.exports.findDocById = function(req, res){
 	Document.findById(req.params.id, function(err, document){
 		if(err)
@@ -36,7 +49,8 @@ module.exports.findAllDocCategories = function(req, res){
 };
 
 module.exports.findDocsByCategory = function(req, res){
-	Document.find({category: req.params.category}, function(err, documents){
+	Document.find({category: req.params.category}).sort({created: -1})
+				.exec(function(err, documents){
 		if(err)
 			return res.send(500, err);
 		res.json(documents);
@@ -54,8 +68,8 @@ module.exports.findDocsByCategoryAndPage = function(req, res){
 
 module.exports.createDoc = function(req, res){
 	var document = new Document();
-	document.title = req.body.title.split("-").join("").toLowerCase();
-	document.sub_title = req.body.sub_title;
+	document.title = titleProcessor(req.body.title);
+	document.sub_title = titleProcessor(req.body.sub_title);
 	document.description = req.body.description;
 	document.usage = req.body.usage;
 	document.links = req.body.links;
@@ -76,7 +90,8 @@ module.exports.createDoc = function(req, res){
 
 module.exports.updateDoc = function(req, res){
 	req.body.created = new Date();
-	req.body.title = req.body.title.split("-").join("").toLowerCase();
+	req.body.title = titleProcessor(req.body.title);
+	req.body.sub_title = titleProcessor(req.body.sub_title);
 	Document.findOneAndUpdate({_id: req.body._id}, req.body, function(err, document){
 		if(err)
 			return res.send(500, err);

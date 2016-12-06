@@ -1,12 +1,25 @@
 var mongoose = require('mongoose');
 var Question = mongoose.model('Question');
 
+var titleProcessor = function(title){
+  if(!title)
+    return title;
+  if(Array.isArray(title)){
+    var result = [];
+    title.forEach(function(t){
+      result.push(t.split("-").join("").toLowerCase());
+    });
+    return result;
+  }
+  return title.split("-").join("").toLowerCase();
+}
+
 module.exports.createQuestion = function (req, res) {
   var question = new Question();
 
-  question.title = req.body.title.split("-").join("").toLowerCase();
+  question.title = titleProcessor(req.body.title);
+  question.sub_title = titleProcessor(req.body.sub_title);
   question.answer = req.body.answer;
-  question.sub_title = req.body.sub_title;
   question.author = req.body.author;
   question.notes = req.body.notes;
   question.links = req.body.links;
@@ -72,17 +85,20 @@ module.exports.findQuesById = function (req, res) {
 };
 
 module.exports.findQuesByCategory = function (req, res) {
-  Question.find({category: req.params.category}, function (err, questions) {
+  Question.find({category: req.params.category}).sort({created: -1})
+          .exec(function (err, questions) {
     if(err){
       return res.status(500, err);
     }
+
     res.json(questions);
   })
 };
 
 module.exports.updateQuestion = function (req, res) {
   req.body.created = new Date();
-  req.body.title = req.body.title.split("-").join("").toLowerCase();
+  req.body.title = titleProcessor(req.body.title);
+  req.body.sub_title = titleProcessor(req.body.sub_title);
   Question.findOneAndUpdate({_id: req.body._id}, req.body, function(err, document){
     if(err)
       return res.send(500, err);

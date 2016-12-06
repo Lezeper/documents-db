@@ -9,8 +9,14 @@
 				<hr>
 				<label># per page: </label>
 				<input type="number" ng-model="numPerPage" style="max-width: 40px" />
+				<label>Sort by Date: </label>
+				<select ng-model="dateSortOption" ng-init="dateSortOption='latest'">
+					<option value="oldest">Oldest</option>
+					<option value="latest">Latest</option>
+				</select>
 				<ui-view></ui-view>
 			</div>
+
 		</div>
 		<div class="font-center">
 			<ul uib-pagination boundary-links="true" total-items="totalItems" ng-model="selectedPage" class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;" items-per-page="numPerPage" max-size="5" rotate="false"></ul>

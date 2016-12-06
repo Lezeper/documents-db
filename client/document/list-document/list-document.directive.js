@@ -59,6 +59,14 @@
       				scope.numPerPage = val;
       				scope.updateDocList();
       			})
+      			scope.$on("changeDateSortOption", function(evt, val){
+      				scope.docs.reverse();
+      				scope.updateDocList();
+      			});
+
+      			scope.clearDocList = function(){
+      				scope.filteredDocs = null;
+      			}
 
 				scope.updateDocList = function(doc){
 					if(typeof doc == "object"){
