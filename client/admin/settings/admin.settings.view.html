@@ -13,10 +13,13 @@
 		<label for="web-title">Web Title</label>
 		<input type="text" id="web-title" class="form-control" ng-model="settings.web_title" />
 	</div>
+	<div class="form-group">
+		<label for="web-history">Version History</label>
+		<textarea class="form-control" id="web-history" ng-model="settings.history" style="resize: vertical;"></textarea>
+	</div>
 	<div class="font-center">
 		<button class="btn btn-primary" ng-click="updateSettings(settings)">Update Settings</button>
 	</div>
-
 	<hr>
 
 	<div class="form-group">

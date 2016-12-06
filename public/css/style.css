@@ -9,13 +9,13 @@ body {
 a {
   color: #00B7FF;
 }
-ul {
-	list-style: none;
-	margin-left: 0;
-	padding-left: 0;
-}
+
 code[class*="language-"], pre[class*="language-"] {
 	white-space: pre-wrap;		
+}
+.div-center {
+	margin: auto;
+	width: 50%;
 }
 .show-hide {
 	transition: all linear 0.5s;

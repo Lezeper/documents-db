@@ -35,7 +35,7 @@
     <hr>
     <footer ng-controller="footerCtrl" class="text-center row">
         <title>{{settings.web_title}}</title>
-        <i class="fa fa-copyright" aria-hidden="true"></i> {{year}} {{settings.admin}} - {{settings.version}}, {{settings.created | date: "MM/dd/yyyy"}} updated
+        <i class="fa fa-copyright" aria-hidden="true"></i> {{year}} {{settings.admin}} - <a ui-sref="history">{{settings.version}}</a>, {{settings.created | date: "MM/dd/yyyy"}} updated
     </footer>
 </div>
 </body>

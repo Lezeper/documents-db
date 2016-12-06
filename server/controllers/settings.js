@@ -17,6 +17,7 @@ var createSettings = function(req, res){
 	settings.version = req.body.version;
 	settings.admin = req.body.admin;
 	settings.web_title = req.body.web_title;
+	settings.history = req.body.history;
 	settings.created = new Date();
 
 	settings.save(function(err){

@@ -15,6 +15,11 @@
           templateUrl: "/auth/auth.view.html",
           controller: "loginCtrl"
         })
+        .state('history', {
+          url: '/version_history',
+          templateUrl: "/history/history.view.html",
+          controller: 'historyCtrl'
+        })
         .state('dataNav', {
           url: '/nav/:group',
           templateUrl: "/data-nav/data-nav.view.html",
@@ -79,7 +84,7 @@
           controller: "userReqCtrl"
         })
 
-        // $urlRouterProvider.otherwise('/');
+        $urlRouterProvider.otherwise('/');
 
       $locationProvider.html5Mode(true);
 

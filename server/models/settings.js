@@ -18,6 +18,9 @@ var settingsSchema = new mongoose.Schema({
 	created: {
 		type: Date,
 		required: true
+	},
+	history: {
+		type: String,
 	}
 });
 

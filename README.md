@@ -75,6 +75,7 @@
 				web_title: String, required
 				db_backup: String 
 				created: Date, required
+				history: String
 ##### User
 				email: String, unique, required
 				name: String, required
@@ -213,3 +214,7 @@
 				document.getElementById("search-0").style.backgroundColor = "#ccc";
 ##### Search Engine
 				Can't search the title which contain "/".
+##### Specific URL error in Ui-Router
+				1. use URL '/about' or '/history', if refresh the page,
+				it will add a trash slash in the end. Works fine with URL '/about3'
+				2. Can't use URL '/auth'
