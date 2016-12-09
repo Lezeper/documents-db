@@ -5,7 +5,6 @@
       authentication, $location, $stateParams, $state, $stateParams) {
         
         $scope.hostName = $location.protocol() + "://" + location.host;
-        $scope.isLoggedIn = authentication.isLoggedIn();
 		$scope.subCategory = $stateParams.category;
 
 		$scope.numPerPage = 5;

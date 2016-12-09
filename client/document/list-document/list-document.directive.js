@@ -1,14 +1,15 @@
 (function () {
 	angular.module('app').directive('listDoc', ['$rootScope','$stateParams', 'meanData', 
-					'$state', '$location', 
-					function ($rootScope, $stateParams, meanData, $state, $location) {
+					'$state', '$location', 'authentication',
+					function ($rootScope, $stateParams, meanData, $state,
+					 $location, authentication) {
 		return {
       		restrict: 'E',
       		require: '?ngModel',
 			scope: false,
       		templateUrl: '/document/list-document/list-document.view.html',
       		link: function(scope, element, attr){
-
+      			scope.isLoggedIn = authentication.isLoggedIn();
 		        scope.docId = $stateParams.id;
 		        scope.currentPage = $stateParams.page;
 		        scope.mainCategory = $stateParams.mainCategory;

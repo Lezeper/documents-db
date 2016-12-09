@@ -4,12 +4,12 @@
 		<!-- Title -->
 	    <div class="panel-heading" ng-click="question.showAnswer=!question.showAnswer" style="cursor: pointer">
 	        <h3 class="panel-title">
-	        	<strong>{{question.title}}</strong>
+	        	<strong ng-bind="question.title"></strong>
 	        </h3>
 	    </div>
 	    <!-- /Title -->
 	    <!-- Panel Body -->
-	    <div class="panel-body show-hide" ng-show="question.showAnswer">
+	    <div class="panel-body show-hide" ng-show="question.showAnswer">	
 		    <!-- Answer -->
 		    <div class="form-group">
 		    	<p ng-bind-html="question.answer"></p>
@@ -39,7 +39,7 @@
 	    	<div ng-show="question.related.length != 0" class="form-group">
     			<label><i class="fa fa-share" aria-hidden="true"></i><span class="next-icon">Related</span></label>
 	        	<div ng-repeat="curRelated in question.related">
-					<a href="/{{curRelated.group}}?id={{curRelated._id}}" target="_blank">{{curRelated.title}}</a>
+					<a href="/{{curRelated.group}}?id={{curRelated._id}}" target="_blank" ng-bind="curRelated.title"></a>
 				</div>
     		</div>
 	    	<!-- /Related -->
@@ -52,7 +52,7 @@
 		    <!-- Question belongs -->
 	    	<div ng-show="question.company" class="form-group">
 	    		<i class="fa fa-users" aria-hidden="true">
-	    			<strong style="padding-left: 10px">{{question.company}} - {{question.position}}</strong> position
+	    			<strong style="padding-left: 10px"><span ng-bind="question.company"></span> - <span ng-bind="question.position"></span></strong>
 	    		</i>
 	    	</div>
 	    	<!-- /Question belongs -->
@@ -64,15 +64,15 @@
 	    		</div>
 	    	</div>
 	    	<div ng-show="question.author">
-				<i class="fa fa-calendar-times-o" aria-hidden="true"></i><span class="footer-style next-icon">Updated by {{question.author}} on {{question.created | date:'yyyy-MM-dd HH:mm:ss'}}</span>
+				<i class="fa fa-calendar-times-o" aria-hidden="true"></i><span class="footer-style next-icon">Updated by <span ng-bind="question.author"></span> on <span ng-bind="question.created | date:'yyyy-MM-dd HH:mm:ss'"></span></span>
 			</div>
 	    	<!-- /Links -->
 	    	<!-- Update and Remove Button -->
 		    <div>
 		    	<button ng-if="isLoggedIn" class="btn btn-link padding-left-zero" ng-click="updateQuePage(question)"><i class="fa fa-pencil"></i></button>
 		    	<button ng-if="isLoggedIn" class="btn btn-link padding-left-zero" ng-click="deleteQuestion(question)"><i class="fa fa-remove"></i></button>
-		    	<!-- CopyClipper -->
-		    	<button class="btn btn-link padding-left-zero"  ngclipboard data-clipboard-text="{{hostName}}/{{question.group}}?id={{question._id}}"><i class="fa fa-clipboard" aria-hidden="true"></i></button>
+		    	<!-- CopyClipper -->	
+		    	<button class="btn btn-link padding-left-zero"  ngclipboard data-clipboard-text="{{hostName}}/{{question.group}}?id={{question._id}}" onClick="alert('Link has copy to the clipboard!')"><i class="fa fa-clipboard" aria-hidden="true"></i></button>
 		    	<!-- /CopyClipper -->
 		    </div>
 		    <!-- /Update and Remove Button -->
@@ -114,14 +114,18 @@
 		<!-- /Update Notes -->
     	<!-- Update Question belongs -->
     	<div>
-    		<div class="form-group">
-				<label for="uCompany">Company</label>
-				<input type="text" class="form-control" id="uCompany" ng-model="question.company" />
+			<div class="form-group">
+				<label for="uCompany">Company | </label>
+				<span>
+					<input type="checkbox" ng-model="question.unknownCompany"/>
+					<strong>Unknown</strong>
+				</span>
+				<input type="text" id="uCompany" class="form-control" ng-model="question.company" ng-disabled="question.unknownCompany" />
 			</div>
 			<div class="form-group">
 				<label for="uPosition">Position</label>
 				<select id="position" class="form-control" ng-model="question.position">
-					<option></option>
+					<option>Vendor Call</option>
 					<option>Front End</option>
 					<option>Back End</option>
 					<option>Full Stack</option>

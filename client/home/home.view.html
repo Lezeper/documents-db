@@ -23,7 +23,7 @@
 		<div class="dropdown open" ng-show="showSearchDropDown">
 		  <ul class="dropdown-menu col-md-12">
 		    <li ng-repeat="dt in findedTile">
-		    	<a href="#" to-focus data-title="{{dt.title}}" data-data-group="{{dt.group}}" data-data-id="{{dt._id}}" id="search-{{$index}}" ng-bind-html="dt.title | titleDecorator: keyword"></a>
+		    	<a href="#" to-focus data-title="{{dt.title}}" data-data-group="{{dt.group}}" data-data-id="{{dt._id}}" id="search-{{$index}}" ng-bind-html="dt.title | titleDecorator: hightlyKeyword"></a>
 		    </li>
 		  </ul>
 		</div>

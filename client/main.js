@@ -100,7 +100,9 @@
     }); 
   }]);
 
-  app.controller('mainCtrl', ['$scope', '$rootScope', function($scope, $rootScope){
+  app.controller('mainCtrl', ['$scope', '$rootScope',
+    function($scope, $rootScope){
+
     $rootScope.prismHighlight = function(){
       Prism.highlightAll();
     };

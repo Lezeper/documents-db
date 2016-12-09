@@ -1,11 +1,12 @@
 (function () {
   var app = angular.module('app');
   app.controller('homeCtrl', ['$scope', '$window', '$location', 'meanData', 'authentication',
-    function ($scope, $window, $location, meanData, authentication) {
+    '$rootScope', function ($scope, $window, $location, meanData, authentication, $rootScope) {
 
       $scope.showSearchDropDown = false;
       $scope.curSelSearchKw = -1;
       $scope.isLoggedIn = authentication.isLoggedIn();
+      $rootScope.inputing = 0;
 
       $scope.hostName = $location.protocol() + "://" + location.host;
 
@@ -38,6 +39,7 @@
           if(ori){ ori.style.backgroundColor = null; }
           
           $scope.curSelSearchKw = $scope.curSelSearchKw*1 + signal*1;
+          $rootScope.inputing = -1;
           $scope.keyword = curSelSearchTitle.dataset.title;
           $scope.keywordBackup = curSelSearchTitle.dataset.title;
           $scope.$digest();
@@ -46,11 +48,13 @@
       }
 
       $scope.mouseEnterSearch = function(val){
+        $rootScope.inputing = -1;
         $scope.keyword = val;
         $scope.$digest();
       }
 
       $scope.mouseLeaveSearch = function(){
+        $rootScope.inputing = 0;
         $scope.keyword = $scope.keywordBackup;
         $scope.$digest();
       }
@@ -62,15 +66,18 @@
       }
 
       $scope.$watch('selector', function(){
+        $rootScope.inputing = 0;
         $scope.keyword = "";
         clearPanels();
       });
 
       $scope.searchTitle = function(keyword){
+        $rootScope.inputing = 0;
         if(keyword){
           $scope.showSearchDropDown = true;
           $scope.curSelSearchKw = -1;
           $scope.keywordBackup = keyword;
+          $scope.hightlyKeyword = keyword;
 
           if($scope.selector == 'Doc'){
             meanData.getDocTitleByKeyword(keyword).then(function(res){
@@ -183,7 +190,7 @@
       }
     }
   });
-  app.filter("titleDecorator",function(){
+  app.filter("titleDecorator",['$rootScope', function($rootScope){
     return function(t, k){
       var result = "";
       var title = t;
@@ -191,9 +198,9 @@
       var addStrong = function(title, keyword){
         var index = title.indexOf(keyword);
         if(index >= 0){
-          var temp = title.split(keyword);
-          result += temp[0] + "<strong>"+keyword+"</strong>" 
-          return temp[1];
+          var temp = title.substring(index+keyword.length);
+          result += title.substring(0,index) + "<strong>"+keyword+"</strong>" 
+          return temp;
         }
       }
 
@@ -207,7 +214,7 @@
       
       return result + title;
     };
-  });
+  }]);
   app.directive('searchFocus', function(){
     return {
       scope: false,

@@ -18,7 +18,7 @@ code[class*="language-"], pre[class*="language-"] {
 	width: 50%;
 }
 .show-hide {
-	transition: all linear 0.5s;
+	transition: all linear 0.3s;
 }
 .show-hide.ng-hide {
 	opacity: 0;

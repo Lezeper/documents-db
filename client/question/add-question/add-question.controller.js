@@ -36,6 +36,9 @@
                 });
                 $scope.addQ.category = $scope.categorModel_;
                 $scope.addQ.author = authentication.currentUser().name;
+                if($scope.addQ.unknownCompany){
+                  $scope.addQ.company = "Unknown";
+                }
                 meanData.createQue($scope.addQ).then(function (res) {
                   alert(res.data.message);
                   $state.reload();

@@ -8,6 +8,7 @@
       		templateUrl: '/question/list-question/list-question.view.html',
       		link: function(scope, element, attr){
 
+        		scope.isLoggedIn = authentication.isLoggedIn();
       			scope.questionId = $stateParams.id;
       			scope.mainCategory = $stateParams.mainCategory;
       			scope.currentPage = $stateParams.page;
@@ -70,12 +71,16 @@
       				changePage(val);
       			});
       			scope.$on("changeNumPerPage", function(evt, val){
-      				scope.numPerPage = val;
-      				scope.updateQueList();
+      				if(val > -1){
+      					scope.numPerPage = val;
+      					scope.updateQueList();
+      				}
       			});
       			scope.$on("changeDateSortOption", function(evt, val){
-      				scope.questions.reverse();
-      				scope.updateQueList();
+      				if(val){
+      					scope.questions.reverse();
+      					scope.updateQueList();
+      				}
       			});
 
 		        scope.updateQuePage = function(question){
@@ -118,6 +123,9 @@
 		          		selRelateds.forEach(function(elem){
 			            	question.related.push(elem);
 			          	});
+			          	if(question.unknownCompany){
+		                  question.company = "Unknown";
+		                }
 	              		meanData.updateQue(question).then(function(res){
 							alert(res.data.message);
 							if(changed)
