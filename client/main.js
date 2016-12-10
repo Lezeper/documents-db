@@ -1,6 +1,6 @@
 (function () {
   var app = angular.module('app', ['ui.router', 'ngAnimate', 'ui.bootstrap',
-                         'ngSanitize', 'ui.tinymce', 'ngclipboard']);
+                         'ngSanitize', 'ui.tinymce', 'ngclipboard', 'ngMessages']);
   
   app.config(['$stateProvider', '$locationProvider', '$urlRouterProvider',
     function ($stateProvider, $locationProvider, $urlRouterProvider) {
@@ -13,7 +13,7 @@
         .state('login', {
           url: '/login', // can't named "auth"
           templateUrl: "/auth/auth.view.html",
-          controller: "loginCtrl"
+          controller: "authCtrl"
         })
         .state('history', {
           url: '/version_history',

@@ -1,42 +1,66 @@
-<div ng-controller="loginCtrl" class="col-md-3 col-md-offset-2">
-    <h3>Login</h3>
-    <div class="error" style="color: red" ng-show="error">* Invalid password or username</div><br>
-    <form ng-submit="login()">
-        <fieldset class="form-group">
-            <label for="email">Email address</label>
-            <input type="email" class="form-control" id="email" placeholder="Enter email" ng-model="user.email">
-        </fieldset>
-        <fieldset class="form-group">
-            <label for="password">Password</label>
-            <input type="password" class="form-control" id="password" placeholder="Password" ng-model="user.password">
-        </fieldset>
-        <button type="submit" class="btn btn-default">Sign in</button>
-        <a href="/"><button type="button" class="btn btn-default">Cancel</button></a>
-    </form>
-</div>
-<div class="col-md-3 col-md-offset-2" hidden>
-    <h3>Register</h3>
-    <div class="error" style="color: red" ng-show="error">* Invalid password or username</div><br>
-    <form ng-submit="register()">
-        <div class="form-group">
-            <label for="register-email" class="control-label">Email</label>
-            <input type="email" id="register-email" class="form-control" name="email"
-                       placeholder="Email Format" ng-model="userr.email">
-        </div>
-        <div class="form-group">
-            <label for="register-name" class="control-label">Name</label>
-            <input type="text" id="register-name" class="form-control" name="name"
-                   placeholder="Name" ng-model="userr.name">    
-        </div>
-        <input type="hidden" ng-init="userr.role='ROLE_USER'" />
-        <div class="form-group">
-            <label for="update-password" class="control-label">Password</label>
-            <input type="password" id="register-password" class="form-control"
-                       name="password" placeholder="Password" ng-model="userr.password">
-        </div>
-        <div class="form-group">
-            <button type="submit" class="btn btn-default">Create</button>
+<div ng-controller="authCtrl" >
+    <!-- User Login -->
+    <div class="col-md-4 col-md-offset-4 col-xs-10 col-xs-offset-1">
+        <h3 class="text-center">Login</h3>
+        <div class="error" ng-show="LoginErr">* Invalid password or username</div><br>
+        <form ng-submit="login(user)" name="loginForm">
+            <fieldset class="form-group">
+                <label for="email">Email address</label>
+                <input type="email" class="form-control" id="email" placeholder="Enter email" ng-model="user.email" required>
+            </fieldset>
+            <fieldset class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" placeholder="Password" ng-model="user.password" required>
+            </fieldset>
+            <button type="submit" class="btn btn-default" ng-disabled="loginForm.$invalid">Sign in</button>
             <a href="/"><button type="button" class="btn btn-default">Cancel</button></a>
-        </div>
-    </form>
+        </form>
+    </div>
+    <!-- /User Login -->
+    <!-- User Register -->
+    <div class="col-md-4 col-md-offset-4 col-xs-10 col-xs-offset-1">
+        <hr>
+        <h3 class="text-center">Register</h3>
+        <form ng-submit="register(userr)" name="registerForm">
+            <!-- Register Email -->
+            <div class="form-group">
+                <label for="registerEmail" class="control-label">Email</label>
+                <input type="email" id="registerEmail" class="form-control" name="registerEmail"
+                           placeholder="Email Format" ng-model="userr.email" required>
+            </div>
+            <!-- /Register Email -->
+            <!-- Register Name -->
+            <div class="form-group">
+                <div class="error" ng-messages="registerForm.registerName.$error" ng-if="registerForm.registerName.$dirty">
+                    <p ng-message="required">* Name Required</p>
+                    <p ng-message="minlength">* Name too short</p>
+                    <p ng-message="maxlength">* Name too long</p>
+                </div>
+                <label for="registerName" class="control-label">Name</label>
+                <input type="text" id="registerName" class="form-control" name="registerName"
+                       placeholder="Name" ng-model="userr.name" ng-minlength="2" ng-maxlength="10" required>    
+            </div>
+            <!-- /Register Name -->
+            <input type="hidden" ng-init="userr.role='ROLE_USER'" />
+            <!-- Register Password -->
+            <div class="form-group">
+                <label for="registerPassword" class="control-label">Password</label>
+                <div class="hint-font" ng-messages="registerForm.registerPassword.$error" ng-messages-multiple>
+                    <!-- Error Info -->
+                    <p class="error" ng-message="containCapital">* Must Contain A Capital Letter (A-Z)</p>
+                    <p class="error" ng-message="containNum">* Must Contain A Number (0-9)</p>
+                    <p class="error" ng-message="maxlength">* Password too long</p>
+                    <!-- /Error Info -->
+                </div>
+                <input type="password" id="registerPassword" class="form-control"
+                           name="registerPassword" placeholder="Password" ng-model="userr.password" required psw-vali ng-maxlength="10">
+            </div>
+            <!-- /Register Password -->
+            <div class="form-group">
+                <button type="submit" class="btn btn-default" ng-disabled="registerForm.$invalid">Create</button>
+                <a href="/"><button type="button" class="btn btn-default">Cancel</button></a>
+            </div>
+        </form>
+    </div>
+    <!-- /User Register -->
 </div>

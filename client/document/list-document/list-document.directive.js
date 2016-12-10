@@ -61,8 +61,10 @@
       				scope.updateDocList();
       			})
       			scope.$on("changeDateSortOption", function(evt, val){
-      				scope.docs.reverse();
-      				scope.updateDocList();
+      				if(scope.docs){
+      					scope.docs.reverse();
+      					scope.updateDocList();
+      				}
       			});
 
       			scope.clearDocList = function(){

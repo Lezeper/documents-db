@@ -70,6 +70,12 @@ code[class*="language-"], pre[class*="language-"] {
 .next-icon {
 	padding-left: 10px
 }
+.error {
+	color: red;
+}
+.hint-font {
+	font-size: 12px;
+}
 
 @media only screen and (max-device-width: 480px) {
 	body {

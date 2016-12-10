@@ -10,14 +10,15 @@ module.exports.createUser = function (req, res) {
   user.role = req.body.role;
   user.setPassword(req.body.password);
   user.created = new Date();
-
+  console.log(user);
+  
   user.save(function (err) {
     if(err)
       return res.status(500).json(err)
     return res.status(201).json({
       "message": "user created."
     });
-  })
+  });
 
 };
 
@@ -63,17 +64,18 @@ module.exports.updateUser = function (req, res) {
   User.findOneAndUpdate({_id: req.body._id}, user, function(err, user){
     if(err)
       return res.send(500, err)
-    return res.status(200).json({
+    res.status(200).json({
       "message": "User updated!"
     });
   });
 };
 
 module.exports.deleteUser = function (req, res) {
-  User.findByIdAndRemove(req.params.id, function (err) {
+  console.log(req.query.id)
+  User.findByIdAndRemove(req.query.id, function (err) {
     if(err)
       return res.send(500, err);
-    return res.status(204).json({
+    res.status(200).json({
       "message": "Successful delete user."
     })
   })

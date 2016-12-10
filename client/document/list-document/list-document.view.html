@@ -61,11 +61,11 @@
 	</div>
 	<!-- /Panel Show Area -->
 	<!-- Update Area -->
-	<div ng-show="doc.isUpdateDoc" class="well">
+	<form ng-show="doc.isUpdateDoc" class="well">
 		<!-- Update Title -->
 		<div class="form-group">
 			<label>Title</label>
-	        <input type="text" class="form-control" ng-model="doc.title"/>
+	        <input type="text" class="form-control" ng-model="doc.title" required />
 		</div>
 		<!-- /Update Title -->
 		<!-- Update Sub Title -->
@@ -111,6 +111,6 @@
         	<button class="btn btn-default btn-xs" ng-click="resetUpdateDoc(doc);">Cancel</button>
     	</div>
     	<!-- /Update Button -->
-	</div>
+	</form>
 	<!-- /Update Area -->
 </div>
